@@ -1,0 +1,192 @@
+/* Reset & 基本設定 */
+{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Noto Sans TC", sans-serif;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  background-color: #f9f9fb;
+  color: #333;
+  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
+/* 導覽列 */
+.navbar {
+  background-color: #005daa;
+  color: #fff;
+  padding: 1rem 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.navbar .logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.navbar nav {
+  display: flex;
+  align-items: center;
+  gap: 1rem; /* 調整間距大小，可依需求調整 */
+}
+
+.navbar nav a {
+  color: #fff;
+  text-decoration: none;
+  margin-left: 1.5rem;
+  font-size: 1rem;
+  transition: color 0.3s ease;
+}
+
+.navbar nav a:hover {
+  color: #ffd700;
+}
+
+/* 主要 */
+
+.main-article-card {
+  display: flex;
+  align-items: center;
+  padding: 1rem 2rem;
+  background-color: #f0f6ff;
+  flex-wrap: wrap;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+/* 頁尾 */
+footer {
+  background-color: #003366;
+  color: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8rem;
+}
+
+footer div:nth-child(2) {
+  text-align: center;
+  flex: 1;
+}
+
+footer #viewCount {
+  margin-left: 20px;
+}
+
+
+#backToTop {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 999;
+  background-color: #ffffff;
+  color: #005daa;
+  border: 2px solid #005daa;
+  border-radius: 50px;
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  cursor: pointer;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  display: none; /* 初始隱藏 */
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#backToTop:hover {
+  background-color: #005daa;
+  color: #ffffff;
+}
+
+/* 響應式調整 */
+
+@media (max-width: 900px) {
+
+  /* Navbar 區塊 */
+  
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
+  }
+
+  .navbar nav {
+    display: flex;
+    flex-direction: row;
+    overflow-x: auto;
+    white-space: nowrap;
+    width: 100%;
+    gap: 0.5rem;
+    padding: 0 1vw;
+    box-sizing: border-box;
+    scrollbar-width: thin; /* Firefox */
+  }
+
+  .navbar nav::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .navbar nav::-webkit-scrollbar-thumb {
+    background-color: #ccc;
+    border-radius: 3px;
+  }
+
+  .navbar nav a {
+    flex: 0 0 auto;
+    padding: 0.5rem 0.8rem;
+    font-size: 1rem;
+    background-color: #ffffff;
+    color: #005daa;
+    border: 2px solid #005daa;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+
+  .navbar nav a:hover {
+    background-color: #005daa;
+    color: #ffffff;
+  }
+  
+  /*   頁尾   */
+
+  footer {
+    flex-direction: column;
+    text-align: center;
+    padding: 0.4rem;
+    font-size: 0.8rem;
+
+  }
+
+  footer div {
+    margin-bottom: 5px;
+  
+  footer > div {
+    margin-bottom: 10px;
+  }
+
+  footer #viewCount {
+    margin-left: 0; /* 移除桌機版的左邊距 */
+  }
+
+
+
+  #backToTop {
+    font-size: 1rem;
+    padding: 0.75rem 1.25rem;
+  }
+
+}

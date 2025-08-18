@@ -1,0 +1,23 @@
+/* 誠峰觀點 */
+
+.insights-text {
+  flex: 1;
+}
+
+.insights-text a {
+  background-color: #0073e6;
+  color: #fff;
+  padding: 0.75rem 1.5rem;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.insights-text h2 {
+  color: #003d73;
+  margin-bottom: 1rem;
+}
+
+.insights-text ol {
+  padding-left: 1em;
+  margin-left: 0;

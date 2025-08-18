@@ -1,0 +1,95 @@
+/* 誠峰觀點 */
+
+.article-carousel {
+  flex: 1;
+  width: 100vw; /* 滿版寬度 */
+  margin: 0;
+  padding: 2rem 0;
+  background-color: #f0f6ff;
+  overflow: hidden;
+}
+
+.carousel-track {
+  display: flex;
+  gap: 1rem;
+  transition: transform 0.5s ease;
+  will-change: transform;
+  overflow-x: hidden;
+  padding: 0 2rem; /* 可選，讓卡片不貼邊 */
+}
+
+.article-card {
+  position: relative;
+  flex: 0 0 calc((100% - 4rem) / 5); /* 5張卡片，扣除左右 padding */
+  max-width: calc((100% - 4rem) / 5);
+  box-sizing: border-box;
+  background: white;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  padding: 1rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  text-decoration: none;
+  padding-bottom: 50px; /* 預留底部空間給日期 */
+}
+
+.article-card h3 {
+  font-size: 1.1rem;
+  color: #003d73;
+  margin-bottom: 0.3rem;
+}
+
+.article-card p {
+  font-size: 0.95rem;
+  color: #000;
+  line-height: 1.3;
+  margin-bottom: 0.3rem;
+}
+
+.article-date {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  margin: 0;
+  padding: 5px;
+  text-align: center;
+  font-size: 0.9em;
+  box-sizing: border-box; /* 確保 padding 不影響寬度 */
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: #0073e6;
+  color: white;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  z-index: 10;
+  font-size: 1.5rem;
+  border-radius: 50%;
+}
+
+.arrow.left { left: 10px; }
+.arrow.right { right: 10px; }{
+  overflow: hidden;
+  padding: 2rem;
+  background-color: #f0f6ff;
+}
+
+@media (max-width: 1200px) {
+  .article-card {
+    flex: 0 0 100%;
+    max-width: 100%;
+    height: auto;
+  }
+
+  .article-card h3,
+  .article-card p {
+    font-size: 0.9rem;
+  }
+}

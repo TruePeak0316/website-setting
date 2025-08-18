@@ -1,0 +1,39 @@
+/* 客戶見證 */
+.main-article-card{
+  justify-content: center;
+}
+.google-reviews {
+  padding: 1rem 2rem;
+  background-color: #f0f6ff;
+  flex-wrap: wrap;
+  gap: 2rem;
+}
+
+.reviews-inner {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.review { 
+  border-bottom: 1px solid #eee;
+  padding: 16px 0;
+}
+
+.stars {
+  color: #fbbc04;
+  font-size: 20px;
+  margin: 0 0 6px 0; 
+}
+
+.content {
+  margin: 0 0 4px 0; 
+}
+
+.author {
+  color: #888;
+  font-size: 14px; 
+}
+
+.google-reviews h2 {
+  color: #4285f4; 
+}
