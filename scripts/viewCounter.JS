@@ -1,4 +1,4 @@
-// viewCounter.js（模組格式）
+
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-app.js";
 import { getDatabase, ref, runTransaction, onValue } from "https://www.gstatic.com/firebasejs/10.7.0/firebase-database.js";
 
@@ -30,4 +30,5 @@ runTransaction(viewRef, current => {
 // 顯示瀏覽次數
 onValue(viewRef, snapshot => {
   document.getElementById("viewCount").textContent = "本頁瀏覽次數：" + snapshot.val();
+
 });
