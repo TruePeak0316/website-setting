@@ -74,14 +74,26 @@ footer {
   background-color: #003366;
   color: #fff;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   padding: 0.8rem;
+}
+
+footer div:nth-child(1) {
+  flex: 1;
 }
 
 footer div:nth-child(2) {
   text-align: center;
   flex: 1;
+}
+
+footer div:nth-child(3) {
+  flex: 1;
+  display: flex;
+  justify-content: flex-start; /* 水平靠左 */
+  align-items: center;         /* 垂直置中 */
+  flex-direction: column;      /* 垂直排列文字 */
 }
 
 footer #viewCount {
