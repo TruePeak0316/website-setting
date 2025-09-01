@@ -35,8 +35,20 @@ main {
 }
 
 .navbar .logo {
+  display: flex;
   font-size: 1.5rem;
   font-weight: bold;
+  white-space: nowrap;
+}
+
+.navbar h3 {
+  font-size: 1.3rem;
+  margin: 0;
+  padding-left: 7rem;
+  color: #fff;
+  align-items: center;  
+  white-space: nowrap; /* 防止換行 */
+
 }
 
 .navbar nav {
@@ -133,6 +145,15 @@ footer #viewCount {
     flex-direction: column;
     align-items: flex-start;
     padding: 1rem;
+  }
+  .navbar .logo {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem;
+  }
+
+  .navbar .logo h3{
+    padding-left: 0rem;
   }
 
   .navbar nav {
