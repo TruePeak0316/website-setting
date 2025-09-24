@@ -8,7 +8,8 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 2rem;
+  padding: 120px 2rem 50px;
+
   flex-wrap: wrap;
   /*  背景圖 + 漸層淡出 + 原始比例靠右 */
   background: linear-gradient(to right, rgba(224,240,255,0.95) 0%, rgba(224,240,255,0.6) 20%, rgba(224,240,255,0.3) 40%), url('../images/environment04.jpg') no-repeat right center;
