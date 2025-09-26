@@ -15,10 +15,11 @@
 .insights-text h1 {
   font-size: 1.5rem;
   color: #003d73;
-  margin-bottom: 1rem;
+  margin-bottom: 0rem;
 }
 .insights-text h2 {
   color: #003d73;
+  margin-top: 0rem;
   margin-bottom: 1rem;
 }
 
@@ -31,4 +32,5 @@
   padding-left: 1em;
   margin-left: 0;
 }
+
 
