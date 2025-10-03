@@ -35,5 +35,15 @@
 }
 
 
+ul.custom-dash {
+  list-style: none;
+  padding-left: 1em; /* 控制整體縮排 */
+}
 
+ul.custom-dash li::before {
+  content: "-";
+  display: inline-block;
+  width: 1em; /* 控制符號與文字的距離 */
+  margin-left: -1em; /* 把符號拉回左邊 */
+}
 
