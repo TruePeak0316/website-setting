@@ -2,6 +2,7 @@
 
 .services-text {
   flex: 1;
+
 }
 
 .services-text h1 {
@@ -35,13 +36,29 @@
   padding-left: 1em;
 }
 
+
+.tab-content-wrapper {
+  position: relative;
+  min-height: 550px;
+  overflow: hidden;
+}
+
 .service-content {
-  display: none;
+  left: 20%;
+  opacity: 0;
+  position: absolute;
+  top: 0;
+  transition: all 0.5s ease;
+  width: 100%;
+  visibility: hidden;
 }
 
 .service-content.active {
-  display: block;
+  left: 0;
+  opacity: 1;
+  visibility: visible;
 }
+
 
 .seclect-button {
   background-color: #0077cc;
