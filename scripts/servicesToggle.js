@@ -1,17 +1,22 @@
+
 document.addEventListener("DOMContentLoaded", function () {
   const buttons = document.querySelectorAll(".seclect-button");
   const sections = document.querySelectorAll(".service-content");
+  const wrapper = document.querySelector(".tab-content-wrapper");
 
   function showSectionById(id) {
     sections.forEach(section => {
       section.classList.remove("active");
     });
-
     const targetSection = document.getElementById(id);
     if (targetSection) {
-      // 強制觸發重繪以啟動 transition（可選）
-      void targetSection.offsetWidth;
+      void targetSection.offsetWidth; // 強制重繪以啟動 transition（可選）
       targetSection.classList.add("active");
+
+      // 調整父容器高度
+      if (wrapper) {
+        wrapper.style.height = targetSection.scrollHeight + "px";
+      }
     }
   }
 
@@ -29,4 +34,12 @@ document.addEventListener("DOMContentLoaded", function () {
   } else {
     showSectionById("tax-service");
   }
+
+  // 初始載入時也調整高度
+  window.addEventListener("load", () => {
+    const activeSection = document.querySelector(".service-content.active");
+    if (activeSection && wrapper) {
+      wrapper.style.height = activeSection.scrollHeight + "px";
+    }
+  });
 });
