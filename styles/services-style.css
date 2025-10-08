@@ -2,6 +2,8 @@
 
 .services-text {
   flex: 1;
+  display: block;
+  height: auto;
 }
 
 .services-text h1 {
@@ -104,6 +106,7 @@
   color: #333;
   margin: 0.5rem 0;
 }
+
 
 
 
