@@ -1,21 +1,31 @@
-
 document.addEventListener("DOMContentLoaded", function () {
   const buttons = document.querySelectorAll(".seclect-button");
   const sections = document.querySelectorAll(".service-content");
   const wrapper = document.querySelector(".tab-content-wrapper");
 
-  function showSectionById(id) {
+  function showSectionById(id, skipTransition = false) {
     sections.forEach(section => {
       section.classList.remove("active");
+      if (skipTransition) {
+        section.style.transition = "none";
+      } else {
+        section.style.transition = "";
+      }
     });
+
     const targetSection = document.getElementById(id);
     if (targetSection) {
-      void targetSection.offsetWidth; // 強制重繪以啟動 transition（可選）
+      void targetSection.offsetWidth;
       targetSection.classList.add("active");
 
-      // 調整父容器高度
       if (wrapper) {
         wrapper.style.height = targetSection.scrollHeight + "px";
+      }
+
+      if (skipTransition) {
+        setTimeout(() => {
+          targetSection.style.transition = "";
+        }, 10);
       }
     }
   }
@@ -24,18 +34,17 @@ document.addEventListener("DOMContentLoaded", function () {
     button.addEventListener("click", function (e) {
       e.preventDefault();
       const targetId = this.getAttribute("href").replace("#", "");
-      showSectionById(targetId);
+      showSectionById(targetId); // 使用動畫
     });
   });
 
   const hash = window.location.hash.replace("#", "");
   if (hash) {
-    showSectionById(hash);
+    showSectionById(hash, true); // 初次載入不啟動動畫
   } else {
-    showSectionById("tax-service");
+    showSectionById("tax-service", true);
   }
 
-  // 初始載入時也調整高度
   window.addEventListener("load", () => {
     const activeSection = document.querySelector(".service-content.active");
     if (activeSection && wrapper) {
