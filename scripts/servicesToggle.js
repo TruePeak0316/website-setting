@@ -6,8 +6,11 @@ document.addEventListener("DOMContentLoaded", function () {
     sections.forEach(section => {
       section.classList.remove("active");
     });
+
     const targetSection = document.getElementById(id);
     if (targetSection) {
+      // 強制觸發重繪以啟動 transition（可選）
+      void targetSection.offsetWidth;
       targetSection.classList.add("active");
     }
   }
@@ -20,11 +23,10 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // 根據網址 hash 顯示對應區塊
   const hash = window.location.hash.replace("#", "");
   if (hash) {
     showSectionById(hash);
   } else {
-    showSectionById("tax-service"); // 預設顯示
+    showSectionById("tax-service");
   }
 });
