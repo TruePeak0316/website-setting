@@ -2,7 +2,6 @@
 
 .services-text {
   flex: 1;
-
 }
 
 .services-text h1 {
@@ -39,7 +38,7 @@
 
 .tab-content-wrapper {
   position: relative;
-  min-height: 550px;
+  min-height: 580px;
   overflow: hidden;
 }
 
@@ -103,3 +102,4 @@
   color: #333;
   margin: 0.5rem 0;
 }
+
