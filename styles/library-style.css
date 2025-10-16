@@ -1,3 +1,4 @@
+
 /* 誠峰觀點 */
 
 .insights-text {
@@ -12,6 +13,38 @@
   border-radius: 5px;
   transition: background-color 0.3s ease;
 }
+
+.insights-text a:hover {
+  background-color: #005bb5; /* 深一點的藍色 */
+}
+
+.insights-text a.switch {
+  background-color: #ff8800; /* 橘色底 */
+  color: #fff;               /* 白色文字 */
+  padding: 0.75rem 1.5rem;   /* 與主按鈕一致的大小 */
+  border-radius: 5px;
+  text-decoration: none;
+  margin-left: 8px;
+  font-weight: 500;
+  transition: background-color 0.3s ease;
+}
+
+.insights-text a.switch:hover {
+  background-color: #e67300; /* 深一點的橘色 hover 效果 */
+}
+
+.insights-text a.coming-soon {
+  background-color: #999999; /* 深灰底色 */
+  color: #fff;
+  padding: 0.75rem 1.5rem;
+  border-radius: 5px;
+  text-decoration: none;
+  margin-left: 8px;
+  font-weight: 500;
+  cursor: not-allowed; /* 滑鼠變成禁止符號 */
+  opacity: 0.8;
+}
+
 .insights-text h1 {
   font-size: 1.5rem;
   color: #003d73;
@@ -34,7 +67,6 @@
   margin-left: 0;
 }
 
-
 ul.custom-dash {
   list-style: none;
   padding-left: 1em; /* 控制整體縮排 */
@@ -46,4 +78,5 @@ ul.custom-dash li::before {
   width: 1em; /* 控制符號與文字的距離 */
   margin-left: -1em; /* 把符號拉回左邊 */
 }
+
 
