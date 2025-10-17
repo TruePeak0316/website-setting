@@ -1,3 +1,67 @@
+/* 分類按鈕區塊 */
+
+#filter-bar {
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  background-color: #f0f6ff;
+  padding: 1rem 4rem;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 0.75rem 1rem;
+  box-sizing: border-box;
+  margin-bottom: -3rem; /* 負 margin 拉近與下方卡片距離 */
+}
+
+
+/* 分類按鈕樣式 */
+.filter-btn {
+  background: white;
+  color: #003d73;
+  border: 1px solid #0073e6;
+  border-radius: 6px;
+  padding: 0.5rem 1rem;
+  font-size: 0.95rem; /* 與文章內容字體大小一致 */
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-align: center;
+  flex-shrink: 0;
+  min-width: 100px;
+  max-width: 200px;
+}
+
+/* hover 與 active 狀態 */
+
+.filter-btn:hover,
+.filter-btn.active {
+  background-color: #0073e6;
+  color: white;
+  border-color: #005bb5;
+}
+
+/* 卡片滑動效果 */
+
+.article-card {
+  transition: transform 0.5s ease, opacity 0.5s ease;
+  opacity: 1;
+}
+
+.card-exit {
+  transform: translateY(100px);
+  opacity: 0;
+}
+
+.card-enter {
+  transform: translateX(100px);
+  opacity: 0;
+}
+
+.card-enter-active {
+  transform: translateX(0);
+  opacity: 1;
+}
+
 /* 誠峰觀點 */
 
 .article-carousel {
@@ -87,6 +151,8 @@
   background-color: #f0f6ff;
 }
 
+
+
 @media (max-width: 1200px) {
   .article-card {
     flex: 0 0 100%;
@@ -98,5 +164,28 @@
   .article-card p {
     font-size: 0.9rem;
   }
+  
+  #filter-bar {
+    justify-content: center;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    white-space: nowrap;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem; /* 增加上下 padding */
+    min-height: 55px; /* 確保有足夠高度顯示按鈕 */
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  #filter-bar::-webkit-scrollbar {
+    display: none;
+  }
+  
+.filter-btn {
+  flex: 1 1 auto;
+  min-width: 55px;  
+  font-size: 0.95rem;
+  padding: 0.5rem 1rem;      /* 好像沒用 */
+}
 
 }
