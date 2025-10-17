@@ -71,6 +71,7 @@
   padding: 2rem 0;
   background-color: #f0f6ff;
   overflow: hidden;
+  position: relative;
 }
 
 .carousel-track {
@@ -129,6 +130,8 @@
   font-size: 0.9em;
   box-sizing: border-box; /* 確保 padding 不影響寬度 */
 }
+
+/* 切換箭頭 */
 
 .arrow {
   position: absolute;
