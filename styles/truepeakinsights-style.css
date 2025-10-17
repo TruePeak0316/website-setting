@@ -78,6 +78,7 @@
   gap: 1rem;
   transition: transform 0.5s ease;
   will-change: transform;
+  overflow-x: hidden;
   padding: 0 2rem; /* 可選，讓卡片不貼邊 */
 }
 
@@ -167,7 +168,7 @@
   #filter-bar {
     justify-content: center;
     flex-wrap: nowrap;
-    overflow-x: auto;
+    overflow-x: hidden;
     white-space: nowrap;
     gap: 0.5rem;
     padding: 0.5rem 1rem; /* 增加上下 padding */
@@ -188,4 +189,3 @@
 }
 
 }
-
