@@ -23,7 +23,9 @@
     
   </head>
   <body>
+
   
+
   <!-- 導覽列 -->
   
     <header class="navbar">
@@ -39,56 +41,68 @@
       </nav>
     </header>
       
+
+  <!-- 分類按鈕 -->
+
+  <div id="filter-bar" class="text-center">
+    <button class="btn btn-outline-primary mx-1 filter-btn" data-filter="全部">顯示全部</button>
+    <button class="btn btn-outline-primary mx-1 filter-btn" data-filter="財稅實務">財稅實務</button>
+    <button class="btn btn-outline-primary mx-1 filter-btn" data-filter="公司經營">公司經營</button>
+    <button class="btn btn-outline-primary mx-1 filter-btn" data-filter="誠峰解析">誠峰解析</button>
+    <!-- 暫時隱藏<button class="btn btn-outline-primary mx-1 filter-btn" data-filter="其他">其他</button> -->
+  </div>
+
   <!-- 主內容 -->
   
     <main class="main-article-card">
       <section class="article-carousel">
         <button class="arrow left">&#9664;</button>
+
         <div class="carousel-track">
 
-          <a href="Library/007.html" class="article-card">
+          <a href="Library/007.html" class="article-card" data-category="財稅實務" data-year="2025">
             <img src="Library/PictureOf007.jpg" alt="何謂扣繳？" class="article-image">
             <h3>何謂扣繳？</h3>
             <p>到底在繳什麼東西</p>
             <p class="article-date">2025-10-14</p>
           </a>
 
-          <a href="Library/006.html" class="article-card">
+          <a href="Library/006.html" class="article-card" data-category="財稅實務" data-year="2025">
             <img src="Library/PictureOf006.jpg" alt="網紅課稅新制上路" class="article-image">
             <h3>網紅課稅新制上路</h3>
             <p>YouTube、IG、直播收入都要報稅？</p>
             <p class="article-date">2025-10-03</p>
           </a>
 
-          <a href="Library/005.html" class="article-card">
+          <a href="Library/005.html" class="article-card" data-category="財稅實務" data-year="2025">
             <img src="Library/PictureOf005.jpg" alt="營業稅是什麼?" class="article-image">
             <h3>營業稅是什麼?</h3>
             <p>創業老闆必懂的基礎觀念</p>
             <p class="article-date">2025-09-17</p>
           </a>
                     
-          <a href="Library/004.html" class="article-card">
+          <a href="Library/004.html" class="article-card" data-category="公司經營" data-year="2025">
             <img src="Library/PictureOf004.jpg" alt="我要創業" class="article-image">
             <h3>我要創業</h3>
             <p>是開公司好還是行號好？</p>
             <p class="article-date">2025-08-29</p>
           </a>
                     
-          <a href="Library/003.html" class="article-card">
+          <a href="Library/003.html" class="article-card" data-category="誠峰解析" data-year="2025">
             <img src="Library/PictureOf003.jpg" alt="會計也能很永續？" class="article-image">
             <h3>會計也能很永續？</h3>
             <p>看我們怎麼把 ESG 落實在每一天</p>
             <p class="article-date">2025-07-31</p>
           </a>
 
-          <a href="Library/002.html" class="article-card">
+          <a href="Library/002.html" class="article-card" data-category="誠峰解析" data-year="2025">
             <img src="Library/PictureOf002.jpg" alt="不能說的秘密:擴大書面審核" class="article-image">
             <h3>不能說的秘密:擴大書面審核</h3>
             <p>從便民到變質，一項福國利民政策，如何拖垮會計產業？</p>
             <p class="article-date">2025-06-30</p>
           </a>
           
-          <a href="Library/001.html" class="article-card">
+          <a href="Library/001.html" class="article-card" data-category="財稅實務" data-year="2025">
             <img src="Library/PictureOf001.jpg" alt="一年不開發票會違法嗎？" class="article-image">
             <h3>一年不開發票會違法嗎？</h3>
             <p>談營業稅免用統一發票制度的實務解析</p>
@@ -128,14 +142,10 @@
     <!-- TOP按鈕&左右滑動按鈕 -->
     <script src="scripts/backToTop.js"></script>
     <script src="scripts/commandArrow.js"></script>
+    <script src="scripts/filter.js"></script>
     
   </body>
 </html>
-
-
-
-
-
 
 
 
