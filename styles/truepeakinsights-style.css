@@ -78,7 +78,6 @@
   gap: 1rem;
   transition: transform 0.5s ease;
   will-change: transform;
-  overflow-x: hidden;
   padding: 0 2rem; /* 可選，讓卡片不貼邊 */
 }
 
@@ -189,3 +188,4 @@
 }
 
 }
+
