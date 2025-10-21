@@ -125,7 +125,7 @@
   text-align: center;         /* 文字置中 */
   display: inline-block;      /* 讓 span 像按鈕一樣 */
   margin-top: 10px;           /* 與 QR Code 圖片間距 */
-{
+}
 
 @media (max-width: 1200px) {
 
@@ -176,3 +176,4 @@
   .map-text {
     width: 100%;
   }
+
