@@ -127,6 +127,26 @@
   margin-top: 10px;           /* 與 QR Code 圖片間距 */
 }
 
+.contact-text span:hover {
+  background-color: #00a000; /* hover 效果 */
+}
+
+.line-button {
+  display: inline-block;
+  background-color: #00c300; /* LINE 綠色 */
+  color: white;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.line-button:hover {
+  background-color: #00a000; /* hover 效果 */
+}
+
 @media (max-width: 1200px) {
 
   /* Guide 區塊 */
@@ -176,4 +196,3 @@
   .map-text {
     width: 100%;
   }
-
