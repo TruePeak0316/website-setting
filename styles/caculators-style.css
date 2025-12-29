@@ -1,0 +1,425 @@
+:root{
+  /* 色彩 */
+  --calc-bg: #f0f6ff;
+  --calc-text: #333333;
+  --calc-muted: #667085;
+  --calc-brand: #005daa; /* 主藍 */
+  --calc-brand-dark: #003366;
+  --calc-accent: #0077cc; /* 次要按鈕 */
+  --calc-accent-hover: #005fa3;
+  --calc-panel: #ffffff;
+  --calc-panel-alt: #f0f6ff;
+  --calc-border: #e2e8f0;
+  --calc-shadow: 0 8px 24px rgba(0,0,0,.08);
+
+  /* 二聯式色系（沿用主藍） */
+  --inv-two-frame: var(--calc-brand);
+  --inv-two-stamp-bg: var(--calc-brand);
+
+  /* 圓角 / 間距 / 字級 */
+  --calc-radius-sm: 6px;
+  --calc-radius-md: 10px;
+  --calc-radius-lg: 12px;
+  --calc-space-1: 4px;
+  --calc-space-2: 8px;
+  --calc-space-3: 12px;
+  --calc-space-4: 16px;
+  --calc-space-5: 20px;
+  --calc-space-6: 24px;
+  --calc-space-7: 32px;
+  --calc-h1: 2rem;
+  --calc-h2: 1.5rem;
+  --calc-h3: 1.15rem;
+  --calc-p: 1rem;
+}
+.calc-wrap{
+  background: var(--calc-bg);
+  color: var(--calc-text);
+  padding: var(--calc-space-6) var(--calc-space-4);
+}
+.calc-container{
+  max-width: 1080px;
+  margin: 0 auto;
+}
+.calc-wrap, .calc-container{
+  height: auto !important;
+  overflow: visible !important;
+}
+/* ---------- 標題／錨點 ---------- */
+.calc-header{ margin-bottom: var(--calc-space-6); }
+.calc-header h1, .calc-header h2{
+  margin: 0 0 var(--calc-space-3);
+  line-height: 1.25;
+  color: var(--calc-brand);
+}
+.calc-header h1{ font-size: var(--calc-h1); }
+.calc-header h2{ font-size: var(--calc-h2); }
+
+.calc-anchor{
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--calc-space-3);
+  margin: var(--calc-space-3) 0;
+}
+.calc-anchor a{
+  display: inline-flex;
+  align-items: center;
+  gap: var(--calc-space-2);
+  padding: 8px 12px;
+  border-radius: var(--calc-radius-md);
+  border: 1px solid var(--calc-border);
+  background: #ffffff;
+  color: var(--calc-brand);
+  text-decoration: none;
+  font-size: 0.95rem;
+  transition: all 180ms ease;
+}
+.calc-anchor a:hover{
+  border-color: var(--calc-brand);
+  color: #ffffff;
+  background: var(--calc-brand);
+}
+.calc-anchor a.active{
+  border-color: var(--calc-brand);
+  background: var(--calc-panel-alt);
+  color: var(--calc-brand-dark);
+}
+
+/* ---------- 卡片 ---------- */
+.calc-card{
+  background: var(--calc-panel);
+  border: 1px solid var(--calc-border);
+  border-radius: var(--calc-radius-lg);
+  box-shadow: var(--calc-shadow);
+  padding: var(--calc-space-6);
+  margin-bottom: var(--calc-space-6);
+  display: none;
+}
+.calc-card.active{ display: block; }
+.calc-card .calc-title{
+  font-size: var(--calc-h2);
+  color: var(--calc-brand);
+  margin-bottom: var(--calc-space-4);
+  line-height: 1.35;
+}
+/* ---------- 表單 ---------- */
+.calc-form{
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: var(--calc-space-3);
+  margin-bottom: var(--calc-space-5);
+}
+.calc-col-12{ grid-column: span 12; }
+.calc-col-6 { grid-column: span 6; }
+.calc-col-4 { grid-column: span 4; }
+.calc-col-3 { grid-column: span 3; }
+
+.calc-label{
+  display: block;
+  font-size: 0.9rem;
+  color: var(--calc-muted);
+  margin-bottom: var(--calc-space-2);
+}
+.calc-select,
+.calc-input{
+  width: 100%;
+  padding: 10px 12px;
+  border-radius: var(--calc-radius-md);
+  border: 1px solid var(--calc-border);
+  background: #ffffff;
+  color: var(--calc-text);
+  outline: none;
+  font-size: 1rem;
+}
+
+.calc-radio-group{
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--calc-space-2);
+}
+.calc-radio{
+  display: inline-flex;
+  align-items: center;
+  gap: var(--calc-space-2);
+  background: #ffffff;
+  padding: 8px 12px;
+  border-radius: 999px;
+  border: 1px solid var(--calc-border);
+  cursor: pointer;
+}
+.calc-radio input{ accent-color: var(--calc-brand); }
+
+.calc-help{
+  color: var(--calc-muted);
+  font-size: 0.85rem;
+  margin-top: var(--calc-space-2);
+}
+/* 統編檢核狀態色（與 JS 對齊） */
+.calc-help.status-ok{ color:#0a7a31; }
+.calc-help.status-bad{ color:#b42318; }
+
+/* ---------- 結果面板 ---------- */
+.calc-panel{
+  background: var(--calc-panel-alt);
+  border: 1px solid var(--calc-border);
+  border-radius: var(--calc-radius-md);
+  padding: var(--calc-space-5);
+}
+.calc-section-title{
+  font-size: var(--calc-h3);
+  color: var(--calc-brand);
+  margin: 0 0 var(--calc-space-3);
+  font-weight: 700;
+}
+
+#personResult, #companyResult{ margin-top: var(--calc-space-3); }
+#personResult, #companyResult{
+  position: static !important;
+  transform: none !important;
+}
+
+.calc-row{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--calc-space-3) 0;
+  border-bottom: 1px dashed #d0d7e2;
+}
+.calc-row:last-child{ border-bottom: 0; }
+.calc-row .k{ color: var(--calc-muted); font-size: 0.95rem; }
+.calc-row .v{
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+  font-size: 1.05rem;
+}
+
+/* ---------- 小標籤 ---------- */
+.calc-pill{
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 999px;
+  font-size: 12px;
+  background: #ffffff;
+  border: 1px solid var(--calc-border);
+  margin-left: var(--calc-space-2);
+  color: var(--calc-muted);
+}
+.calc-pill.warn{ color:#f59e0b; border-color:#f59e0b; background:#fff7ed; }
+.calc-pill.note{ color:var(--calc-brand); border-color:var(--calc-brand); background:#eff6ff; }
+
+/* ---------- 按鈕群 ---------- */
+.calc-actions{
+  display: flex;
+  gap: var(--calc-space-2);
+  flex-wrap: wrap;
+  margin-top: var(--calc-space-3);
+}
+.calc-btn{
+  background: #ffffff;
+  color: var(--calc-brand);
+  border: 1px solid var(--calc-brand);
+  border-radius: var(--calc-radius-md);
+  padding: 10px 14px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  transition: all 160ms ease;
+}
+.calc-btn:hover{ background: var(--calc-brand); color:#ffffff; }
+
+.calc-btn.primary{
+  background: var(--calc-accent);
+  border-color: var(--calc-accent);
+  color:#ffffff;
+}
+.calc-btn.primary:hover{
+  background: var(--calc-accent-hover);
+  border-color: var(--calc-accent-hover);
+}
+
+/* ---------- 備註 ---------- */
+.calc-foot{
+  margin-top: var(--calc-space-4);
+  font-size: 0.85rem;
+  color: var(--calc-muted);
+  line-height: 1.6;
+}
+
+/* ---------- 二、三式聯切換 ---------- */
+.hidden{ display:none; }
+.inv-preview{ margin-top: var(--calc-space-3); }
+/* === 三聯式預覽的原始 <table>：把每一列固定高度 === */
+.inv-preview table {
+  border-collapse: collapse; /* 以免高度被邊框/間距影響 */
+  table-layout: fixed;       /* 讓欄寬/列高更可控 */
+}
+/* 固定所有列的高度（您可改成 44px / 56px） */
+.inv-preview table tr {
+  height: 25px;
+}
+/* 同步給儲存格高度，避免部分瀏覽器只套到 tr 不套到 td/th 的情況 */
+.inv-preview table th,
+.inv-preview table td {
+  height: 25px;
+  vertical-align: middle; /* 單行文字垂直置中；不靠 padding */
+}
+
+/* === 標題列基礎樣式（三聯式） === */
+.inv-preview table tr:first-child th#invThreeHeaderTitle {
+  font-weight: 800;
+  text-align: center; /* 第二行（月份）維持置中 */
+  letter-spacing: .15em;
+  padding: 8px 12px;
+  vertical-align: middle;
+  border: 1px solid var(--calc-brand);
+}
+
+/* === 上排容器：三欄 Grid（左/中/右），讓「TP 代碼」靠左、「標題」置中 === */
+.inv-preview #invThreeHeaderTitle .inv-head-top {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr; /* 左 / 中 / 右 */
+  align-items: center;
+  width: 100%;
+}
+/* 左側代碼靠左、字距和粗細可微調 */
+.inv-preview #invThreeHeaderTitle .left {
+  justify-self: start;
+  letter-spacing: .05em; /* 比標題窄的字距，更像編碼 */
+  font-weight: 700;
+}
+/* 中間標題置中、維持較寬字距 */
+.inv-preview #invThreeHeaderTitle .center {
+  justify-self: center;
+  letter-spacing: .15em;
+  font-weight: 800;
+}
+/* 右側留白（或未來放其他欄位用） */
+.inv-preview #invThreeHeaderTitle .right {
+  justify-self: end; /* 如需放字，預設靠右 */
+}
+/* 若您改成 <div class="month">…</div> 而不用 <br>，可加這段（選用） */
+.inv-preview #invThreeHeaderTitle .month {
+  display: block;
+  text-align: center;
+}
+/* ===== 原始表格：簡易樣式（不影響既有 inv-grid / duplicate） ===== */
+.inv-table-simple { width: 100%; border-collapse: collapse; table-layout: fixed; margin: 12px 0; background: #fff; }
+.inv-table-simple th,
+.inv-table-simple td { border: 1px solid #d0d7e2; padding: 6px 8px; vertical-align: top; }
+.inv-table-simple th { background: var(--calc-panel-alt); color: var(--calc-brand); font-weight: 700; text-align: center; }
+
+/* 數值對齊與等寬數字（金額欄位） */
+.inv-table-simple td span#previewNet,
+.inv-table-simple td span#previewTax,
+.inv-table-simple td span#previewGross,
+.inv-table-simple td span#twoTotal {
+  text-align: right; display: inline-block; width: 100%;
+  font-variant-numeric: tabular-nums;
+}
+
+
+/* 保險型：在章位格的左側補一條垂直線（只在 inv-table-simple 表格內作用） */
+.inv-table-simple td.stamp-cell {
+  position: relative;
+}
+.inv-table-simple td.stamp-cell::before {
+  content: "";
+  position: absolute;
+  left: -1px; /* 線貼齊左邊 */
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: #d0d7e2; /* 與現有邊框顏色一致 */
+}
+/* 統編列：文字與分格緊貼排列、靠左 */
+.inv-taxid-row{
+  display: inline-flex;
+  align-items: center;
+  gap: 4px; /* label 與外框距離 */
+}
+/* 外框：一條長方框（上/下/左右皆有線、無圓角） */
+.inv-taxid-row .taxid-boxes{
+  display: inline-flex; /* 横向排 */
+  align-items: center;
+  height: 32px; /* 外框高度 */
+  border: 1.5px solid #222; /* 細線外框 */
+  border-radius: 0; /* 無圓角 */
+  background: #fff;
+}
+/* 單格：只畫左邊細線，形成 8 格分隔；文本置中 */
+.taxid-box{
+  width: 30px; /* 單格寬度（可微調 28~32） */
+  height: 100%;
+  line-height: 30px; /* 垂直置中 */
+  text-align: center;
+  font-weight: 700;
+  font-size: 1rem;
+  color: #111;
+  border-left: 1.5px solid #222; /* 內部分隔線（只畫左邊） */
+  box-sizing: border-box;
+}
+/* 第一格避免與外框左線重疊 */
+.taxid-box:first-child{ border-left: none; }
+/* 新增：日期區塊，緊貼在外框後、保留小間距 */
+.inv-taxid-date{
+  display: inline-flex;
+  align-items: center;
+  margin-left: 8px; /* 格子與日期之間的距離（可調 6~12） */
+  color: var(--calc-text);
+}
+.inv-taxid-date .muted{ color: var(--calc-muted); } /* 若未來要淡色處理 */
+
+/* ===== 二聯式補丁（與三聯式一致） ===== */
+.inv-preview table tr:first-child th#invTwoHeaderTitle,
+.inv-preview #invTwoHeaderTitle {
+  font-weight: 800;
+  text-align: center;
+  letter-spacing: .15em;
+  padding: 8px 12px;
+  vertical-align: middle;
+  border: 1px solid var(--calc-brand);
+  background: var(--calc-panel-alt);
+  color: var(--calc-brand);
+}
+.inv-preview #invTwoHeaderTitle .inv-head-top {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+  width: 100%;
+}
+.inv-preview #invTwoHeaderTitle .left {
+  justify-self: start;
+  letter-spacing: .05em;
+  font-weight: 700;
+  color: var(--calc-brand);
+}
+.inv-preview #invTwoHeaderTitle .center {
+  justify-self: center;
+  letter-spacing: .15em;
+  font-weight: 800;
+  color: var(--calc-brand);
+}
+.inv-preview #invTwoHeaderTitle .right {
+  justify-self: end;
+}
+/* 統一編號／稅率 */
+.calc-form #buyerTaxId,
+.calc-form #taxRate,
+.calc-form #buyerName,
+.calc-form #netAmount,
+.calc-form #grossInput,
+.calc-form input[type="date"].calc-input {
+  max-width: clamp(240px, 32vw, 380px);
+}
+
+/* 行動版：維持滿版，避免破版 */
+@media (max-width: 720px) {
+  .calc-form .calc-input,
+  .calc-form .calc-select,
+  .calc-form #buyerTaxId,
+  .calc-form #taxRate,
+  .calc-form #buyerName,
+  .calc-form #netAmount,
+  .calc-form #grossInput,
+  .calc-form input[type="date"].calc-input {
+    max-width: 85%;
+  }
+}
