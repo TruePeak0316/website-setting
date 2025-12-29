@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+  <head>
+  <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <meta name="description" content="誠峰會計師事務所提供稅務申報、記帳、財務顧問、公司設立、簽證審計、遺產與贈與稅等專業服務，協助企業穩健經營。">
+    <meta name="keywords" content="三峽會計師, 記帳, 報稅, 財務顧問, 公司設立, 審計, 北大會計師, 新北會計師, 鶯歌會計師, 樹林會計師, 土城會計師, 板橋會計師, 桃園會計師">
+    <meta name="author" content="誠峰會計師事務所">
+  
+    <meta property="og:title" content="彭裕峰會計師｜誠峰會計師事務所">
+    <meta property="og:description" content="提供三峽與北大地區專業記帳、報稅、財務顧問與公司設立服務。">
+    <meta property="og:image" content="https://www.tpcpa.com.tw/images/LOGO.PNG">
+    <meta property="og:url" content="https://www.tpcpa.com.tw/services.html">
+    <meta property="og:type" content="website">
+
+    <title>小工具 - 誠峰會計師事務所</title>
+    <!-- 全站共用樣式 -->
+    <link rel="stylesheet" href="styles/global.css">
+  
+    <!-- main 區塊專用樣式 -->
+    <link rel="stylesheet" href="styles/caculators-style.css">
+    
+  </head>
+  <body>
+    <header class="navbar">
+      <div class="logo"><img src="images/Title.PNG" alt="三峽北大特區 誠峰會計師事務所">
+      <h3>諮詢電話:02-86720074</h3></div>
+      <nav>
+        <a href="index.html">首頁</a>
+        <a href="services.html">服務項目</a>
+        <a href="about.html">關於我們</a>
+        <a href="truepeakinsights.html">誠峰觀點</a>
+        <a href="testimonials.html">客戶見證</a>
+        <a href="caculators.html">計算小工具</a>
+        <a href="contact.html">聯絡我們</a>
+      </nav>
+    </header>
+
+    <main class="calc-wrap">
+      <div class="calc-container">
+      <!-- 頁面標頭與錨點導覽 -->
+        <section class="calc-header">
+          <h1>計算小工具</h1>
+          <h2>選擇計算機</h2>
+          <div class="calc-anchor">
+            <a href="#invoice-caculator" class="seclect-button">發票營業稅金額計算</a>
+            <a href="#rent-caculator" class="seclect-button">租金扣繳計算</a>
+          </div>
+        </section>
+        
+      <!-- 發票營業稅金額試算卡片 -->
+        <section id="invoice-caculator" class="calc-card active">
+          <header class="calc-header">
+            <h2>發票營業稅金額試算｜三聯式／二聯式</h2>
+            <p class="calc-help">三聯式開立給公司；二聯式開立給個人。</p>
+          </header>
+
+          <form id="invoiceForm" class="calc-form" autocomplete="off">
+            <!-- 發票格式：三／二聯式 -->
+            <div class="calc-col-12">
+              <span class="calc-label">發票聯式</span>
+              <div class="calc-radio-group">
+                <label class="calc-radio">
+                  <input type="radio" name="invoiceType" value="three" checked> 三聯式（公司）
+                </label>
+                <label class="calc-radio">
+                  <input type="radio" name="invoiceType" value="two"> 二聯式（個人）
+                </label>
+              </div>
+            </div>
+
+            <!-- 開立日期 -->
+            <div class="calc-col-6">
+              <label class="calc-label" for="issueDate">開立日期</label>
+              <input id="issueDate" class="calc-input" type="date" required>
+            </div>
+
+            <!-- 統一編號（公司統編） -->
+            <div class="calc-col-6">
+              <label class="calc-label" for="buyerTaxId">統一編號（公司統編）</label>
+              <input id="buyerTaxId" class="calc-input" type="text" inputmode="numeric" maxlength="8" placeholder="請輸入 8 位數字">
+              <div id="taxIdStatus" class="calc-help"></div>
+            </div>
+
+            <!-- 抬頭／買受人 -->
+            <div class="calc-col-6">
+              <label class="calc-label" for="buyerName">公司名稱（抬頭）／買受人姓名</label>
+              <input id="buyerName" class="calc-input" type="text" placeholder="例如：誠峰股份有限公司 或 王小明">
+            </div>
+
+            <!-- 金額與稅率 -->
+            <div class="calc-col-6">
+              <label class="calc-label" for="taxRate">稅率</label>
+              <select id="taxRate" class="calc-select">
+                <option value="5">5%（一般稅率）</option>
+                <option value="0">0%（零稅率）</option>
+                <option value="exempt">免稅（第八條項目）</option>
+              </select>
+            </div>
+            <div class="calc-col-6">
+              <label class="calc-label" for="netAmount">銷售額（未稅）</label>
+              <input id="netAmount" class="calc-input" type="number" step="1" min="0" placeholder="請輸入金額（元）">
+            </div>
+            <div class="calc-col-6">
+              <label class="calc-label" for="grossInput">銷售額（含稅）回推</label>
+              <input id="grossInput" class="calc-input" type="number" step="1" min="0" placeholder="輸入含稅金額（元）自動回推未稅">
+              <div class="calc-help">以最後輸入者為主；稅額採「四捨五入至元」，因此回推可能差 0～1 元屬正常。</div>
+            </div>
+
+            <!-- 操作按鈕 -->
+            <div class="calc-col-12 calc-actions">
+              <button id="resetBtn" type="button" class="calc-btn">清除資料</button>
+              <button id="copyLinkBtn" type="button" class="calc-btn">複製網頁連結（帶入目前欄位）</button>
+            </div>
+          </form>
+
+          <!-- 即時試算結果面板 -->
+          <div class="calc-panel" aria-live="polite">
+            <div class="calc-section-title">即時試算結果</div>
+            <div class="calc-row"><span class="k">營業稅額</span><span class="v" id="taxAmount">—</span></div>
+            <div class="calc-row"><span class="k">總計金額（含稅）</span><span class="v" id="grossAmount">—</span></div>
+            <div class="calc-row"><span class="k">新台幣中文大寫</span><span class="v" id="amountUpper">—</span></div>
+          </div>
+
+          <!-- 發票營業稅金額試算｜三聯式／二聯式 -->
+          <!-- 預覽：手開發票示意 -->
+          <div class="inv-preview">
+            <!-- 三聯式 -->
+            <div id="invThree">
+              <h4 class="calc-section-title">手開發票示意（三聯式）</h4>
+              <table class="inv-table-simple">
+                <tr>
+                  <th colspan="16" id="invThreeHeaderTitle">
+                    <span class="inv-head-top">
+                      <span class="left">TP 12345678</span>
+                      <span class="center">統 一 發 票 （ 三 聯 式 ）</span>
+                      <span class="right"></span>
+                    </span>
+                    <br>
+                    <div id="periodLineThree">一一四年十一、十二月份</div>
+                  </th>
+                </tr>
+                <tr>
+                  <td colspan="16">買受人：<span id="previewBuyer">必填</span></td>
+                </tr>
+                <!-- 統編分格＋右側行內日期 -->
+                <tr>
+                  <td colspan="16">
+                    <div class="inv-taxid-row">
+                      <span class="muted">統一編號：</span>
+                      <div class="taxid-boxes">
+                        <div id="taxBox1" class="taxid-box"></div>
+                        <div id="taxBox2" class="taxid-box"></div>
+                        <div id="taxBox3" class="taxid-box"></div>
+                        <div id="taxBox4" class="taxid-box"></div>
+                        <div id="taxBox5" class="taxid-box"></div>
+                        <div id="taxBox6" class="taxid-box"></div>
+                        <div id="taxBox7" class="taxid-box"></div>
+                        <div id="taxBox8" class="taxid-box"></div>
+                      </div>
+                      <span class="inv-taxid-date">
+                        <span class="muted">中華民國</span><span id="previewDateInline">—</span>
+                      </span>
+                    </div>
+                  </td>
+                </tr>
+                <tr><td colspan="16">地址： 縣市…….可省略</td></tr>
+                <tr>
+                  <td colspan="5">品名</td>
+                  <td colspan="2">數量</td>
+                  <td colspan="2">單價</td>
+                  <td colspan="3">金額</td>
+                  <td colspan="4">備註</td>
+                </tr>
+                <!-- 中間空行 -->
+                <tr>
+                  <td colspan="5" ></td><td colspan="2"></td><td colspan="2"></td><td colspan="3"></td>
+                  <td colspan="4" rowspan="2"></td>
+                </tr>
+                <tr>
+                  <td colspan="5"></td><td colspan="2"></td><td colspan="2"></td><td colspan="3"></td>
+                </tr>
+                <tr>
+                  <td colspan="5"></td><td colspan="2"></td><td colspan="2"></td><td colspan="3"></td>
+                  <td colspan="4">營業人蓋統一發票專用章</td>
+                </tr>
+                <tr>
+                  <td colspan="5"></td><td colspan="2"></td><td colspan="2"></td><td colspan="3"></td>
+                  <td class="stamp-cell" colspan="4" rowspan="7"></td>
+                </tr>
+                <tr>
+                  <td colspan="5"></td><td colspan="2"></td><td colspan="2"></td><td colspan="3"></td>
+                </tr>
+
+                <!-- 合計／稅別／總計 -->
+                <tr>
+                  <td colspan="9">銷售額合計</td>
+                  <td colspan="3"><span id="previewNet">—</span></td>
+                </tr>
+                <tr>
+                  <td colspan="3" rowspan="2">營業稅</td>
+                  <td colspan="2">應稅</td>
+                  <td colspan="2">零稅率</td>
+                  <td colspan="2">免稅</td>
+                  <td colspan="3" rowspan="2"><span id="previewTax">—</span></td>
+                </tr>
+                <tr>
+                  <td colspan="2"><span id="taxableMark"></span></td>
+                  <td colspan="2"><span id="zeroRatedMark"></span></td>
+                  <td colspan="2"><span id="exemptMark"></span></td>
+                  
+                </tr>
+                <tr>
+                  <td colspan="9">總計</td>
+                  <td colspan="3"><span id="previewGross">—</span></td>
+                </tr>
+                <tr>
+                  <td colspan="12">總計新台幣（中文大寫）：<span id="previewUpper">—</span></td>
+                </tr>
+                <tr>
+                  <td colspan="12">＊應稅、零稅率、免稅之銷售額應分別開立統一發票、並應於各該欄打「V」</td>
+                  <td colspan="4">第 一 聯 存根聯</td>
+                </tr>
+              </table>
+            </div>
+
+            <!-- 二聯式 -->
+            <div id="invTwo" class="hidden">
+              <h4 class="calc-section-title">手開發票示意（二聯式）</h4>
+              <table class="inv-table-simple">
+                <tr>
+                  <th colspan="12" id="invTwoHeaderTitle">
+                    <span class="inv-head-top">
+                      <span class="left">YS 12345678</span>
+                      <span class="center">統 一 發 票 （ 二 聯 式 ）</span>
+                      <span class="right"></span>
+                    </span>
+                    <br>
+                    <div id="periodLineTwo">一一四年十一、十二月份</div>
+                  </th>
+                </tr>
+                <tr>
+                  <td colspan="12">買受人：可省略　中華民國 <span id="previewDateTwo">—</span></td>
+                </tr>
+                <tr><td colspan="12">地址： 縣市…….可省略</td></tr>
+                <tr>
+                  <td colspan="3">品名</td>
+                  <td colspan="2">數量</td>
+                  <td colspan="2">單價</td>
+                  <td colspan="2">金額</td>
+                  <td colspan="3">備註</td>
+                </tr>
+                <!-- 保留空行 -->
+                <tr>
+                  <td colspan="3"></td><td colspan="2"></td><td colspan="2"></td><td colspan="2"></td>
+                  <td colspan="3" rowspan="2"></td>
+                </tr>
+                <tr>
+                  <td colspan="3"></td><td colspan="2"></td><td colspan="2"></td><td colspan="2"></td>
+                </tr>
+                <tr>
+                  <td colspan="3"></td><td colspan="2"></td><td colspan="2"></td><td colspan="2"></td>
+                  <td colspan="3">營業人蓋統一發票專用章</td>
+                </tr>
+                <tr>
+                  <td colspan="3"></td><td colspan="2"></td><td colspan="2"></td><td colspan="2"></td>
+                  <td colspan="3" rowspan="5"></td>
+                </tr>
+                <tr>
+                  <td colspan="3"></td><td colspan="2"></td><td colspan="2"></td><td colspan="2"></td>
+                </tr>
+                <!-- 總計 -->
+                <tr>
+                  <td colspan="7">總計</td>
+                  <td colspan="2"><span id="twoTotal">0</span></td>
+                </tr>
+                <tr>
+                  <td colspan="9">總計新台幣（中文大寫）<span id="previewUpperYS">—</span></td>
+                </tr>
+          
+                 <!-- 課稅別（文字顯示；若要 V 勾選可後續擴充） -->
+                <tr>
+                  <td colspan="3">課稅別</td>
+                  <td colspan="1">應稅</td><td><span id="taxableMarkYS"></span></td>
+                  <td colspan="1">零稅率</td><td><span id="zeroRatedMarkYS"></span></td>
+                  <td colspan="1">免稅</td><td><span id="exemptMarkYS"></span></td>
+                </tr>
+                <tr>
+                  <td colspan="9">＊應稅、零稅率、免稅之銷售額應分別開立統一發票、並應於各該欄打「V」</td>
+                  <td colspan="3">第 一 聯 存根聯</td>
+                </tr>
+              </table>
+            </div>
+          </div>
+          <div class="calc-foot">
+                稅額計算遵循《加值型及非加值型營業稅法》第 14 條：銷項稅額四捨五入至元；常見公式（含稅＝未稅＋稅額）。統編檢核依你提供的最新邏輯。實務仍以貴公司會計作業標準為準。[1]
+          </div>
+        </section>
+
+        <!-- 租金扣繳試算卡片 -->
+        <section id="rent-caculator" class="calc-card">
+          <h2 class="calc-title">租金扣繳試算｜10% 扣繳｜2.11% 二代健保｜5% 發票</h2>
+          <!-- 表單區（身份、模式、金額） -->
+          <div class="calc-form">
+            <div class="calc-col-4">
+              <label class="calc-label">房東身份</label>
+              <select id="landlordType" class="calc-select">
+                <option value="person">個人</option>
+                <option value="company">公司</option>
+              </select>
+            </div>
+
+            <div class="calc-col-4">
+              <label class="calc-label">房客身份</label>
+              <select id="tenantType" class="calc-select">
+                <option value="company">公司／機關／團體</option>
+                <option value="person">個人（自住）</option>
+              </select>
+            </div>
+
+            <div class="calc-col-4" id="residentBox">
+              <label class="calc-label">房東（個人）居住／稅籍狀態</label>
+              <select id="residentStatus" class="calc-select">
+                <option value="resident">本國居民（境內居住者）</option>
+                <option value="nonresident">非本國居民（境外居住者）</option>
+              </select>
+            </div>
+
+            <div class="calc-col-12">
+              <label class="calc-label">金額模式</label>
+              <div class="calc-radio-group" id="modeGroup">
+                <label class="calc-radio">
+                  <input type="radio" name="mode" value="tax-included" checked />租金「含稅」（合約總額）
+                </label>
+                <label class="calc-radio">
+                  <input type="radio" name="mode" value="net" />租金「未稅」（房東實拿）
+                </label>
+              </div>
+              <div class="calc-help">含稅＝給付總額；未稅＝房東希望每期「實拿」的金額（需回推申報基礎）。</div>
+            </div>
+
+            <div class="calc-col-6">
+              <label class="calc-label">每期租金金額（元）</label>
+              <input id="amount" class="calc-input" type="number" placeholder="輸入金額，例如 30000" min="0" step="1" />
+            </div>
+          </div>
+
+          <!-- 結果：房東＝個人 -->
+          <div id="personResult" class="calc-panel" style="display:block">
+            <div class="calc-section-title">試算結果（房東＝個人）</div>
+            <div class="calc-row">
+              <div class="k">每期租金（含稅，給付總額）</div>
+              <div class="v" id="grossPerson">—</div>
+            </div>
+            <div class="calc-row">
+              <div class="k">扣繳（所得稅）<span class="calc-pill" id="whRateTag">—</span></div>
+              <div class="v" id="withholdingPerson">—</div>
+            </div>
+            <div class="calc-row">
+              <div class="k">二代健保補充保費 <span class="calc-pill">2.11%</span></div>
+              <div class="v" id="nhiPerson">—</div>
+            </div>
+            <div class="calc-row">
+              <div class="k">租扣＋二代健保合計</div>
+              <div class="v" id="sumPerson">—</div>
+            </div>
+            <div class="calc-row">
+              <div class="k">房東實拿（未稅，匯款金額）</div>
+              <div class="v" id="netPerson">—</div>
+            </div>
+
+            <div class="calc-help">
+              規則：公司／機關等承租，對「本國居民自然人房東」之租金，需按 10% 扣繳；非居民則 20%。若每次應扣稅額 ≤ 2,000 元（相當租金 ≤ 20,000），免扣繳。二代健保補充保費（2.11%）適用於單次給付達 20,000（含）之自然人房東。繳款期限：扣繳次月 10 日前、二代健保次月底前。
+              <span class="calc-pill warn">提示</span>
+            </div>
+
+            <div class="calc-actions">
+              <button type="button" class="copy-link calc-btn">複製網址（帶入本頁數值）</button>
+              <button class="calc-btn" onclick="resetForm()">重新填寫</button>
+            </div>
+          </div>
+
+          <!-- 結果：房東＝公司 -->
+          <div id="companyResult" class="calc-panel" style="display:none">
+            <div class="calc-section-title">試算結果（房東＝公司）</div>
+            <div class="calc-row">
+              <div class="k">銷售額（未稅）</div>
+              <div class="v" id="sales">—</div>
+            </div>
+            <div class="calc-row">
+              <div class="k">營業稅（5%）</div>
+              <div class="v" id="vat">—</div>
+            </div>
+            <div class="calc-row">
+              <div class="k">發票總金額（含稅）</div>
+              <div class="v" id="total">—</div>
+            </div>
+  
+            <div class="calc-help">
+              規則：公司房東開立 5% 加值型營業稅發票（含稅＝未稅×1.05）。一般不適用個人租賃的 10% 扣繳／二代健保補充保費規則。<span class="calc-pill note">說明</span>
+            </div>
+  
+            <div class="calc-actions">
+              <button type="button" class="copy-link calc-btn">複製網址（帶入本頁數值）</button>
+              <button class="calc-btn" onclick="resetForm()">重新填寫</button>
+            </div>
+          </div>
+
+          <!-- 備註 -->
+          <div class="calc-foot">
+            ＊此工具為一般試算，實際以主管機關規定與核定為準。<br />
+            ＊若房客為個人（自住），通常無代扣規定；該筆租金仍需依法申報房東租賃所得。<br />
+            ＊若約定由承租人負擔扣繳稅款或健保補充保費，該金額視同租金的一部分，應併入給付總額計算扣繳與申報。<br />
+          </div>
+        </section>
+
+        <section id="company-setup" class="service-content"></section>
+        <section id="audit-service" class="service-content"></section>
+        <section id="inheritance-tax" class="service-content"></section>
+      </div>
+    </main>
+
+    <footer>
+      <div><p>© 2025 誠峰會計師事務所｜彭裕峰會計師 All Rights Reserved.</p></div>      
+      <div>
+        <h3 style="margin: 0.2rem;">聯絡資訊</h3>
+        <p style="margin: 0.2rem;">電話：02-8672-0074</p>
+        <p style="margin: 0.2rem;">
+          地址：新北市三峽區大觀路86號4樓
+          <a href="https://maps.app.goo.gl/hKnRcETHjRdDQvYLA" target="_blank" style="margin-left: 8px; text-decoration: none;"><button>地圖</button></a>
+        </p>
+      </div>
+      <div></div>
+    </footer>
+
+    <!-- TOP按鈕 -->
+    <script src="scripts/backToTop.js"></script>
+    <!-- 按鈕顯示切換 -->
+    <script src="scripts/CalcToggle.js"></script>
+    <!-- 發票營業稅計算機 -->
+    <script src="scripts/InvoiceHelper.js"></script>
+    <!-- 租金扣繳計算機 -->
+    <script src="scripts/RentCaculator.js"></script>
+  </body>
+</html>
