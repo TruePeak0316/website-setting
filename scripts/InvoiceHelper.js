@@ -1,58 +1,94 @@
 
-/* ===== 發票小幫手：三/二聯式＋含稅回推 ===== */
+/* ===== 發票小幫手：三/二聯式＋含稅回推（覆蓋版） ===== */
 (function () {
   // ====== DOM ======
   const form = document.getElementById('invoiceForm');
-  // 支援舊(name="type") 與 新(name="invoiceType")
+
+  // 支援舊(name="type")與新(name="invoiceType")
   const typeRadiosOld = form ? form.querySelectorAll('input[name="type"]') : [];
   const typeRadiosNew = form ? form.querySelectorAll('input[name="invoiceType"]') : [];
-  const issueDateEl   = document.getElementById('issueDate');
-  const taxIdEl       = document.getElementById('buyerTaxId');
+
+  const issueDateEl = document.getElementById('issueDate');
+  const taxIdEl = document.getElementById('buyerTaxId');
   const taxIdStatusEl = document.getElementById('taxIdStatus');
-  const buyerNameEl   = document.getElementById('buyerName');
-  // 金額欄位：未稅 & 含稅（新增）
-  const netAmountEl   = document.getElementById('netAmount');
-  const grossInputEl  = document.getElementById('grossInput');
+  const buyerNameEl = document.getElementById('buyerName');
+
+  // 金額欄位：未稅 & 含稅（三聯式原有）
+  const netAmountEl = document.getElementById('netAmount');
+  const grossInputEl = document.getElementById('grossInput');
+
   // 稅率：支援 select #taxRate 或 radio name="taxRateRadio"
   const taxRateSelect = document.getElementById('taxRate');
   const taxRateRadios = form ? form.querySelectorAll('input[name="taxRateRadio"]') : [];
+
   // 結果面板
-  const taxAmountEl   = document.getElementById('taxAmount');
+  const taxAmountEl = document.getElementById('taxAmount');
   const grossAmountEl = document.getElementById('grossAmount');
   const amountUpperEl = document.getElementById('amountUpper');
-  // 三聯式預覽
-  const previewTypeEl     = document.getElementById('previewType');
-  const previewDateEl     = document.getElementById('previewDate');      
-  const previewDateThree  = document.getElementById('previewDateThree'); 
-  const previewDateInline = document.getElementById('previewDateInline'); 
-  const previewBuyerEl    = document.getElementById('previewBuyer');
-  const previewTaxIdEl    = document.getElementById('previewTaxId');
-  const previewNetEl      = document.getElementById('previewNet');
-  const previewRateEl     = document.getElementById('previewRate');
-  const previewTaxEl      = document.getElementById('previewTax');
-  const previewGrossEl    = document.getElementById('previewGross');
-  const previewUpperEl    = document.getElementById('previewUpper');
-  const previewUpperTP    = document.getElementById('previewUpperTP'); 
-  // 版型容器（二聯式）
-  const invThree       = document.getElementById('invThree');
-  const invTwo         = document.getElementById('invTwo');
+
+  // 三聯式/二聯式預覽
+  const previewTypeEl = document.getElementById('previewType');
+  const previewDateEl = document.getElementById('previewDate');
+  const previewDateThree = document.getElementById('previewDateThree');
+  const previewDateInline = document.getElementById('previewDateInline');
+  const previewBuyerEl = document.getElementById('previewBuyer');
+  const previewTaxIdEl = document.getElementById('previewTaxId');
+  const previewNetEl = document.getElementById('previewNet');
+  const previewRateEl = document.getElementById('previewRate');
+  const previewTaxEl = document.getElementById('previewTax');
+  const previewGrossEl = document.getElementById('previewGross');
+  const previewUpperEl = document.getElementById('previewUpper');
+  const previewUpperTP = document.getElementById('previewUpperTP');
+
+  // 預覽容器
+  const invThree = document.getElementById('invThree');
+  const invTwo = document.getElementById('invTwo');
   const previewDateTwo = document.getElementById('previewDateTwo');
-  const twoTotalEl     = document.getElementById('twoTotal');
+  const twoTotalEl = document.getElementById('twoTotal');
   const previewUpperYS = document.getElementById('previewUpperYS');
 
-  // ===== 只更新「第二行期別文字」的目標節點 =====
-  const periodLineThree = document.getElementById('periodLineThree'); // 三聯式第二行期別
-  const periodLineTwo   = document.getElementById('periodLineTwo');   // 二聯式第二行期別
+  // 第二行期別文字
+  const periodLineThree = document.getElementById('periodLineThree');
+  const periodLineTwo   = document.getElementById('periodLineTwo');
 
   // 操作鍵
-  const resetBtn     = document.getElementById('resetBtn');
-  const copyLinkBtn  = document.getElementById('copyLinkBtn');
+  const resetBtn = document.getElementById('resetBtn');
+  const copyLinkBtn = document.getElementById('copyLinkBtn');
+
+  // ====== 欄位容器（互斥顯示）與二聯式三欄位 ======
+  const fieldsThree = document.getElementById('fieldsThree');
+  const fieldsTwo   = document.getElementById('fieldsTwo');
+
+  const twoIssueDateEl   = document.getElementById('twoIssueDate');
+  const twoTaxRateSelect = document.getElementById('twoTaxRate');
+  const twoGrossEl       = document.getElementById('twoGross');
+
+  // ====== 三聯式核心欄位白名單（預設顯示這六格） ======
+  const THREE_CORE_IDS = ['issueDate', 'buyerTaxId', 'buyerName', 'taxRate', 'netAmount', 'grossInput'];
+
+  /**
+   * 顯示三聯式核心欄位；將 #fieldsThree 內非核心的 .calc-col-* 整格隱藏
+   * @param {'show'|'hide'} mode - 'show'：顯示核心、隱藏非核心；'hide'：全部隱藏
+   */
+  function setThreeCoreVisibility(mode) {
+    const container = document.getElementById('fieldsThree');
+    if (!container) return;
+    const rows = container.querySelectorAll('.calc-col-12, .calc-col-6, .calc-col-4, .calc-col-3');
+    rows.forEach(row => {
+      const hasCore = THREE_CORE_IDS.some(id => row.querySelector('#' + id));
+      if (mode === 'show') {
+        row.classList.toggle('hidden', !hasCore);
+      } else {
+        row.classList.add('hidden');
+      }
+    });
+  }
 
   // ====== Utilities ======
   const fmtCurrency = (n) =>
     isFinite(n) ? n.toLocaleString('zh-TW', { minimumFractionDigits: 0, maximumFractionDigits: 2 }) : '—';
 
-  // 取得稅率數值（0.05 / 0 / 0）
+  // 取稅率數值（0.05 / 0 / 0）
   function getRateValue() {
     if (taxRateSelect) {
       const v = taxRateSelect.value;
@@ -69,6 +105,16 @@
     }
   }
 
+  // 取得稅率代碼（'5' / '0' / 'exempt'），依版型切換來源
+  function getRateCodeForCurrentType(type) {
+    if (type === 'duplicate' && twoTaxRateSelect) {
+      const v = twoTaxRateSelect.value;
+      return (v === '5' || v === '0' || v === 'exempt') ? v : '5';
+    }
+    const v = (taxRateSelect?.value ?? Array.from(taxRateRadios).find(r => r.checked)?.value ?? '5');
+    return (v === '5' || v === '0' || v === 'exempt') ? v : '5';
+  }
+
   // 版型（triplicate / duplicate）
   function getInvoiceType() {
     const valOld = Array.from(typeRadiosOld).find(el => el.checked)?.value;
@@ -79,17 +125,60 @@
     return (val === 'duplicate' ? 'duplicate' : 'triplicate');
   }
 
-  function applyTypeVisibility() {
-    const t = getInvoiceType();
-    if (t === 'duplicate') {
-      invThree?.classList.add('hidden');
-      invTwo?.classList.remove('hidden');
-    } else {
-      invTwo?.classList.add('hidden');
-      invThree?.classList.remove('hidden');
-    }
-    if (previewTypeEl) previewTypeEl.textContent = (t === 'triplicate' ? '三聯式' : '二聯式');
+
+
+function applyTypeVisibility() {
+  const t = getInvoiceType(); // 'triplicate' or 'duplicate'
+
+  // === 預覽容器切換（維持原本）
+  if (t === 'duplicate') {
+    invThree?.classList.add('hidden');
+    invTwo  ?.classList.remove('hidden');
+  } else {
+    invTwo  ?.classList.add('hidden');
+    invThree?.classList.remove('hidden');
   }
+  if (previewTypeEl) previewTypeEl.textContent = (t === 'triplicate' ? '三聯式' : '二聯式');
+
+  // === 欄位容器互斥顯示（保險版）
+  const fieldsTwoEl   = document.getElementById('fieldsTwo');   // 可能嵌在 #fieldsThree 裡
+  const fieldsThreeEl = document.getElementById('fieldsThree');
+
+  if (t === 'duplicate') {
+    // 顯示二聯式欄位
+    if (fieldsTwoEl) {
+      fieldsTwoEl.classList.remove('hidden');
+      fieldsTwoEl.setAttribute('aria-hidden', 'false');
+      // 若仍殘留 hidden，保險再移除一次
+      if (fieldsTwoEl.classList.contains('hidden')) fieldsTwoEl.classList.remove('hidden');
+    }
+    // 隱藏三聯式容器（讓畫面乾淨）
+    if (fieldsThreeEl) {
+      fieldsThreeEl.classList.add('hidden');
+      fieldsThreeEl.setAttribute('aria-hidden', 'true');
+    }
+
+    // 若你有「三聯式核心白名單」功能，切到二聯式時收起三聯式欄位
+    if (typeof setThreeCoreVisibility === 'function') setThreeCoreVisibility('hide');
+
+  } else {
+    // 三聯式：顯示三聯式容器
+    if (fieldsThreeEl) {
+      fieldsThreeEl.classList.remove('hidden');
+      fieldsThreeEl.setAttribute('aria-hidden', 'false');
+    }
+
+    // 三聯式：**強制隱藏二聯式欄位**（就算嵌在三聯式容器裡）
+    if (fieldsTwoEl) {
+      fieldsTwoEl.classList.add('hidden');
+      fieldsTwoEl.setAttribute('aria-hidden', 'true');
+    }
+
+    // 三聯式：只顯示核心六格（若有）
+    if (typeof setThreeCoreVisibility === 'function') setThreeCoreVisibility('show');
+  }
+}
+
 
   // 統編檢核（沿用舊邏輯）
   function validateTaxId(value) {
@@ -102,45 +191,29 @@
       sum += Math.floor(p/10) + (p % 10);
     }
     const seventhIs7 = s[6] === '7';
-    const ok = (sum % 5 === 0)
-      || (seventhIs7 && (sum + 1) % 5 === 0);
+    const ok = (sum % 5 === 0) || (seventhIs7 && (sum + 1) % 5 === 0);
     return ok ? { ok:true } : { ok:false, reason:'統編檢核未通過' };
   }
 
-  // 中文大寫
+  // 中文大寫（保留）
   function ntdUpper(n){
     if (!isFinite(n)) return '—';
     const units=['元','拾','佰','仟','萬','拾','佰','仟','億','拾','佰','仟','兆'];
     const numerals=['零','壹','貳','參','肆','伍','陸','柒','捌','玖'];
-    const cents = Math.round((n*100)%100);
     const integer = Math.floor(n);
-    
- // 整數部分：逐位拼接（每一位都保留單位；0 也保留「零＋單位」）
-  if (integer === 0 && cents === 0) return '新台幣零元整';
-
-  const intStr = String(integer);
-  let result = '';
-
-  for (let i = 0; i < intStr.length; i++) {
-    const num = Number(intStr[intStr.length - 1 - i]); // 從個位開始
-    const unit = units[i] || '';                       // 依位數取單位
-
-    if (num === 0) {
-      // 您要的逐位完整：零也帶出單位（例如「零佰」「零拾」「零元」）
-      result = '零' + unit + result;
-    } else {
-      result = numerals[num] + unit + result;
+    if (integer === 0) return '新台幣零元整';
+    const intStr = String(integer);
+    let result = '';
+    for (let i = 0; i < intStr.length; i++) {
+      const num = Number(intStr[intStr.length - 1 - i]);
+      const unit = units[i] || '';
+      if (num === 0) result = '零' + unit + result;
+      else result = numerals[num] + unit + result;
     }
+    return result + '整';
   }
 
-  // 小數尾：有角分就寫角分，否則寫「整」
-  let tail = '整';
-
-
-    return result + tail;
-  }
-
-  // ROC 日期
+  // ROC 日期（保留）
   function formatROCDate(dateStr){
     if (!dateStr) return '—';
     const d = new Date(dateStr + 'T00:00:00');
@@ -151,7 +224,7 @@
     return `${y}年 ${m}月 ${day}日`;
   }
 
-  // ====== 含稅回推演算法 ======
+  // ====== 含稅回推演算法（保留） ======
   function backCalcNetFromGross(gross, rate){
     if (!isFinite(gross)) return NaN;
     if (rate === 0) return gross; // 零稅率或免稅：未稅＝含稅
@@ -163,13 +236,13 @@
       if (n < 0) continue;
       if (n + roundTax(n) === gross) return n;
     }
-    return guess; // 若無剛好相等，回傳估計值（差 0～1 元屬常見）
+    return guess; // 差 0～1 元常見
   }
 
   // 追蹤「最後輸入者」：'net' 或 'gross'
   let lastSource = 'net';
 
-  // 將統編分格顯示：把數字逐格填入 taxBox1~taxBox8，不足則空白
+  // 統編分格（保留）
   function fillTaxIdBoxes(taxIdRaw){
     const digits = String(taxIdRaw ?? '').replace(/\D/g, '').slice(0, 8).split('');
     for (let i = 1; i <= 8; i++){
@@ -179,12 +252,13 @@
     }
   }
 
-  // 阿拉伯數字逐位轉中文（民國年用：114 -> 「一一四」）
+  // 阿拉伯數字逐位轉中文（民國年用）
   function toChineseDigits(num) {
     const map = { '0':'零','1':'一','2':'二','3':'三','4':'四','5':'五','6':'六','7':'七','8':'八','9':'九' };
     return String(num).split('').map(d => map[d] ?? d).join('');
   }
-  // 依月份回傳雙月期別中文（例：12 -> 「十一、十二月份」）
+
+  // 依月份回傳雙月期別中文
   function getBimonthPeriodLabel(month) {
     const pairs = [
       ['一','二'], ['三','四'], ['五','六'],
@@ -194,59 +268,126 @@
     const [m1, m2] = pairs[idx] ?? ['一','二'];
     return `${m1}、${m2}月份`;
   }
+
   function updatePeriodLineByDate(dateStr) {
-    if (!dateStr) return;              // 未填日期不更新
+    if (!dateStr) return;
     const d = new Date(dateStr + 'T00:00:00');
-    if (isNaN(d)) return;              // 非法日期不更新
+    if (isNaN(d)) return;
     const rocYear = d.getFullYear() - 1911;
-    const rocYearDigits = toChineseDigits(rocYear);  // 114 -> 「一一四」
+    const rocYearDigits = toChineseDigits(rocYear);
     const month = d.getMonth() + 1;
-    const periodLabel = getBimonthPeriodLabel(month); // 11/12 -> 「十一、十二月份」
+    const periodLabel = getBimonthPeriodLabel(month);
     const text = `${rocYearDigits}年${periodLabel}`;
     if (periodLineThree) periodLineThree.textContent = text;
     if (periodLineTwo)   periodLineTwo.textContent   = text;
   }
 
+  // ===== 新增：是否數值已填 =====
+  function isFilledNumber(inputEl) {
+    if (!inputEl || inputEl.value === '') return false;
+    const v = parseFloat(inputEl.value);
+    return isFinite(v);
+  }
+
+  // ===== 新增：完成必填就隱藏上方紅色提示膠囊（分版型） =====
+  function toggleTopNoteVisibility() {
+    const topNote = document.querySelector('span.check.note');
+    if (!topNote) return;
+
+    const type = getInvoiceType();
+    let allOk = false;
+
+    if (type === 'duplicate') {
+      const ds = twoIssueDateEl?.value;
+      const okDate = (ds && !isNaN(new Date(ds + 'T00:00:00')));
+      const rateOk = ['5','0','exempt'].includes(twoTaxRateSelect?.value ?? '5');
+      const grossOk = isFilledNumber(twoGrossEl);
+      allOk = okDate && rateOk && grossOk;
+    } else {
+      const ds = issueDateEl?.value;
+      const okDate = (ds && !isNaN(new Date(ds + 'T00:00:00')));
+      const buyerFilled = Boolean(buyerNameEl?.value?.trim());
+      const taxIdVal = taxIdEl?.value?.trim() ?? '';
+      const vTax = validateTaxId(taxIdVal);
+      const taxIdOk = (taxIdVal.length === 8 && vTax.ok);
+      const netOk   = isFilledNumber(netAmountEl);
+      const grossOk = isFilledNumber(grossInputEl);
+      const rateValue = (taxRateSelect?.value ?? Array.from(taxRateRadios).find(r => r.checked)?.value ?? '5');
+      const rateOk = ['5','0','exempt'].includes(rateValue);
+      allOk = okDate && buyerFilled && taxIdOk && (netOk || grossOk) && rateOk;
+    }
+
+    topNote.classList.toggle('hidden', allOk);
+  }
 
   // ====== 主計算與渲染 ======
   function computeAndRender(){
-    const type   = getInvoiceType();
-    const dateStr= issueDateEl?.value;
-    const taxId  = taxIdEl?.value?.trim() ?? '';
-    const buyer  = buyerNameEl?.value?.trim() ?? '';
-    const rate   = getRateValue();
+    const type = getInvoiceType();
 
-    // 先決定未稅金額來源
+    // 日期來源
+    const dateStr = (type === 'duplicate' ? twoIssueDateEl?.value : issueDateEl?.value);
+
+    // 稅率來源
+    function getRateValueFor(typeNow) {
+      if (typeNow === 'duplicate' && twoTaxRateSelect) {
+        const v = twoTaxRateSelect.value;
+        if (v === '5') return 0.05;
+        if (v === '0') return 0;
+        if (v === 'exempt') return 0;
+        return 0.05;
+      }
+      return getRateValue();
+    }
+    const rate = getRateValueFor(type);
+
+    // 金額計算
     let net = NaN, gross = NaN, tax = NaN;
 
-    if (lastSource === 'gross' && grossInputEl && grossInputEl.value !== ''){
-      const g = parseFloat(grossInputEl.value);
-      if (isFinite(g)){
-        net  = backCalcNetFromGross(g, rate);
-        tax  = isFinite(net) ? Math.round(net * rate) : NaN; // 四捨五入至元
-        gross= isFinite(net) ? net + tax : NaN;
-        // 同步填回未稅輸入框（不會觸發 input 事件）
-        if (isFinite(net) && netAmountEl) netAmountEl.value = String(net);
+    if (type === 'duplicate') {
+      // 二聯式：只用含稅總額（實收）
+      const g = parseFloat(twoGrossEl?.value ?? '');
+      if (isFinite(g)) {
+        if (rate === 0) {
+          net = g; tax = 0; gross = g;
+        } else {
+          net = backCalcNetFromGross(g, rate);
+          tax = isFinite(net) ? Math.round(net * rate) : NaN; // 四捨五入至元
+          gross = isFinite(net) ? net + tax : NaN;
+        }
+        // 同步到三聯式欄位（可選，讓頁面一致）
+        if (grossInputEl) grossInputEl.value = isFinite(gross) ? String(Math.round(gross)) : '';
+        if (netAmountEl)  netAmountEl.value  = isFinite(net)   ? String(net) : '';
+        lastSource = 'gross';
       }
     } else {
-      // 以未稅欄為主
-      net  = parseFloat(netAmountEl?.value);
-      tax  = isFinite(net) ? Math.round(net * rate) : NaN;
-      gross= isFinite(net) ? net + tax : NaN;
-      // 同步顯示到含稅欄（不會觸發 input 事件）
-      if (grossInputEl) grossInputEl.value = isFinite(gross) ? String(Math.round(gross)) : '';
+      // 三聯式：沿用原本邏輯（未稅為主；或以含稅為主回推）
+      if (lastSource === 'gross' && grossInputEl && grossInputEl.value !== ''){
+        const g = parseFloat(grossInputEl.value);
+        if (isFinite(g)){
+          net = backCalcNetFromGross(g, rate);
+          tax = isFinite(net) ? Math.round(net * rate) : NaN;
+          gross= isFinite(net) ? net + tax : NaN;
+          if (isFinite(net) && netAmountEl) netAmountEl.value = String(net);
+        }
+      } else {
+        net  = parseFloat(netAmountEl?.value);
+        tax  = isFinite(net) ? Math.round(net * rate) : NaN;
+        gross= isFinite(net) ? net + tax : NaN;
+        if (grossInputEl) grossInputEl.value = isFinite(gross) ? String(Math.round(gross)) : '';
+      }
     }
 
-    // 版型顯示
+    // 版型與欄位容器顯示
     applyTypeVisibility();
 
-    // 統編檢核
+    // 統編檢核（維持原本）
+    const taxId = taxIdEl?.value?.trim() ?? '';
     const v = validateTaxId(taxId);
     if (!taxId){
       if (taxIdStatusEl){ taxIdStatusEl.textContent=''; taxIdStatusEl.className='calc-help'; }
-    }else if (v.ok){
+    } else if (v.ok){
       if (taxIdStatusEl){ taxIdStatusEl.textContent='統編檢核：通過'; taxIdStatusEl.className='calc-help status-ok'; }
-    }else{
+    } else {
       if (taxIdStatusEl){ taxIdStatusEl.textContent=`統編檢核：未通過（${v.reason}）`; taxIdStatusEl.className='calc-help status-bad'; }
     }
 
@@ -255,11 +396,14 @@
     if (grossAmountEl) grossAmountEl.textContent = fmtCurrency(gross);
     if (amountUpperEl) amountUpperEl.textContent = isFinite(gross) ? ntdUpper(gross) : '—';
 
-    // 三聯式/二聯式預覽
-    if (previewBuyerEl) previewBuyerEl.textContent = (buyer || '必填');
-    if (previewDateEl) previewDateEl.textContent = formatROCDate(dateStr);
-    if (previewDateThree) previewDateThree.textContent = formatROCDate(dateStr);
-    if (previewDateInline) previewDateInline.textContent = formatROCDate(dateStr);
+    // 三聯式/二聯式預覽填字
+    const buyer = buyerNameEl?.value?.trim() ?? '';
+    if (previewBuyerEl) previewBuyerEl.textContent = (type === 'duplicate' ? '可省略　中華民國 —' : (buyer || '必填'));
+
+    if (previewDateEl)      previewDateEl.textContent      = formatROCDate(dateStr);
+    if (previewDateThree)   previewDateThree.textContent   = formatROCDate(dateStr);
+    if (previewDateInline)  previewDateInline.textContent  = formatROCDate(dateStr);
+
     const taxIdClean = (taxId || '');
     const previewTaxIdTextEl = document.getElementById('previewTaxIdText');
     if (previewTaxIdTextEl) previewTaxIdTextEl.textContent = taxIdClean || '—';
@@ -267,29 +411,29 @@
     if (previewTaxIdEl) previewTaxIdEl.textContent = taxId || (type === 'triplicate' ? '—' : '（二聯式免填）');
 
     if (previewNetEl)   previewNetEl.textContent   = fmtCurrency(net);
-    if (previewRateEl)  previewRateEl.textContent  = (rate===0 ? (taxRateSelect?.value==='exempt' ? '免稅' : '0%') : '5%');
     if (previewTaxEl)   previewTaxEl.textContent   = fmtCurrency(tax);
     if (previewGrossEl) previewGrossEl.textContent = fmtCurrency(gross);
-    if (previewUpperEl)  previewUpperEl.textContent  = isFinite(gross) ? ntdUpper(gross) : '—';
-    if (previewUpperYS)  previewUpperYS.textContent  = isFinite(gross) ? ntdUpper(gross) : '—';
+    if (previewUpperEl) previewUpperEl.textContent = isFinite(gross) ? ntdUpper(gross) : '—';
+    if (previewUpperYS) previewUpperYS.textContent = isFinite(gross) ? ntdUpper(gross) : '—';
 
-    // ===== 課稅別打「V」：依選稅率自動標示 =====
+    // 稅率文字
+    const vCode = getRateCodeForCurrentType(type); // '5' / '0' / 'exempt'
+    const rateLabel = (vCode === '5' ? '5%' : (vCode === '0' ? '0%' : '免稅'));
+    if (previewRateEl) previewRateEl.textContent = rateLabel;
+
+    // 稅別打 V
     (function markTaxKind() {
       const tMark = document.getElementById('taxableMark');
       const zMark = document.getElementById('zeroRatedMark');
       const eMark = document.getElementById('exemptMark');
-      // 先清空
       if (tMark) tMark.textContent = '';
       if (zMark) zMark.textContent = '';
       if (eMark) eMark.textContent = '';
-      // 依 select/radio 的值決定在哪一格放「V」
-      const v = (taxRateSelect?.value ?? Array.from(taxRateRadios).find(r => r.checked)?.value ?? '5');
-      if (v === '5' && tMark) tMark.textContent = 'V';
-      else if (v === '0' && zMark) zMark.textContent = 'V';
-      else if (v === 'exempt' && eMark) eMark.textContent = 'V';
+      if (vCode === '5' && tMark) tMark.textContent = 'V';
+      else if (vCode === '0' && zMark) zMark.textContent = 'V';
+      else if (vCode === 'exempt' && eMark) eMark.textContent = 'V';
     })();
 
-    // ===== YS（二聯式）課稅別打 V =====
     (function markTaxKindYS() {
       const tYS = document.getElementById('taxableMarkYS');
       const zYS = document.getElementById('zeroRatedMarkYS');
@@ -297,21 +441,23 @@
       if (tYS) tYS.textContent = '';
       if (zYS) zYS.textContent = '';
       if (eYS) eYS.textContent = '';
-      const v = (taxRateSelect?.value ?? Array.from(taxRateRadios).find(r => r.checked)?.value ?? '5');
-      if (v === '5' && tYS) tYS.textContent = 'V';
-      else if (v === '0' && zYS) zYS.textContent = 'V';
-      else if (v === 'exempt' && eYS) eYS.textContent = 'V';
+      if (vCode === '5' && tYS) tYS.textContent = 'V';
+      else if (vCode === '0' && zYS) zYS.textContent = 'V';
+      else if (vCode === 'exempt' && eYS) eYS.textContent = 'V';
     })();
 
     // 二聯式預覽
     if (previewDateTwo) previewDateTwo.textContent = formatROCDate(dateStr);
     if (twoTotalEl)     twoTotalEl.textContent     = isFinite(gross) ? Math.round(gross).toLocaleString('zh-TW') : '0';
 
-    // ===== 只更新第二行期別 =====
-    updatePeriodLineByDate(issueDateEl?.value);
+    // 第二行期別
+    updatePeriodLineByDate(dateStr);
+
+    // 完成必填就隱藏提示膠囊
+    toggleTopNoteVisibility();
   }
 
-  // ====== URL 參數：支援 gross（含稅）可選 ======
+  // ====== URL 參數（保留原本；如需可擴充 twoDate/twoRate/twoGross） ======
   function applyFromQuery(){
     const params = new URLSearchParams(location.search);
     const map = {
@@ -334,19 +480,15 @@
 
   function buildShareURL(){
     const typeValue = getInvoiceType(); // 'triplicate' / 'duplicate'
-    //  把舊值對應成新版 radio 的值，確保貼回網址時能勾選二聯式/三聯式
     const invoiceTypeValue = (typeValue === 'duplicate' ? 'two' : 'three'); // two/three
-
     const params = new URLSearchParams({
-      type: typeValue,               
-      invoiceType: invoiceTypeValue, 
+      type: typeValue,
+      invoiceType: invoiceTypeValue,
       date: issueDateEl?.value ?? '',
       taxId: taxIdEl?.value ?? '',
       buyer: buyerNameEl?.value ?? '',
-      // 依最後輸入者決定輸出 net 或 gross
-      net: (lastSource==='net'   ? (netAmountEl?.value ?? '') : ''),
+      net: (lastSource==='net' ? (netAmountEl?.value ?? '') : ''),
       gross:(lastSource==='gross' ? (grossInputEl?.value ?? ''): ''),
-      // 稅率（優先 select，其次 radio）
       rate: (taxRateSelect?.value ?? Array.from(taxRateRadios).find(r=>r.checked)?.value ?? '5')
     });
     const url = `${location.origin}${location.pathname}?${params.toString()}#invoice-caculator`;
@@ -374,11 +516,17 @@
   // 明確追蹤「最後輸入者」
   netAmountEl?.addEventListener('input', ()=>{ lastSource='net'; });
   grossInputEl?.addEventListener('input', ()=>{ lastSource='gross'; });
-  // 稅率（radio）變更時也重新計算
-  Array.from(taxRateRadios).forEach(r=> r.addEventListener('change', ()=>{ computeAndRender(); }));
-  if (resetBtn)     resetBtn.addEventListener('click', resetAll);
-  if (copyLinkBtn)  copyLinkBtn.addEventListener('click', copyLink);
+  // 二聯式含稅總額也追蹤最後輸入者
+  twoGrossEl?.addEventListener('input', ()=>{ lastSource='gross'; });
 
-  // 初始化
-  applyFromQuery();
+  // 稅率（radio）變更時也重算
+  Array.from(taxRateRadios).forEach(r=> r.addEventListener('change', ()=>{ computeAndRender(); }));
+
+  if (resetBtn) resetBtn.addEventListener('click', resetAll);
+  if (copyLinkBtn) copyLinkBtn.addEventListener('click', copyLink);
+
+  // ====== 初始化 ======
+  applyFromQuery();          // 先套 URL 帶入（可能切到二聯式）
+  applyTypeVisibility();     // 依當前版型顯示容器（會同步套三聯式核心欄位顯示）
+  if (getInvoiceType() === 'triplicate') setThreeCoreVisibility('show'); // 預設三聯式顯示核心六格
 })();
