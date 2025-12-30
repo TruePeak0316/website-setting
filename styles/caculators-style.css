@@ -582,7 +582,7 @@
   :root { --inv-design-width: 1080px; }
 
   /* 取得視窗寬度：使用 100vw（您若要扣掉左右內距可改用 .calc-container 的實際寬度） */
-  :root { --inv-vw: 100vw; }
+  :root { --inv-vw: 80vw; }
 
   /* 計算縮放係數（0~1 之間）。可再加上最小值保護 clamp(0.6, …, 1) 以免太小 */
   :root { --inv-scale: calc(var(--inv-vw) / var(--inv-design-width)); }
