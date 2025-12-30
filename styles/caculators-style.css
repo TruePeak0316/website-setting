@@ -616,7 +616,7 @@
   .inv-fixed-ratio {
     /* 依設計高度生成一個等比盒（若您知道表格大致高度，可輸入） */
     /* 例如桌面約 1500px 高，則： */
-    --inv-design-height: 1500px;          /* 可依實測微調 */
+    --inv-design-height: 750px;          /* 可依實測微調 */
     position: relative;
     height: calc(var(--inv-design-height) * var(--inv-scale));
   }
