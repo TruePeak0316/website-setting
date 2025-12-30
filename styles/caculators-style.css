@@ -109,6 +109,11 @@
   gap: var(--calc-space-3);
   margin-bottom: var(--calc-space-5);
 }
+
+.calc-form > .calc-form {
+  display: contents;
+}
+
 .calc-col-12{ grid-column: span 12; }
 .calc-col-6 { grid-column: span 6; }
 .calc-col-4 { grid-column: span 4; }
@@ -409,6 +414,56 @@
 .calc-form input[type="date"].calc-input {
   max-width: clamp(240px, 32vw, 380px);
 }
+
+
+/* ===== 必填驗證：紅框與錯誤訊息 ===== */
+.must {
+  color: #b42318;
+}
+
+/* ===== 紅色提示膠囊：外觀沿用左側按鈕，但用紅色 ===== */
+.check.note {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--calc-space-2);
+  padding: 8px 12px;
+  border-radius: var(--calc-radius-md);
+  border: 1px solid #b42318;           /* 紅框：沿用您 .status-bad 的紅色系 */
+  background: #fff7f5;                  /* 淡紅底 */
+  color: #b42318;                       /* 紅字 */
+  font-size: 0.95rem;
+  line-height: 1.4;
+}
+
+/* 滑過可略深，與左側按鈕的互動一致 */
+.check.note:hover {
+  background: #ffecea;
+  border-color: #912018;
+  color: #912018;
+}
+
+/* 讓它也能被通用的 hidden 控制（您原本就有 .hidden） */
+.check.note.hidden {
+  display: none !important;
+}
+
+.calc-input.error,
+.calc-select.error {
+  border-color: #b42318;          /* 與 .status-bad 相同色系 */
+  box-shadow: 0 0 0 3px rgba(180,35,24,.12);
+}
+
+.calc-help.inline-error {
+  color: #b42318;                 /* 錯誤訊息顏色 */
+  font-size: 0.85rem;
+  margin-top: 6px;
+}
+
+/* 三聯式預覽整體顯示/隱藏（比 .hidden 更語意化） */
+.inv-preview.hidden {
+  display: none !important;
+}
+.calc-form.hidden { display: none !important; }
 
 /* 行動版：維持滿版，避免破版 */
 @media (max-width: 720px) {
