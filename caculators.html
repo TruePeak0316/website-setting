@@ -60,38 +60,39 @@
             <!-- 發票格式：三／二聯式 -->
             <div class="calc-col-12">
               <span class="calc-label">發票聯式</span>
-              <div class="calc-radio-group">
-                <label class="calc-radio">
-                  <input type="radio" name="invoiceType" value="three" checked> 三聯式（公司）
+              <div class="calc-radio-group" id="invoiceTypeGroup" role="radiogroup" aria-label="發票聯式">
+                <label class="calc-radio" for="invThreeRadio">
+                <input type="radio" id="invThreeRadio" name="invoiceType" value="three" aria-controls="fieldsThree" checked>三聯式（公司）
                 </label>
-                <label class="calc-radio">
-                  <input type="radio" name="invoiceType" value="two"> 二聯式（個人）
+
+                <label class="calc-radio" for="invTwoRadio">
+                <input type="radio" id="invTwoRadio" name="invoiceType" value="two" aria-controls="fieldsTwo">二聯式（個人）
                 </label>
               </div>
             </div>
-
+            <div id="fieldsThree" class="calc-form">
             <!-- 開立日期 -->
             <div class="calc-col-6">
-              <label class="calc-label" for="issueDate">開立日期</label>
+              <label class="calc-label" for="issueDate">開立日期 <b class="must">*必填</b></label>
               <input id="issueDate" class="calc-input" type="date" required>
             </div>
 
             <!-- 統一編號（公司統編） -->
             <div class="calc-col-6">
-              <label class="calc-label" for="buyerTaxId">統一編號（公司統編）</label>
+              <label class="calc-label" for="buyerTaxId">統一編號（公司統編）<b class="must">*必填</b></label>
               <input id="buyerTaxId" class="calc-input" type="text" inputmode="numeric" maxlength="8" placeholder="請輸入 8 位數字">
               <div id="taxIdStatus" class="calc-help"></div>
             </div>
 
             <!-- 抬頭／買受人 -->
             <div class="calc-col-6">
-              <label class="calc-label" for="buyerName">公司名稱（抬頭）／買受人姓名</label>
+              <label class="calc-label" for="buyerName">公司名稱（抬頭）／買受人姓名 <b class="must">*必填</b></label>
               <input id="buyerName" class="calc-input" type="text" placeholder="例如：誠峰股份有限公司 或 王小明">
             </div>
 
             <!-- 金額與稅率 -->
             <div class="calc-col-6">
-              <label class="calc-label" for="taxRate">稅率</label>
+              <label class="calc-label" for="taxRate">稅率 <b class="must">*必填</b></label>
               <select id="taxRate" class="calc-select">
                 <option value="5">5%（一般稅率）</option>
                 <option value="0">0%（零稅率）</option>
@@ -99,20 +100,49 @@
               </select>
             </div>
             <div class="calc-col-6">
-              <label class="calc-label" for="netAmount">銷售額（未稅）</label>
+              <label class="calc-label" for="netAmount">銷售額（未稅）<b class="must">*必填</b></label>
               <input id="netAmount" class="calc-input" type="number" step="1" min="0" placeholder="請輸入金額（元）">
             </div>
             <div class="calc-col-6">
-              <label class="calc-label" for="grossInput">銷售額（含稅）回推</label>
+              <label class="calc-label" for="grossInput">銷售額（含稅）回推<b class="must">*必填</b></label>
               <input id="grossInput" class="calc-input" type="number" step="1" min="0" placeholder="輸入含稅金額（元）自動回推未稅">
               <div class="calc-help">以最後輸入者為主；稅額採「四捨五入至元」，因此回推可能差 0～1 元屬正常。</div>
-            </div>
+            </div></div>
+            <!-- 二聯式（個人）－專屬三欄位 -->
+            <div id="fieldsTwo" class="calc-form hidden" aria-hidden="true">
+              <!-- 日期（二聯式）-->
+              <div class="calc-col-6">
+                <label class="calc-label" for="twoIssueDate">開立日期（個人）</label>
+                <input type="date" id="twoIssueDate" class="calc-input">
+              </div>
+            
+              <!-- 稅率（二聯式）-->
+              <div class="calc-col-6">
+                <label class="calc-label" for="twoTaxRate">稅率</label>
+                <select id="twoTaxRate" class="calc-select">
+                  <option value="5">5%（一般稅率）</option>
+                  <option value="0">0%（零稅率）</option>
+                  <option value="exempt">免稅（第八條）</option>
+                </select>
+              </div>
 
-            <!-- 操作按鈕 -->
-            <div class="calc-col-12 calc-actions">
-              <button id="resetBtn" type="button" class="calc-btn">清除資料</button>
-              <button id="copyLinkBtn" type="button" class="calc-btn">複製網頁連結（帶入目前欄位）</button>
+              <!-- 銷售額（含稅）實收（二聯式）-->
+              <div class="calc-col-3">
+                <label class="calc-label" for="twoGross">銷售額（含稅）實收</label>
+                <input type="number" id="twoGross" class="calc-input" inputmode="decimal" placeholder="請輸入含稅總額">
+              </div>
             </div>
+              <!-- 操作按鈕 -->
+              <div class="calc-col-12 calc-actions">
+                <button id="resetBtn" type="button" class="calc-btn">清除資料</button>
+                <button id="copyLinkBtn" type="button" class="calc-btn">複製網頁連結（帶入目前欄位）</button>
+                <span class="check note">發票請記得填完所有<b>*必填</b>欄位</span>
+              </div>
+
+
+
+
+
           </form>
 
           <!-- 即時試算結果面板 -->
