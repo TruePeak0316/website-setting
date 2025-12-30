@@ -563,7 +563,6 @@
 
 
 /* === 發票預覽：等比例縮放（手機保持電腦版比例） === */
-
 /* 1) 外層：縮放框（佔位修正用） */
 .inv-scale-wrap {
   position: relative;
@@ -594,28 +593,17 @@
     width: var(--inv-design-width);       /* 內層維持設計寬度，便於等比縮放 */
   }
 
-  /* 讓外層佔位回到手機寬：把縮小後的高度補回來 */
-  .inv-scale-wrap {
-    /* 用縮小後的內容高度當佔位。這裡由於高度不可直接用 calc，
-       我們改用 block formatting 的常見技巧：讓外層高度 = 內層高度 * scale。
-       最簡做法：把內層設為 inline-block，外層用 transform 不影響高度，所以改用以下方式： */
-  }
-
   /* 讓縮小內容不影響外層高度：用 CSS 自動高度補償 */
   .inv-scale-inner {
     display: inline-block; /* 使其高度可被外層計算 */
   }
 
-  /* 外層高度補償：用 scale 倒推（無法直接計算），採「視覺補償」方式： */
-  /* ——方法 1：允許垂直捲動：*/
   .inv-scale-wrap {
     overflow-y: visible;
   }
 
-  /* ——方法 2（更佳）：把表格縮小後置於一個等比框中 */
   .inv-fixed-ratio {
     /* 依設計高度生成一個等比盒（若您知道表格大致高度，可輸入） */
-    /* 例如桌面約 1500px 高，則： */
     --inv-design-height: 750px;          /* 可依實測微調 */
     position: relative;
     height: calc(var(--inv-design-height) * var(--inv-scale));
