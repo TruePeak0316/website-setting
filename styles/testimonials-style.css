@@ -3,8 +3,17 @@
   justify-content: center;
 }
 .google-reviews {
-  padding: 1rem 2rem;
-  background-color: #f0f6ff;
+  /* 版面 */
+  max-width: 950px;       /* 卡片寬度上限，依需要可調 */
+  margin: 2rem auto;      /* 置中 + 外距 */
+  padding: 3rem 4rem;   /* 內距 */
+
+  /* 視覺 */
+  background-color: #fff; /* 白色背景 */
+  border-radius: 16px;    /* 圓角 */
+  box-shadow: 0 8px 24px rgba(0,0,0,0.08); /* 柔和陰影 */
+
+  /* 既有屬性保留（如有） */
   flex-wrap: wrap;
   gap: 2rem;
 }
@@ -36,4 +45,5 @@
 
 .google-reviews h2 {
   color: #4285f4; 
+
 }
