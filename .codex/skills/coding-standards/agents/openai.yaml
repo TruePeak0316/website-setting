@@ -1,0 +1,7 @@
+interface:
+  display_name: "Coding Standards"
+  short_description: "Apply this repo's coding rules"
+  default_prompt: "Use $coding-standards while implementing or reviewing this code change."
+
+policy:
+  allow_implicit_invocation: true

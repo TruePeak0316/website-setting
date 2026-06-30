@@ -1,0 +1,7 @@
+interface:
+  display_name: "Project Context"
+  short_description: "Align work with repo context"
+  default_prompt: "Use $project-context to inspect project context before changing implementation files."
+
+policy:
+  allow_implicit_invocation: true
