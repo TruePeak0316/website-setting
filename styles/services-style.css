@@ -1,112 +1,117 @@
-/* 服務項目 */
+.main-article-card {
+  background: var(--color-panel);
+}
 
 .services-text {
-  flex: 1;
-  display: block;
-  height: auto;
+  width: min(var(--container), calc(100% - 48px));
+  margin: 0 auto;
+  padding: 76px 0 96px;
 }
 
-.services-text h1 {
-  font-size: 2.5rem;
-  color: #003d73;
-  margin-bottom: 1rem;
-  padding-left: 0.5em;
-}
-
-.services-text h2 {
-  color: #003d73;
-  margin-bottom: 1rem;
-  padding-left: 1rem;
-  position: relative;
-}
-
-.services-text h2::before {
-  content: attr(data-number);
-  position: absolute;
-  left: 2.2rem;
-  top: 0;
-  font-weight: bold;
-  color: #003d73;
+.services-text > h1 {
+  margin-bottom: 24px;
+  padding-left: 0;
 }
 
 .service-nav {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
-  margin: 1.5rem 0;
-  padding-left: 1em;
+  gap: 12px;
+  margin: 0 0 34px;
+  padding-left: 0;
 }
 
+.service-nav .seclect-button {
+  background: #ffffff;
+  color: var(--color-accent);
+  border-color: rgba(155, 111, 69, 0.35);
+}
+
+.service-nav .seclect-button:hover,
+.service-nav .seclect-button:focus {
+  background: var(--color-accent);
+  color: #ffffff;
+}
 
 .tab-content-wrapper {
   position: relative;
-  min-height: 550px;
-  height: auto;
+  min-height: 540px;
   overflow: hidden;
-  box-sizing: border-box;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  background:
+    linear-gradient(135deg, rgba(155, 111, 69, 0.06), transparent 32%),
+    #ffffff;
 }
 
 .service-content {
-  left: 20%;
-  opacity: 0;
   position: absolute;
-  top: 0;
-  transition: all 0.5s ease;
-  width: 100%;
+  inset: 0 auto auto 24px;
+  width: calc(100% - 48px);
+  padding: 38px 0 42px;
+  opacity: 0;
   visibility: hidden;
+  transform: translateX(24px);
+  transition: opacity 240ms ease, transform 240ms ease, visibility 240ms ease;
 }
 
 .service-content.active {
-  left: 0;
   opacity: 1;
   visibility: visible;
+  transform: translateX(0);
 }
 
-
-.seclect-button {
-  background-color: #0077cc;
-  color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 5px;
-  text-decoration: none;
-  font-size: 0.95rem;
-  transition: background-color 0.3s ease;
+.service-content h2 {
+  margin: 0 0 24px;
+  padding-left: 0;
+  color: var(--color-ink);
+  font-size: clamp(1.55rem, 3vw, 2.3rem);
 }
-
-.seclect-button:hover {
-  background-color: #005fa3;
-}
-
-/* 內文段落樣式 */
 
 .text-section {
-  margin-top: 1.5rem;
-  padding-left: 1em;
+  display: grid;
+  grid-template-columns: 220px 1fr;
+  gap: 28px;
+  margin: 0;
+  padding: 24px 0;
+  border-top: 1px solid var(--color-line);
 }
 
 .text-section h3 {
-  font-size: 1.25rem;
-  color: #00509e;
-  margin-bottom: 0.5rem;
-  position: relative;
-}
-
-.text-section h3::before {
-  content: attr(data-number);
-  position: absolute;
-  left: 0;
-  top: 0;
-  font-weight: bold;
-  color: #0077cc;
-  font-size: 1.25rem;
+  margin: 0;
+  color: var(--color-accent);
+  font-size: 1.05rem;
+  font-weight: 650;
 }
 
 .text-section p {
-  font-size: 1rem;
-  color: #333;
-  margin: 0.5rem 0;
+  margin: 0 0 8px;
+  color: var(--color-text);
 }
 
+.text-section br {
+  display: none;
+}
 
+@media (max-width: 760px) {
+  .services-text {
+    width: min(100% - 32px, var(--container));
+    padding: 52px 0 68px;
+  }
 
+  .tab-content-wrapper {
+    min-height: 720px;
+  }
 
+  .service-content {
+    left: 18px;
+    width: calc(100% - 36px);
+    padding: 28px 0;
+  }
+
+  .text-section {
+    grid-template-columns: 1fr;
+    gap: 10px;
+    padding: 22px 0;
+  }
+}

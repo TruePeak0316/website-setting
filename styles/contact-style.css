@@ -1,71 +1,69 @@
-/* 聯絡我們 */
-
 .main-article-card {
   display: block;
+  background: var(--color-panel);
 }
-/* 橫向圖片 - 公司環境展示 */
 
 .guide {
-  padding: 2rem;
-  background-color: #f0f6ff;
-  text-align: center;
+  padding: 52px 0 28px;
+  background: var(--color-panel);
 }
 
 .guide-container {
-  display: flex;
-  flex-wrap: nowrap;
-  overflow-x: auto;
+  width: min(var(--container), calc(100% - 48px));
   max-width: 100%;
-  margin: 0 auto; /* 讓容器水平置中 */
-  padding: 0;
-  justify-content: start; /* 讓圖片在容器中置中排列 */
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(5, minmax(180px, 1fr));
+  gap: 12px;
+  overflow-x: auto;
 }
 
 .guide-container img {
-  height: 400px;
-  width: auto;
-  border-radius: 10px;
-  border: 1px solid #ccddee;
-  object-fit: contain;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
-  transition: transform 0.3s ease;
-  margin: 0; /* 確保沒多餘margin */
-  flex-shrink: 0; /* 讓每張圖不會被壓縮 */
+  width: 100%;
+  height: 260px;
+  flex-shrink: 0;
+  object-fit: cover;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  box-shadow: none;
+  filter: saturate(0.86) contrast(0.98);
+  transition: transform 180ms ease;
 }
 
 .guide-container img:hover {
-  transform: scale(1.03);
+  transform: translateY(-2px);
 }
 
-/* 地圖左文字右 */
-.map{
-  witdh: 100%;
+.map {
+  width: 100%;
+  padding: 28px 0 96px;
 }
+
 .contact-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 2rem;
-  flex-wrap: nowrap;
-  overflow-x: auto;
-  padding: 2rem;
+  width: min(var(--container), calc(100% - 48px));
   margin: 0 auto;
+  padding: 0;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.95fr);
+  gap: 42px;
+  align-items: stretch;
+  overflow: visible;
 }
 
 .map-container {
-  display: flex;
-  flex: 1;
-  justify-content: flex-end;
+  display: block;
 }
 
 .map-responsive {
-  width: 60%;
-  min-width: 300px;
-  max-width: 600px;
-  height: 400px;
+  width: 100%;
+  min-width: 0;
+  max-width: none;
+  height: 100%;
+  min-height: 430px;
   position: relative;
   overflow: hidden;
-  flex-shrink: 0;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
 }
 
 .map-responsive iframe {
@@ -73,126 +71,78 @@
   height: 100%;
   border: 0;
   position: absolute;
-  top: 0;
-  left: 0;
+  inset: 0;
 }
 
 .map-text {
-  display: flex;
-  flex: 1;
-  gap: 2em;
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 24px;
 }
 
-.map-text img {
-  max-width: 200px;
-  height: auto;
+.contact-text {
+  padding: 28px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-md);
+  background: #ffffff;
 }
 
 .map-text h2 {
-  color: #003d73;
-  margin-bottom: 1rem;
-  font-size: 1.8rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  text-align: center;
+  margin: 0 0 16px;
+  color: var(--color-ink);
+  font-size: 1.55rem;
+  font-weight: 650;
+  text-align: left;
+  text-transform: none;
+  letter-spacing: 0;
 }
 
 .map-text p {
-  margin-bottom: 0.5rem;
-  font-size: 1.05rem;
-  color: #333;
-  line-height: 1.8; /* 建議值：1.5~1.8 */
+  margin: 0 0 10px;
+  color: var(--color-text);
+  font-size: 1rem;
+  line-height: 1.75;
 }
 
-.contact-text a{
-  cursor: pointer;
-  display: flex; 
+.map-text img {
+  display: block;
+  width: 190px;
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 12px;
+  border: 1px solid var(--color-line);
+  border-radius: var(--radius-sm);
+}
+
+.contact-text a {
+  display: inline-flex;
   flex-direction: column;
-  lign-items: center;
-  text border: none;
+  align-items: flex-start;
+  color: var(--color-accent);
   text-decoration: none;
 }
 
-.contact-text span{
-  background-color: #00C300;  /* LINE 綠色 */
-  color: white;               /* 白色字體 */
-  border: none;               /* 無邊框 */
-  border-radius: 8px;         /* 圓角 */
-  padding: 10px 20px;         /* 內距 */
-  font-size: 16px;            /* 字體大小 */
-  cursor: pointer;            /* 滑鼠指標變成手指 */
-  text-align: center;         /* 文字置中 */
-  display: inline-block;      /* 讓 span 像按鈕一樣 */
-  margin-top: 10px;           /* 與 QR Code 圖片間距 */
-}
-
-.contact-text span:hover {
-  background-color: #00a000; /* hover 效果 */
-}
-
+.contact-text span,
 .line-button {
-  display: inline-block;
-  background-color: #00c300; /* LINE 綠色 */
-  color: white;
-  padding: 10px 16px;
-  border-radius: 6px;
-  font-size: 16px;
-  font-weight: bold;
-  cursor: pointer;
-  text-decoration: none;
+  background: var(--color-accent);
+  border-color: var(--color-accent);
 }
 
-.line-button:hover {
-  background-color: #00a000; /* hover 效果 */
-}
-
-@media (max-width: 1200px) {
-
-  /* Guide 區塊 */
+@media (max-width: 960px) {
+  .guide-container,
+  .contact-container {
+    width: min(100% - 32px, var(--container));
+  }
 
   .guide-container {
-    flex-direction: column;
-    align-items: center;
+    grid-template-columns: repeat(5, 220px);
   }
-  .guide-container img {
-    height: auto;
-    width: 80%;
-  }
-
- /* Map 區塊 */
 
   .contact-container {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
+    grid-template-columns: 1fr;
   }
-  .about-container .maps img {
-    margin-bottom: 1rem;
+
+  .map-responsive {
+    min-height: 340px;
   }
-  .map {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 1.5rem;
-  }
-  .map-text {
-    flex-direction: column-reverse;
-    align-items: center;
-    text-align: center;
-  }
-  .map-image {
-    width: 80vw;
-    max-width: 300px;
-    height: auto;
-    margin-bottom: 1rem;
-  }
-  .map-image img {
-    width: 100%;
-    height: auto;
-    border-radius: 16px;
-    object-fit: cover;
-  }
-  .map-text {
-    width: 100%;
-  }
+}

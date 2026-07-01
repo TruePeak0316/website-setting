@@ -24,7 +24,7 @@ if (window.__TruePeakRentCalcInitialized__) {
     };
 
     function fmt(n) {
-      if (n === null || n === undefined || isNaN(n)) return '—';
+      if (n === null || n === undefined || isNaN(n)) return '-';
       return new Intl.NumberFormat('zh-Hant-TW').format(Math.round(n));
     }
 
@@ -188,11 +188,11 @@ if (window.__TruePeakRentCalcInitialized__) {
         const whRate = resident ? WH_RESIDENT : WH_NONRESIDENT;
         if (!hasValidAmount) {
           if (whRateTag) whRateTag.textContent = resident ? '10%' : '20%';
-          if (grossPerson)        grossPerson.textContent = '—';
-          if (withholdPerson)     withholdPerson.textContent = '—';
-          if (nhiPerson)          nhiPerson.textContent = '—';
-          if (sumPerson)          sumPerson.textContent = '—';
-          if (netPerson)          netPerson.textContent = '—';
+          if (grossPerson)        grossPerson.textContent = '-';
+          if (withholdPerson)     withholdPerson.textContent = '-';
+          if (nhiPerson)          nhiPerson.textContent = '-';
+          if (sumPerson)          sumPerson.textContent = '-';
+          if (netPerson)          netPerson.textContent = '-';
           return;
         }
 
@@ -269,11 +269,11 @@ if (window.__TruePeakRentCalcInitialized__) {
         if (netPerson)       netPerson.textContent = fmt(net);
 
       } else {
-        // 公司房東 — 發票 5%
+        // 公司房東 - 發票 5%
         if (!hasValidAmount) {
-          if (sales) sales.textContent = '—';
-          if (vat)   vat.textContent = '—';
-          if (total) total.textContent = '—';
+          if (sales) sales.textContent = '-';
+          if (vat)   vat.textContent = '-';
+          if (total) total.textContent = '-';
           return;
         }
         let sale, tax, tot;
@@ -320,11 +320,11 @@ if (window.__TruePeakRentCalcInitialized__) {
         companyResult.style.display = 'none';
       }
       if (whRateTag)      whRateTag.textContent = '10%';
-      if (grossPerson)    grossPerson.textContent = '—';
-      if (withholdPerson) withholdPerson.textContent = '—';
-      if (nhiPerson)      nhiPerson.textContent = '—';
-      if (sumPerson)      sumPerson.textContent = '—';
-      if (netPerson)      netPerson.textContent = '—';
+      if (grossPerson)    grossPerson.textContent = '-';
+      if (withholdPerson) withholdPerson.textContent = '-';
+      if (nhiPerson)      nhiPerson.textContent = '-';
+      if (sumPerson)      sumPerson.textContent = '-';
+      if (netPerson)      netPerson.textContent = '-';
       // 清除覆寫，回到預設含稅
       window.__RentCalcModeOverride = 'tax-included';
       calc();

@@ -148,9 +148,9 @@
           <!-- 即時試算結果面板 -->
           <div class="calc-panel" aria-live="polite">
             <div class="calc-section-title">即時試算結果</div>
-            <div class="calc-row"><span class="k">營業稅額</span><span class="v" id="taxAmount">—</span></div>
-            <div class="calc-row"><span class="k">總計金額（含稅）</span><span class="v" id="grossAmount">—</span></div>
-            <div class="calc-row"><span class="k">新台幣中文大寫</span><span class="v" id="amountUpper">—</span></div>
+            <div class="calc-row"><span class="k">營業稅額</span><span class="v" id="taxAmount">-</span></div>
+            <div class="calc-row"><span class="k">總計金額（含稅）</span><span class="v" id="grossAmount">-</span></div>
+            <div class="calc-row"><span class="k">新台幣中文大寫</span><span class="v" id="amountUpper">-</span></div>
           </div>
 
           <!-- 發票營業稅金額試算｜三聯式／二聯式 -->
@@ -194,7 +194,7 @@
                         <div id="taxBox8" class="taxid-box"></div>
                       </div>
                       <span class="inv-taxid-date">
-                        <span class="muted">中華民國</span><span id="previewDateInline">—</span>
+                        <span class="muted">中華民國</span><span id="previewDateInline">-</span>
                       </span>
                     </div>
                   </td>
@@ -230,14 +230,14 @@
                 <!-- 合計／稅別／總計 -->
                 <tr>
                   <td colspan="9">銷售額合計</td>
-                  <td colspan="3"><span id="previewNet">—</span></td>
+                  <td colspan="3"><span id="previewNet">-</span></td>
                 </tr>
                 <tr>
                   <td colspan="3" rowspan="2">營業稅</td>
                   <td colspan="2">應稅</td>
                   <td colspan="2">零稅率</td>
                   <td colspan="2">免稅</td>
-                  <td colspan="3" rowspan="2"><span id="previewTax">—</span></td>
+                  <td colspan="3" rowspan="2"><span id="previewTax">-</span></td>
                 </tr>
                 <tr>
                   <td colspan="2"><span id="taxableMark"></span></td>
@@ -247,10 +247,10 @@
                 </tr>
                 <tr>
                   <td colspan="9">總計</td>
-                  <td colspan="3"><span id="previewGross">—</span></td>
+                  <td colspan="3"><span id="previewGross">-</span></td>
                 </tr>
                 <tr>
-                  <td colspan="12">總計新台幣（中文大寫）：<span id="previewUpper">—</span></td>
+                  <td colspan="12">總計新台幣（中文大寫）：<span id="previewUpper">-</span></td>
                 </tr>
                 <tr>
                   <td colspan="12">＊應稅、零稅率、免稅之銷售額應分別開立統一發票、並應於各該欄打「V」</td>
@@ -275,7 +275,7 @@
                   </th>
                 </tr>
                 <tr>
-                  <td colspan="12">買受人：可省略　中華民國 <span id="previewDateTwo">—</span></td>
+                  <td colspan="12">買受人：可省略　中華民國 <span id="previewDateTwo">-</span></td>
                 </tr>
                 <tr><td colspan="12">地址： 縣市…….可省略</td></tr>
                 <tr>
@@ -310,7 +310,7 @@
                   <td colspan="2"><span id="twoTotal">0</span></td>
                 </tr>
                 <tr>
-                  <td colspan="9">總計新台幣（中文大寫）<span id="previewUpperYS">—</span></td>
+                  <td colspan="9">總計新台幣（中文大寫）<span id="previewUpperYS">-</span></td>
                 </tr>
           
                  <!-- 課稅別（文字顯示；若要 V 勾選可後續擴充） -->
@@ -389,23 +389,23 @@
             <div class="calc-section-title">試算結果（房東＝個人）</div>
             <div class="calc-row">
               <div class="k">每期租金（含稅，給付總額）</div>
-              <div class="v" id="grossPerson">—</div>
+              <div class="v" id="grossPerson">-</div>
             </div>
             <div class="calc-row">
-              <div class="k">扣繳（所得稅）<span class="calc-pill" id="whRateTag">—</span></div>
-              <div class="v" id="withholdingPerson">—</div>
+              <div class="k">扣繳（所得稅）<span class="calc-pill" id="whRateTag">-</span></div>
+              <div class="v" id="withholdingPerson">-</div>
             </div>
             <div class="calc-row">
               <div class="k">二代健保補充保費 <span class="calc-pill">2.11%</span></div>
-              <div class="v" id="nhiPerson">—</div>
+              <div class="v" id="nhiPerson">-</div>
             </div>
             <div class="calc-row">
               <div class="k">租扣＋二代健保合計</div>
-              <div class="v" id="sumPerson">—</div>
+              <div class="v" id="sumPerson">-</div>
             </div>
             <div class="calc-row">
               <div class="k">房東實拿（未稅，匯款金額）</div>
-              <div class="v" id="netPerson">—</div>
+              <div class="v" id="netPerson">-</div>
             </div>
 
             <div class="calc-help">
@@ -423,15 +423,15 @@
             <div class="calc-section-title">試算結果（房東＝公司）</div>
             <div class="calc-row">
               <div class="k">銷售額（未稅）</div>
-              <div class="v" id="sales">—</div>
+              <div class="v" id="sales">-</div>
             </div>
             <div class="calc-row">
               <div class="k">營業稅（5%）</div>
-              <div class="v" id="vat">—</div>
+              <div class="v" id="vat">-</div>
             </div>
             <div class="calc-row">
               <div class="k">發票總金額（含稅）</div>
-              <div class="v" id="total">—</div>
+              <div class="v" id="total">-</div>
             </div>
   
             <div class="calc-help">

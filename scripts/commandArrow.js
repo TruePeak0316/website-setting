@@ -3,7 +3,7 @@ const track = document.querySelector('.carousel-track');
 const leftArrow = document.querySelector('.arrow.left');
 const rightArrow = document.querySelector('.arrow.right');
 const card = document.querySelector('.article-card');
-const gap = 16;
+const gap = 24;
 
 function getScrollStep() {
   const cardWidth = card.offsetWidth;

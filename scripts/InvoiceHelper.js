@@ -71,7 +71,7 @@
   }
   // ====== Utilities ======
   const fmtCurrency = (n) =>
-    isFinite(n) ? n.toLocaleString('zh-TW', { minimumFractionDigits: 0, maximumFractionDigits: 2 }) : '—';
+    isFinite(n) ? n.toLocaleString('zh-TW', { minimumFractionDigits: 0, maximumFractionDigits: 2 }) : '-';
   // 取稅率數值（0.05 / 0 / 0）
   function getRateValue() {
     if (taxRateSelect) {
@@ -164,7 +164,7 @@
   }
   // 中文大寫（保留）
   function ntdUpper(n){
-    if (!isFinite(n)) return '—';
+    if (!isFinite(n)) return '-';
     const units=['元','拾','佰','仟','萬','拾','佰','仟','億','拾','佰','仟','兆'];
     const numerals=['零','壹','貳','參','肆','伍','陸','柒','捌','玖'];
     const integer = Math.floor(n);
@@ -181,9 +181,9 @@
   }
   // ROC 日期（保留）
   function formatROCDate(dateStr){
-    if (!dateStr) return '—';
+    if (!dateStr) return '-';
     const d = new Date(dateStr + 'T00:00:00');
-    if (isNaN(d)) return '—';
+    if (isNaN(d)) return '-';
     const y = d.getFullYear() - 1911;
     const m = String(d.getMonth()+1).padStart(2,'0');
     const day = String(d.getDate()).padStart(2,'0');
@@ -348,23 +348,23 @@
     // 試算摘要
     if (taxAmountEl)   taxAmountEl.textContent   = fmtCurrency(tax);
     if (grossAmountEl) grossAmountEl.textContent = fmtCurrency(gross);
-    if (amountUpperEl) amountUpperEl.textContent = isFinite(gross) ? ntdUpper(gross) : '—';
+    if (amountUpperEl) amountUpperEl.textContent = isFinite(gross) ? ntdUpper(gross) : '-';
     // 三聯式/二聯式預覽填字
     const buyer = buyerNameEl?.value?.trim() ?? '';
-    if (previewBuyerEl) previewBuyerEl.textContent = (type === 'duplicate' ? '可省略　中華民國 —' : (buyer || '必填'));
+    if (previewBuyerEl) previewBuyerEl.textContent = (type === 'duplicate' ? '可省略　中華民國 -' : (buyer || '必填'));
     if (previewDateEl)     previewDateEl.textContent     = formatROCDate(dateStr);
     if (previewDateThree)  previewDateThree.textContent  = formatROCDate(dateStr);
     if (previewDateInline) previewDateInline.textContent = formatROCDate(dateStr);
     const taxIdClean = (taxId || '');
     const previewTaxIdTextEl = document.getElementById('previewTaxIdText');
-    if (previewTaxIdTextEl) previewTaxIdTextEl.textContent = taxIdClean || '—';
+    if (previewTaxIdTextEl) previewTaxIdTextEl.textContent = taxIdClean || '-';
     fillTaxIdBoxes(taxIdClean);
-    if (previewTaxIdEl) previewTaxIdEl.textContent = taxId || (type === 'triplicate' ? '—' : '（二聯式免填）');
+    if (previewTaxIdEl) previewTaxIdEl.textContent = taxId || (type === 'triplicate' ? '-' : '（二聯式免填）');
     if (previewNetEl)  previewNetEl.textContent  = fmtCurrency(net);
     if (previewTaxEl)  previewTaxEl.textContent  = fmtCurrency(tax);
     if (previewGrossEl)previewGrossEl.textContent= fmtCurrency(gross);
-    if (previewUpperEl)previewUpperEl.textContent= isFinite(gross) ? ntdUpper(gross) : '—';
-    if (previewUpperYS)previewUpperYS.textContent= isFinite(gross) ? ntdUpper(gross) : '—';
+    if (previewUpperEl)previewUpperEl.textContent= isFinite(gross) ? ntdUpper(gross) : '-';
+    if (previewUpperYS)previewUpperYS.textContent= isFinite(gross) ? ntdUpper(gross) : '-';
     // 稅率文字
     const vCode = getRateCodeForCurrentType(type); // '5' / '0' / 'exempt'
     const rateLabel = (vCode === '5' ? '5%' : (vCode === '0' ? '0%' : '免稅'));

@@ -1,16 +1,16 @@
 :root{
   /* 色彩 */
-  --calc-bg: #f0f6ff;
-  --calc-text: #333333;
-  --calc-muted: #667085;
-  --calc-brand: #005daa; /* 主藍 */
-  --calc-brand-dark: #003366;
-  --calc-accent: #0077cc; /* 次要按鈕 */
-  --calc-accent-hover: #005fa3;
+  --calc-bg: #ffffff;
+  --calc-text: var(--color-text);
+  --calc-muted: var(--color-muted);
+  --calc-brand: var(--color-accent);
+  --calc-brand-dark: var(--color-accent-strong);
+  --calc-accent: var(--color-accent);
+  --calc-accent-hover: var(--color-accent-strong);
   --calc-panel: #ffffff;
-  --calc-panel-alt: #f0f6ff;
-  --calc-border: #e2e8f0;
-  --calc-shadow: 0 8px 24px rgba(0,0,0,.08);
+  --calc-panel-alt: var(--color-soft);
+  --calc-border: var(--color-line);
+  --calc-shadow: none;
 
   /* 二聯式色系（沿用主藍） */
   --inv-two-frame: var(--calc-brand);
@@ -35,10 +35,11 @@
 .calc-wrap{
   background: var(--calc-bg);
   color: var(--calc-text);
-  padding: var(--calc-space-6) var(--calc-space-4);
+  padding: 72px 24px 96px;
+  overflow-x: hidden;
 }
 .calc-container{
-  max-width: 1080px;
+  max-width: var(--container);
   margin: 0 auto;
 }
 .calc-wrap, .calc-container{
@@ -89,10 +90,10 @@
 .calc-card{
   background: var(--calc-panel);
   border: 1px solid var(--calc-border);
-  border-radius: var(--calc-radius-lg);
+  border-radius: var(--radius-md);
   box-shadow: var(--calc-shadow);
-  padding: var(--calc-space-6);
-  margin-bottom: var(--calc-space-6);
+  padding: 28px;
+  margin-bottom: 28px;
   display: none;
 }
 .calc-card.active{ display: block; }
@@ -129,7 +130,7 @@
 .calc-input{
   width: 100%;
   padding: 10px 12px;
-  border-radius: var(--calc-radius-md);
+  border-radius: var(--radius-sm);
   border: 1px solid var(--calc-border);
   background: #ffffff;
   color: var(--calc-text);
@@ -148,7 +149,7 @@
   gap: var(--calc-space-2);
   background: #ffffff;
   padding: 8px 12px;
-  border-radius: 999px;
+  border-radius: var(--radius-sm);
   border: 1px solid var(--calc-border);
   cursor: pointer;
 }
@@ -167,7 +168,7 @@
 .calc-panel{
   background: var(--calc-panel-alt);
   border: 1px solid var(--calc-border);
-  border-radius: var(--calc-radius-md);
+  border-radius: var(--radius-md);
   padding: var(--calc-space-5);
 }
 .calc-section-title{
@@ -222,7 +223,7 @@
   background: #ffffff;
   color: var(--calc-brand);
   border: 1px solid var(--calc-brand);
-  border-radius: var(--calc-radius-md);
+  border-radius: 999px;
   padding: 10px 14px;
   font-size: 0.95rem;
   cursor: pointer;
@@ -489,8 +490,6 @@
   }
 
   /* 單一輸入元件最大寬度取消限制，改為佔滿螢幕寬度 */
-
-@media (max-width: 768px) {
   .calc-form #buyerTaxId,
   .calc-form #taxRate,
   .calc-form #buyerName,
@@ -502,8 +501,6 @@
   .calc-form input[type="date"].calc-input {
     max-width: 100% !important;
   }
-}
-
 
   /* 單選群組：改直向堆疊、拉大觸控間距 */
   .calc-radio-group {
@@ -522,7 +519,7 @@
     align-items: stretch;
   }
   .calc-anchor a {
-    width: 95%;
+    width: 100%;
     justify-content: center;
   }
 
@@ -614,12 +611,12 @@
   }
 
   /* 外層高度補償：用 scale 倒推（無法直接計算），採「視覺補償」方式： */
-  /* ——方法 1：允許垂直捲動：*/
+  /* --方法 1：允許垂直捲動：*/
   .inv-scale-wrap {
     overflow-y: visible;
   }
 
-  /* ——方法 2（更佳）：把表格縮小後置於一個等比框中 */
+  /* --方法 2（更佳）：把表格縮小後置於一個等比框中 */
   .inv-fixed-ratio {
     /* 依設計高度生成一個等比盒（若您知道表格大致高度，可輸入） */
     /* 例如桌面約 1500px 高，則： */
