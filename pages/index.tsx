@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, CalendarCheck, Star } from "@phosphor-icons/react";
 import { ArticleCard } from "@/components/articles/ArticleCard";
+import { SlidingServiceCards } from "@/components/home/SlidingServiceCards";
 import { Seo } from "@/components/layout/Seo";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { Icon } from "@/components/ui/Icon";
@@ -17,7 +18,7 @@ export default function HomePage() {
         <div className="page-shell grid min-h-[calc(100dvh-72px)] items-center gap-10 py-12 lg:grid-cols-[1.05fr_0.95fr]">
           <div className="max-w-2xl">
             <p className="eyebrow mb-5">三峽北大特區專業會計師</p>
-            <h1 className="font-serif text-4xl font-bold leading-[1.12] text-brand-charcoal sm:text-5xl lg:text-6xl">
+            <h1 className="hero-gradient-text font-serif text-4xl font-bold leading-[1.12] sm:text-5xl lg:text-6xl">
               誠信為本，峰頂為志
             </h1>
             <p className="mt-5 max-w-xl text-lg leading-8 text-zinc-600">
@@ -61,27 +62,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="section-pad bg-white">
-        <div className="page-shell">
-          <div className="mb-10 max-w-2xl">
-            <h2 className="font-serif text-3xl font-bold text-brand-charcoal sm:text-4xl">核心服務</h2>
-            <p className="mt-3 text-sm leading-7 text-zinc-600">從日常帳務到公司設立與簽證，協助企業把財稅風險放回可管理的範圍內。</p>
-          </div>
-          <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-5">
-            {SERVICES.map((service) => (
-              <Link key={service.id} href={`/services#${service.id}`} className="group overflow-hidden rounded-xs border border-brand-light/25 bg-brand-cream/30">
-                <div className="relative aspect-[4/3] overflow-hidden">
-                  <Image src={service.image} alt={service.title} fill sizes="(min-width: 1280px) 20vw, (min-width: 768px) 50vw, 100vw" className="object-cover transition duration-500 group-hover:scale-[1.04]" />
-                </div>
-                <div className="p-5">
-                  <h3 className="font-bold text-brand-charcoal group-hover:text-brand-primary">{service.title}</h3>
-                  <p className="mt-2 line-clamp-3 text-sm leading-6 text-zinc-500">{service.summary}</p>
-                </div>
-              </Link>
-            ))}
-          </div>
-        </div>
-      </section>
+      <SlidingServiceCards services={SERVICES} />
 
       <section className="section-pad bg-brand-cream">
         <div className="page-shell grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">

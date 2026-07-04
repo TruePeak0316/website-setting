@@ -1,12 +1,18 @@
 "use client";
 
-import { MagnifyingGlass } from "@phosphor-icons/react";
+import Image from "next/image";
+import Link from "next/link";
+import { ArrowRight, MagnifyingGlass } from "@phosphor-icons/react";
 import { useMemo, useState } from "react";
-import { ArticleCard } from "@/components/articles/ArticleCard";
 import type { ArticleCategory, ArticleSummary } from "@/lib/types";
 
 interface InsightsExplorerProps {
   articles: ArticleSummary[];
+}
+
+interface MarqueeArticleItem {
+  article: ArticleSummary;
+  duplicateIndex: number;
 }
 
 const filters: Array<"全部" | ArticleCategory> = ["全部", "財稅實務", "公司經營", "誠峰解析"];
@@ -14,6 +20,7 @@ const filters: Array<"全部" | ArticleCategory> = ["全部", "財稅實務", "�
 export function InsightsExplorer({ articles }: InsightsExplorerProps) {
   const [filter, setFilter] = useState<"全部" | ArticleCategory>("全部");
   const [query, setQuery] = useState("");
+  const [isPaused, setIsPaused] = useState(false);
 
   const filtered = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase();
@@ -25,6 +32,15 @@ export function InsightsExplorer({ articles }: InsightsExplorerProps) {
       return categoryMatch && queryMatch;
     });
   }, [articles, filter, query]);
+
+  const marqueeItems = useMemo<MarqueeArticleItem[]>(
+    () =>
+      [...filtered, ...filtered].map((article, index) => ({
+        article,
+        duplicateIndex: Math.floor(index / Math.max(filtered.length, 1)),
+      })),
+    [filtered],
+  );
 
   return (
     <div className="space-y-8">
@@ -56,10 +72,39 @@ export function InsightsExplorer({ articles }: InsightsExplorerProps) {
       </div>
 
       {filtered.length > 0 ? (
-        <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {filtered.map((article) => (
-            <ArticleCard key={article.slug} article={article} />
-          ))}
+        <div
+          className="service-marquee-mask relative -mx-4 overflow-hidden py-2 sm:-mx-6 lg:-mx-8"
+          onMouseEnter={() => setIsPaused(true)}
+          onMouseLeave={() => setIsPaused(false)}
+          onFocus={() => setIsPaused(true)}
+          onBlur={() => setIsPaused(false)}
+        >
+          <div className="animate-article-marquee flex w-max gap-5 px-4 sm:px-6 lg:px-8" style={{ animationPlayState: isPaused || filtered.length < 4 ? "paused" : "running" }}>
+            {marqueeItems.map(({ article, duplicateIndex }, index) => (
+              <Link
+                key={`${article.slug}-${duplicateIndex}-${index}`}
+                href={`/Library/${article.slug}`}
+                className="group w-[310px] flex-shrink-0 overflow-hidden rounded-xs border border-brand-light/30 bg-white shadow-[0_18px_60px_rgb(74_53_37_/_0.08)] transition duration-300 hover:-translate-y-1 hover:border-brand-primary/60 hover:shadow-[0_24px_70px_rgb(74_53_37_/_0.13)] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary/50 sm:w-[380px]"
+              >
+                <div className="relative aspect-[16/10] overflow-hidden bg-brand-light/20">
+                  <Image src={article.image} alt={article.alt} fill sizes="380px" className="object-cover transition duration-700 group-hover:scale-[1.05]" />
+                  <div className="absolute left-4 top-4 rounded-xs bg-white/90 px-3 py-1 text-xs font-bold text-brand-primary shadow-[0_8px_24px_rgb(74_53_37_/_0.12)]">
+                    {article.category}
+                  </div>
+                </div>
+
+                <div className="p-5">
+                  <p className="font-display text-xs font-semibold text-zinc-500">{article.date}</p>
+                  <h3 className="mt-3 line-clamp-2 text-xl font-bold leading-snug text-brand-charcoal transition duration-300 group-hover:text-brand-primary">{article.title}</h3>
+                  {article.subtitle ? <p className="mt-3 line-clamp-2 text-sm leading-6 text-zinc-600">{article.subtitle}</p> : null}
+                  <div className="mt-5 flex items-center justify-between border-t border-brand-light/35 pt-4 text-xs font-bold tracking-[0.08em] text-brand-primary">
+                    <span>閱讀文章</span>
+                    <ArrowRight size={15} weight="bold" className="transition duration-300 group-hover:translate-x-1" />
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
         </div>
       ) : (
         <div className="rounded-xs border border-brand-light/25 bg-white p-10 text-center">
