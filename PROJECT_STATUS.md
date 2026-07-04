@@ -9,6 +9,7 @@
 - `/truepeakinsights` 誠峰觀點頁已依 `card-ref/` 將文章列表改為橫向滑動卡片，並保留搜尋與分類篩選。
 - `/truepeakinsights` 所有文章分類篩選狀態皆使用與首頁核心服務相同方向、相同速度的滑動卡片動畫。
 - 首頁 Hero 標題已依 `title-ref/` 加入品牌棕系漸變動效，仍維持左側排版。
+- 導覽列左側品牌區已改為直接顯示橫式 `LOGO.PNG`，不再額外顯示文字版名稱或正方形外框。
 - `favicon.ico` 已放置於 `public/favicon.ico`，由 `/favicon.ico` 提供瀏覽器圖示。
 - 已將原 `images/` 與 `Library/` 圖片複製至 `public/`，供 Next 靜態資源與 `next/image` 使用。
 - 已用 SSG 方式解析既有 `Library/*.html` 文章內容並套用新的文章模板。

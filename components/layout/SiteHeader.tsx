@@ -15,14 +15,8 @@ export function SiteHeader() {
     <header className="sticky top-0 z-40 border-b border-brand-light/25 bg-brand-cream/95 backdrop-blur-md">
       <div className="page-shell">
         <div className="flex h-[72px] items-center justify-between gap-4">
-          <Link href="/" className="flex min-w-0 items-center gap-3" aria-label="回到首頁">
-            <span className="relative h-11 w-11 overflow-hidden rounded-xs border border-brand-light bg-white">
-              <Image src="/images/LOGO.PNG" alt="誠峰會計師事務所標誌" fill sizes="44px" className="object-contain p-1" priority />
-            </span>
-            <span className="hidden min-w-0 sm:block">
-              <span className="block font-serif text-xl font-bold tracking-wide text-brand-charcoal">誠峰</span>
-              <span className="block text-[11px] font-medium tracking-[0.18em] text-brand-primary">CPA OFFICE</span>
-            </span>
+          <Link href="/" className="relative block h-12 w-[150px] flex-shrink-0 sm:h-14 sm:w-[180px]" aria-label="回到首頁">
+            <Image src="/images/LOGO.PNG" alt="誠峰會計師事務所標誌" fill sizes="(min-width: 640px) 180px, 150px" className="object-contain object-left" priority />
           </Link>
 
           <nav className="hidden items-center gap-5 lg:flex" aria-label="主選單">
