@@ -77,23 +77,44 @@ export function InsightsExplorer({ articles }: InsightsExplorerProps) {
     "--insight-marquee-duration": `${metrics.duration}s`,
     animationPlayState: isPaused ? "paused" : "running",
   } satisfies CSSProperties & Record<"--insight-marquee-distance" | "--insight-marquee-duration", string>;
+  const activeFilterIndex = filters.indexOf(filter);
+  const filterIndicatorStyle: CSSProperties = {
+    position: "absolute",
+    insetBlock: "0.25rem",
+    left: "0.25rem",
+    width: "calc((100% - 0.5rem) / 4)",
+    borderRadius: "0.125rem",
+    background: "#9b6f45",
+    boxShadow: "0 10px 24px rgb(74 53 37 / 0.18)",
+    transform: `translateX(${activeFilterIndex * 100}%)`,
+    transition: "transform 280ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 280ms ease",
+  };
 
   return (
     <div className="space-y-8">
       <div className="flex flex-col gap-4 rounded-xs border border-brand-light/25 bg-white p-4 sm:flex-row sm:items-center sm:justify-between">
-        <div className="flex flex-wrap gap-2">
-          {filters.map((item) => (
-            <button
-              key={item}
-              type="button"
-              onClick={() => setFilter(item)}
-              className={`rounded-xs border px-4 py-2 text-sm font-semibold transition ${
-                filter === item ? "border-brand-primary bg-brand-primary text-white" : "border-brand-light/40 bg-brand-cream/40 text-zinc-600 hover:bg-brand-cream"
-              }`}
-            >
-              {item === "全部" ? "顯示全部" : item}
-            </button>
-          ))}
+        <div className="no-scrollbar w-full overflow-x-auto sm:w-[460px] sm:flex-none">
+          <div
+            className="relative grid w-full grid-cols-4 rounded-xs border border-brand-light/35 bg-brand-cream/45 p-1 shadow-inner shadow-brand-light/15"
+          >
+            <span style={filterIndicatorStyle} aria-hidden="true" />
+            {filters.map((item) => {
+              const selected = filter === item;
+              return (
+                <button
+                  key={item}
+                  type="button"
+                  onClick={() => setFilter(item)}
+                  aria-pressed={selected}
+                  className={`relative z-10 h-10 whitespace-nowrap rounded-xs px-2 text-[13px] font-semibold transition duration-300 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary/35 sm:px-4 sm:text-sm ${
+                    selected ? "text-white" : "text-zinc-600 hover:bg-white/70 hover:text-brand-dark"
+                  }`}
+                >
+                  {item === "全部" ? "顯示全部" : item}
+                </button>
+              );
+            })}
+          </div>
         </div>
         <label className="relative block w-full sm:w-72">
           <span className="sr-only">搜尋文章</span>
@@ -116,7 +137,7 @@ export function InsightsExplorer({ articles }: InsightsExplorerProps) {
           onFocus={() => setIsPaused(true)}
           onBlur={() => setIsPaused(false)}
         >
-          <div className={`flex w-max gap-5 px-4 sm:px-6 lg:px-8 ${metrics.shouldAnimate ? "animate-insight-marquee" : ""}`} style={marqueeStyle}>
+          <div className={`flex w-max gap-5 px-4 sm:px-6 lg:px-8 ${metrics.shouldAnimate ? "insight-marquee-track" : ""}`} style={marqueeStyle}>
             <div ref={cycleRef} className="flex gap-5">
               {filtered.map((article) => (
                 <InsightArticleCard key={article.slug} article={article} />

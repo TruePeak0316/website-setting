@@ -178,7 +178,7 @@
     }
   }
 
-  .animate-insight-marquee {
+  .insight-marquee-track {
     animation: insight-marquee var(--insight-marquee-duration) linear infinite;
   }
 
@@ -194,7 +194,7 @@
 
     .hero-gradient-text,
     .animate-service-marquee,
-    .animate-insight-marquee,
+    .insight-marquee-track,
     .service-modal-panel {
       animation: none !important;
     }
