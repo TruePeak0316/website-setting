@@ -14,21 +14,34 @@ const firebaseConfig = {
     measurementId: "G-GJBS99DX1E"
 };
 
-// 初始化 Firebase
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
+async function initializeViewCounter() {
+  if (window.partialsReady) {
+    await window.partialsReady;
+  }
 
-// 頁面 ID
-const pageId = "home";
-const viewRef = ref(db, "views/" + pageId);
+  const viewCount = document.getElementById("viewCount");
 
-// 更新瀏覽次數
-runTransaction(viewRef, current => {
-  return (current || 0) + 1;
-});
+  if (!viewCount) {
+    return;
+  }
 
-// 顯示瀏覽次數
-onValue(viewRef, snapshot => {
-  document.getElementById("viewCount").textContent = "本頁瀏覽次數：" + snapshot.val();
+  // 初始化 Firebase
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
 
-});
+  // 頁面 ID
+  const pageId = "home";
+  const viewRef = ref(db, "views/" + pageId);
+
+  // 更新瀏覽次數
+  runTransaction(viewRef, current => {
+    return (current || 0) + 1;
+  });
+
+  // 顯示瀏覽次數
+  onValue(viewRef, snapshot => {
+    viewCount.textContent = "本頁瀏覽次數：" + snapshot.val();
+  });
+}
+
+initializeViewCounter();

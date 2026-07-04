@@ -3,11 +3,11 @@
   <head>
   <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    
+
     <meta name="description" content="誠峰會計師事務所提供稅務申報、記帳、財務顧問、公司設立、簽證審計、遺產與贈與稅等專業服務，協助企業穩健經營。">
     <meta name="keywords" content="三峽會計師, 記帳, 報稅, 財務顧問, 公司設立, 審計, 北大會計師, 新北會計師, 鶯歌會計師, 樹林會計師, 土城會計師, 板橋會計師, 桃園會計師">
     <meta name="author" content="誠峰會計師事務所">
-  
+
     <meta property="og:title" content="彭裕峰會計師｜誠峰會計師事務所">
     <meta property="og:description" content="提供三峽與北大地區專業記帳、報稅、財務顧問與公司設立服務。">
     <meta property="og:image" content="https://www.tpcpa.com.tw/images/LOGO.PNG">
@@ -17,25 +17,15 @@
     <title>小工具 - 誠峰會計師事務所</title>
     <!-- 全站共用樣式 -->
     <link rel="stylesheet" href="styles/global.css">
-  
+    <script src="scripts/includePartials.js" defer></script>
+
     <!-- main 區塊專用樣式 -->
     <link rel="stylesheet" href="styles/caculators-style.css">
-    
+
   </head>
   <body>
-    <header class="navbar">
-      <div class="logo"><img src="images/Title.PNG" alt="三峽北大特區 誠峰會計師事務所">
-      <h3>諮詢電話:02-86720074</h3></div>
-      <nav>
-        <a href="index.html">首頁</a>
-        <a href="services.html">服務項目</a>
-        <a href="about.html">關於我們</a>
-        <a href="truepeakinsights.html">誠峰觀點</a>
-        <a href="testimonials.html">客戶見證</a>
-        <a href="caculators.html">計算小工具</a>
-        <a href="contact.html">聯絡我們</a>
-      </nav>
-    </header>
+    <!-- Shared site header: loaded from partials/site-header.html by scripts/includePartials.js. -->
+    <div data-include="partials/site-header.html" data-base=""></div>
 
     <main class="calc-wrap">
       <div class="calc-container">
@@ -48,7 +38,7 @@
             <a href="#rent-caculator" class="seclect-button">租金扣繳計算</a>
           </div>
         </section>
-        
+
       <!-- 發票營業稅金額試算卡片 -->
         <section id="invoice-caculator" class="calc-card active">
           <header class="calc-header">
@@ -115,7 +105,7 @@
                 <label class="calc-label" for="twoIssueDate">開立日期<b class="must">*必填</b></label>
                 <input type="date" id="twoIssueDate" class="calc-input">
               </div>
-            
+
               <!-- 稅率（二聯式）-->
               <div class="calc-col-6">
                 <label class="calc-label" for="twoTaxRate">稅率<b class="must">*必填</b></label>
@@ -243,7 +233,7 @@
                   <td colspan="2"><span id="taxableMark"></span></td>
                   <td colspan="2"><span id="zeroRatedMark"></span></td>
                   <td colspan="2"><span id="exemptMark"></span></td>
-                  
+
                 </tr>
                 <tr>
                   <td colspan="9">總計</td>
@@ -312,7 +302,7 @@
                 <tr>
                   <td colspan="9">總計新台幣（中文大寫）<span id="previewUpperYS">-</span></td>
                 </tr>
-          
+
                  <!-- 課稅別（文字顯示；若要 V 勾選可後續擴充） -->
                 <tr>
                   <td colspan="3">課稅別</td>
@@ -433,11 +423,11 @@
               <div class="k">發票總金額（含稅）</div>
               <div class="v" id="total">-</div>
             </div>
-  
+
             <div class="calc-help">
               規則：公司房東開立 5% 加值型營業稅發票（含稅＝未稅×1.05）。一般不適用個人租賃的 10% 扣繳／二代健保補充保費規則。<span class="calc-pill note">說明</span>
             </div>
-  
+
             <div class="calc-actions">
               <button type="button" class="copy-link calc-btn">複製網址（帶入本頁數值）</button>
               <button class="calc-btn" onclick="resetForm()">重新填寫</button>
@@ -457,19 +447,8 @@
         <section id="inheritance-tax" class="service-content"></section>
       </div>
     </main>
-
-    <footer>
-      <div><p>© 2026 誠峰會計師事務所｜彭裕峰會計師 All Rights Reserved.</p></div>      
-      <div>
-        <h3 style="margin: 0.2rem;">聯絡資訊</h3>
-        <p style="margin: 0.2rem;">電話：02-8672-0074</p>
-        <p style="margin: 0.2rem;">
-          地址：新北市三峽區大觀路86號4樓
-          <a href="https://maps.app.goo.gl/hKnRcETHjRdDQvYLA" target="_blank" style="margin-left: 8px; text-decoration: none;"><button>地圖</button></a>
-        </p>
-      </div>
-      <div></div>
-    </footer>
+    <!-- Shared site footer: loaded from partials/site-footer.html by scripts/includePartials.js. -->
+    <div data-include="partials/site-footer.html" data-base=""></div>
 
     <!-- TOP按鈕 -->
     <script src="scripts/backToTop.js"></script>
