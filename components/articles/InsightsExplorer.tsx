@@ -16,6 +16,7 @@ interface MarqueeArticleItem {
 }
 
 const filters: Array<"全部" | ArticleCategory> = ["全部", "財稅實務", "公司經營", "誠峰解析"];
+const minimumCycleCardCount = 5;
 
 export function InsightsExplorer({ articles }: InsightsExplorerProps) {
   const [filter, setFilter] = useState<"全部" | ArticleCategory>("全部");
@@ -33,14 +34,18 @@ export function InsightsExplorer({ articles }: InsightsExplorerProps) {
     });
   }, [articles, filter, query]);
 
-  const marqueeItems = useMemo<MarqueeArticleItem[]>(
-    () =>
-      [...filtered, ...filtered].map((article, index) => ({
-        article,
-        duplicateIndex: Math.floor(index / Math.max(filtered.length, 1)),
-      })),
-    [filtered],
-  );
+  const marqueeItems = useMemo<MarqueeArticleItem[]>(() => {
+    if (filtered.length === 0) {
+      return [];
+    }
+
+    const cycleLength = Math.max(filtered.length, minimumCycleCardCount);
+    const cycleArticles = Array.from({ length: cycleLength }, (_, index) => filtered[index % filtered.length]);
+    return [...cycleArticles, ...cycleArticles].map((article, index) => ({
+      article,
+      duplicateIndex: Math.floor(index / cycleLength),
+    }));
+  }, [filtered]);
 
   return (
     <div className="space-y-8">
@@ -79,7 +84,7 @@ export function InsightsExplorer({ articles }: InsightsExplorerProps) {
           onFocus={() => setIsPaused(true)}
           onBlur={() => setIsPaused(false)}
         >
-          <div className="animate-article-marquee flex w-max gap-5 px-4 sm:px-6 lg:px-8" style={{ animationPlayState: isPaused || filtered.length < 4 ? "paused" : "running" }}>
+          <div className="animate-service-marquee flex w-max gap-5 px-4 sm:px-6 lg:px-8" style={{ animationPlayState: isPaused ? "paused" : "running" }}>
             {marqueeItems.map(({ article, duplicateIndex }, index) => (
               <Link
                 key={`${article.slug}-${duplicateIndex}-${index}`}

@@ -169,24 +169,6 @@
     animation: service-marquee 45s linear infinite;
   }
 
-  @keyframes article-marquee {
-    from {
-      transform: translateX(-50%);
-    }
-    to {
-      transform: translateX(0);
-    }
-  }
-
-  .animate-article-marquee {
-    animation: article-marquee 58s linear infinite;
-  }
-
-  .animate-article-marquee:hover,
-  .animate-article-marquee:focus-within {
-    animation-play-state: paused;
-  }
-
   @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
@@ -199,7 +181,6 @@
 
     .hero-gradient-text,
     .animate-service-marquee,
-    .animate-article-marquee,
     .service-modal-panel {
       animation: none !important;
     }

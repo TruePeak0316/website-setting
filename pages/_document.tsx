@@ -4,7 +4,8 @@ export default function Document() {
   return (
     <Html lang="zh-Hant">
       <Head>
-        <link rel="icon" type="image/png" href="/images/LOGO.PNG" />
+        <link rel="icon" href="/favicon.ico" sizes="any" />
+        <link rel="shortcut icon" href="/favicon.ico" />
         <link rel="apple-touch-icon" href="/images/LOGO.PNG" />
       </Head>
       <body>
