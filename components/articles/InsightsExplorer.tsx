@@ -3,25 +3,32 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, MagnifyingGlass } from "@phosphor-icons/react";
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
+import type { CSSProperties } from "react";
 import type { ArticleCategory, ArticleSummary } from "@/lib/types";
 
 interface InsightsExplorerProps {
   articles: ArticleSummary[];
 }
 
-interface MarqueeArticleItem {
-  article: ArticleSummary;
-  duplicateIndex: number;
+interface MarqueeMetrics {
+  shouldAnimate: boolean;
+  distance: number;
+  duration: number;
 }
 
 const filters: Array<"全部" | ArticleCategory> = ["全部", "財稅實務", "公司經營", "誠峰解析"];
-const minimumCycleCardCount = 5;
+const marqueeGapPx = 20;
+const marqueePixelsPerSecond = 42;
+const minimumMarqueeDuration = 16;
 
 export function InsightsExplorer({ articles }: InsightsExplorerProps) {
   const [filter, setFilter] = useState<"全部" | ArticleCategory>("全部");
   const [query, setQuery] = useState("");
   const [isPaused, setIsPaused] = useState(false);
+  const [metrics, setMetrics] = useState<MarqueeMetrics>({ shouldAnimate: false, distance: 0, duration: minimumMarqueeDuration });
+  const viewportRef = useRef<HTMLDivElement>(null);
+  const cycleRef = useRef<HTMLDivElement>(null);
 
   const filtered = useMemo(() => {
     const normalizedQuery = query.trim().toLowerCase();
@@ -34,18 +41,42 @@ export function InsightsExplorer({ articles }: InsightsExplorerProps) {
     });
   }, [articles, filter, query]);
 
-  const marqueeItems = useMemo<MarqueeArticleItem[]>(() => {
-    if (filtered.length === 0) {
-      return [];
+  useEffect(() => {
+    const viewport = viewportRef.current;
+    const cycle = cycleRef.current;
+    if (!viewport || !cycle) {
+      return;
     }
 
-    const cycleLength = Math.max(filtered.length, minimumCycleCardCount);
-    const cycleArticles = Array.from({ length: cycleLength }, (_, index) => filtered[index % filtered.length]);
-    return [...cycleArticles, ...cycleArticles].map((article, index) => ({
-      article,
-      duplicateIndex: Math.floor(index / cycleLength),
-    }));
+    const updateMetrics = () => {
+      const cycleWidth = cycle.scrollWidth;
+      const shouldAnimate = filtered.length >= 2 && cycleWidth > viewport.clientWidth + 1;
+      const distance = shouldAnimate ? cycleWidth + marqueeGapPx : 0;
+      const duration = shouldAnimate ? Math.max(minimumMarqueeDuration, distance / marqueePixelsPerSecond) : minimumMarqueeDuration;
+
+      setMetrics((current) => {
+        const roundedDistance = Math.round(distance);
+        const roundedDuration = Math.round(duration * 10) / 10;
+        if (current.shouldAnimate === shouldAnimate && current.distance === roundedDistance && current.duration === roundedDuration) {
+          return current;
+        }
+        return { shouldAnimate, distance: roundedDistance, duration: roundedDuration };
+      });
+    };
+
+    updateMetrics();
+
+    const resizeObserver = new ResizeObserver(updateMetrics);
+    resizeObserver.observe(viewport);
+    resizeObserver.observe(cycle);
+    return () => resizeObserver.disconnect();
   }, [filtered]);
+
+  const marqueeStyle = {
+    "--insight-marquee-distance": `${metrics.distance}px`,
+    "--insight-marquee-duration": `${metrics.duration}s`,
+    animationPlayState: isPaused ? "paused" : "running",
+  } satisfies CSSProperties & Record<"--insight-marquee-distance" | "--insight-marquee-duration", string>;
 
   return (
     <div className="space-y-8">
@@ -78,37 +109,26 @@ export function InsightsExplorer({ articles }: InsightsExplorerProps) {
 
       {filtered.length > 0 ? (
         <div
-          className="service-marquee-mask relative -mx-4 overflow-hidden py-2 sm:-mx-6 lg:-mx-8"
+          ref={viewportRef}
+          className={`relative -mx-4 overflow-hidden py-2 sm:-mx-6 lg:-mx-8 ${metrics.shouldAnimate ? "service-marquee-mask" : ""}`}
           onMouseEnter={() => setIsPaused(true)}
           onMouseLeave={() => setIsPaused(false)}
           onFocus={() => setIsPaused(true)}
           onBlur={() => setIsPaused(false)}
         >
-          <div className="animate-service-marquee flex w-max gap-5 px-4 sm:px-6 lg:px-8" style={{ animationPlayState: isPaused ? "paused" : "running" }}>
-            {marqueeItems.map(({ article, duplicateIndex }, index) => (
-              <Link
-                key={`${article.slug}-${duplicateIndex}-${index}`}
-                href={`/Library/${article.slug}`}
-                className="group w-[310px] flex-shrink-0 overflow-hidden rounded-xs border border-brand-light/30 bg-white shadow-[0_18px_60px_rgb(74_53_37_/_0.08)] transition duration-300 hover:-translate-y-1 hover:border-brand-primary/60 hover:shadow-[0_24px_70px_rgb(74_53_37_/_0.13)] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary/50 sm:w-[380px]"
-              >
-                <div className="relative aspect-[16/10] overflow-hidden bg-brand-light/20">
-                  <Image src={article.image} alt={article.alt} fill sizes="380px" className="object-cover transition duration-700 group-hover:scale-[1.05]" />
-                  <div className="absolute left-4 top-4 rounded-xs bg-white/90 px-3 py-1 text-xs font-bold text-brand-primary shadow-[0_8px_24px_rgb(74_53_37_/_0.12)]">
-                    {article.category}
-                  </div>
-                </div>
-
-                <div className="p-5">
-                  <p className="font-display text-xs font-semibold text-zinc-500">{article.date}</p>
-                  <h3 className="mt-3 line-clamp-2 text-xl font-bold leading-snug text-brand-charcoal transition duration-300 group-hover:text-brand-primary">{article.title}</h3>
-                  {article.subtitle ? <p className="mt-3 line-clamp-2 text-sm leading-6 text-zinc-600">{article.subtitle}</p> : null}
-                  <div className="mt-5 flex items-center justify-between border-t border-brand-light/35 pt-4 text-xs font-bold tracking-[0.08em] text-brand-primary">
-                    <span>閱讀文章</span>
-                    <ArrowRight size={15} weight="bold" className="transition duration-300 group-hover:translate-x-1" />
-                  </div>
-                </div>
-              </Link>
-            ))}
+          <div className={`flex w-max gap-5 px-4 sm:px-6 lg:px-8 ${metrics.shouldAnimate ? "animate-insight-marquee" : ""}`} style={marqueeStyle}>
+            <div ref={cycleRef} className="flex gap-5">
+              {filtered.map((article) => (
+                <InsightArticleCard key={article.slug} article={article} />
+              ))}
+            </div>
+            {metrics.shouldAnimate ? (
+              <div className="flex gap-5" aria-hidden="true">
+                {filtered.map((article) => (
+                  <InsightArticleCard key={`${article.slug}-duplicate`} article={article} tabIndex={-1} />
+                ))}
+              </div>
+            ) : null}
           </div>
         </div>
       ) : (
@@ -118,5 +138,37 @@ export function InsightsExplorer({ articles }: InsightsExplorerProps) {
         </div>
       )}
     </div>
+  );
+}
+
+interface InsightArticleCardProps {
+  article: ArticleSummary;
+  tabIndex?: number;
+}
+
+function InsightArticleCard({ article, tabIndex }: InsightArticleCardProps) {
+  return (
+    <Link
+      href={`/Library/${article.slug}`}
+      tabIndex={tabIndex}
+      className="group w-[310px] flex-shrink-0 overflow-hidden rounded-xs border border-brand-light/30 bg-white shadow-[0_18px_60px_rgb(74_53_37_/_0.08)] transition duration-300 hover:-translate-y-1 hover:border-brand-primary/60 hover:shadow-[0_24px_70px_rgb(74_53_37_/_0.13)] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary/50 sm:w-[380px]"
+    >
+      <div className="relative aspect-[16/10] overflow-hidden bg-brand-light/20">
+        <Image src={article.image} alt={article.alt} fill sizes="380px" className="object-cover transition duration-700 group-hover:scale-[1.05]" />
+        <div className="absolute left-4 top-4 rounded-xs bg-white/90 px-3 py-1 text-xs font-bold text-brand-primary shadow-[0_8px_24px_rgb(74_53_37_/_0.12)]">
+          {article.category}
+        </div>
+      </div>
+
+      <div className="p-5">
+        <p className="font-display text-xs font-semibold text-zinc-500">{article.date}</p>
+        <h3 className="mt-3 line-clamp-2 text-xl font-bold leading-snug text-brand-charcoal transition duration-300 group-hover:text-brand-primary">{article.title}</h3>
+        {article.subtitle ? <p className="mt-3 line-clamp-2 text-sm leading-6 text-zinc-600">{article.subtitle}</p> : null}
+        <div className="mt-5 flex items-center justify-between border-t border-brand-light/35 pt-4 text-xs font-bold tracking-[0.08em] text-brand-primary">
+          <span>閱讀文章</span>
+          <ArrowRight size={15} weight="bold" className="transition duration-300 group-hover:translate-x-1" />
+        </div>
+      </div>
+    </Link>
   );
 }

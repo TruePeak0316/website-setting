@@ -169,6 +169,19 @@
     animation: service-marquee 45s linear infinite;
   }
 
+  @keyframes insight-marquee {
+    from {
+      transform: translateX(0);
+    }
+    to {
+      transform: translateX(calc(var(--insight-marquee-distance) * -1));
+    }
+  }
+
+  .animate-insight-marquee {
+    animation: insight-marquee var(--insight-marquee-duration) linear infinite;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
@@ -181,6 +194,7 @@
 
     .hero-gradient-text,
     .animate-service-marquee,
+    .animate-insight-marquee,
     .service-modal-panel {
       animation: none !important;
     }
