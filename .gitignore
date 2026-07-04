@@ -1,1 +1,8 @@
 AGENTS.md
+node_modules/
+.next/
+out/
+dist/
+.env*.local
+npm-debug.log*
+*.tsbuildinfo
