@@ -80,6 +80,19 @@ function formatRocDate(dateValue: string): string {
   return `${date.getFullYear() - 1911}年 ${String(date.getMonth() + 1).padStart(2, "0")}月 ${String(date.getDate()).padStart(2, "0")}日`;
 }
 
+function chineseDigitDatePeriod(dateValue: string): string {
+  const date = dateValue ? new Date(`${dateValue}T00:00:00`) : new Date();
+  const safeDate = Number.isNaN(date.getTime()) ? new Date() : date;
+  const numerals = ["零", "一", "二", "三", "四", "五", "六", "七", "八", "九"];
+  const rocYear = String(safeDate.getFullYear() - 1911)
+    .split("")
+    .map((digit) => numerals[Number(digit)])
+    .join("");
+  const startMonth = Math.floor(safeDate.getMonth() / 2) * 2 + 1;
+  const endMonth = startMonth + 1;
+  return `${rocYear}年${numerals[startMonth]}、${numerals[endMonth]}月份`;
+}
+
 function computeInvoice(state: InvoiceState, source: Source) {
   const type = state.invoiceType;
   const activeRate = rateValue(type === "two" ? state.twoTaxRate : state.taxRate);
@@ -240,6 +253,211 @@ export function InvoiceCalculator() {
           </button>
         </div>
       </div>
+
+      <HandInvoicePreview state={state} result={result} activeDate={activeDate} activeRate={activeRate} />
     </section>
+  );
+}
+
+interface HandInvoicePreviewProps {
+  state: InvoiceState;
+  result: ReturnType<typeof computeInvoice>;
+  activeDate: string;
+  activeRate: TaxRateCode;
+}
+
+function HandInvoicePreview({ state, result, activeDate, activeRate }: HandInvoicePreviewProps) {
+  const isThreePart = state.invoiceType === "three";
+  const mark = (rate: TaxRateCode) => (activeRate === rate ? "V" : "");
+
+  return (
+    <div className="mt-8 rounded-xs border border-brand-light/35 bg-brand-cream/35 p-4">
+      {isThreePart ? (
+        <ThreePartInvoicePreview state={state} result={result} activeDate={activeDate} mark={mark} />
+      ) : (
+        <TwoPartInvoicePreview result={result} activeDate={activeDate} mark={mark} />
+      )}
+    </div>
+  );
+}
+
+function ThreePartInvoicePreview({
+  state,
+  result,
+  activeDate,
+  mark,
+}: {
+  state: InvoiceState;
+  result: ReturnType<typeof computeInvoice>;
+  activeDate: string;
+  mark: (rate: TaxRateCode) => string;
+}) {
+  const taxIdDigits = state.buyerTaxId.padEnd(8, " ").slice(0, 8).split("");
+
+  return (
+    <div className="overflow-x-auto">
+      <h4 className="mb-3 text-sm font-bold text-brand-primary">手開發票示意（三聯式）</h4>
+      <table className="w-full min-w-[760px] border-collapse bg-white text-center text-[13px] leading-6 text-brand-charcoal">
+        <tbody>
+          <tr>
+            <th colSpan={16} className="border border-brand-light/60 px-3 py-2">
+              <span className="grid grid-cols-3 items-center text-xs">
+                <span className="text-left">TP 12345678</span>
+                <span className="text-base font-bold tracking-[0.12em]">統 一 發 票 （ 三 聯 式 ）</span>
+                <span />
+              </span>
+              <span className="mt-1 block">{chineseDigitDatePeriod(activeDate)}</span>
+            </th>
+          </tr>
+          <tr>
+            <td colSpan={16} className="border border-brand-light/60 px-3 py-2 text-left">
+              買受人：{state.buyerName || "必填"}
+            </td>
+          </tr>
+          <tr>
+            <td colSpan={16} className="border border-brand-light/60 px-3 py-2">
+              <div className="flex flex-wrap items-center gap-3 text-left">
+                <span className="text-zinc-500">統一編號：</span>
+                <div className="flex gap-1">
+                  {taxIdDigits.map((digit, index) => (
+                    <span key={index} className="flex h-7 w-7 items-center justify-center border border-brand-light/70 bg-brand-cream/60 font-semibold">
+                      {digit.trim()}
+                    </span>
+                  ))}
+                </div>
+                <span className="ml-auto">
+                  <span className="text-zinc-500">中華民國 </span>
+                  {formatRocDate(activeDate)}
+                </span>
+              </div>
+            </td>
+          </tr>
+          <tr>
+            <td colSpan={16} className="border border-brand-light/60 px-3 py-2 text-left">
+              地址：縣市...可省略
+            </td>
+          </tr>
+          <tr>
+            <td colSpan={5} className="border border-brand-light/60 px-2 py-2">品名</td>
+            <td colSpan={2} className="border border-brand-light/60 px-2 py-2">數量</td>
+            <td colSpan={2} className="border border-brand-light/60 px-2 py-2">單價</td>
+            <td colSpan={3} className="border border-brand-light/60 px-2 py-2">金額</td>
+            <td colSpan={4} className="border border-brand-light/60 px-2 py-2">備註</td>
+          </tr>
+          {Array.from({ length: 3 }).map((_, index) => (
+            <tr key={index}>
+              <td colSpan={5} className="h-9 border border-brand-light/60" />
+              <td colSpan={2} className="border border-brand-light/60" />
+              <td colSpan={2} className="border border-brand-light/60" />
+              <td colSpan={3} className="border border-brand-light/60" />
+              {index === 2 ? <td colSpan={4} className="border border-brand-light/60 text-xs">營業人蓋統一發票專用章</td> : <td colSpan={4} className="border border-brand-light/60" />}
+            </tr>
+          ))}
+          <tr>
+            <td colSpan={9} className="border border-brand-light/60 px-2 py-2">銷售額合計</td>
+            <td colSpan={3} className="border border-brand-light/60 px-2 py-2">{formatMoney(result.net)}</td>
+            <td colSpan={4} rowSpan={5} className="border border-brand-light/60 text-xs text-zinc-500">發票章</td>
+          </tr>
+          <tr>
+            <td colSpan={3} rowSpan={2} className="border border-brand-light/60 px-2 py-2">營業稅</td>
+            <td colSpan={2} className="border border-brand-light/60 px-2 py-2">應稅</td>
+            <td colSpan={2} className="border border-brand-light/60 px-2 py-2">零稅率</td>
+            <td colSpan={2} className="border border-brand-light/60 px-2 py-2">免稅</td>
+            <td colSpan={3} rowSpan={2} className="border border-brand-light/60 px-2 py-2">{formatMoney(result.tax)}</td>
+          </tr>
+          <tr>
+            <td colSpan={2} className="border border-brand-light/60 px-2 py-2 font-bold">{mark("5")}</td>
+            <td colSpan={2} className="border border-brand-light/60 px-2 py-2 font-bold">{mark("0")}</td>
+            <td colSpan={2} className="border border-brand-light/60 px-2 py-2 font-bold">{mark("exempt")}</td>
+          </tr>
+          <tr>
+            <td colSpan={9} className="border border-brand-light/60 px-2 py-2">總計</td>
+            <td colSpan={3} className="border border-brand-light/60 px-2 py-2">{formatMoney(result.gross)}</td>
+          </tr>
+          <tr>
+            <td colSpan={12} className="border border-brand-light/60 px-2 py-2 text-left">總計新台幣（中文大寫）：{ntdUpper(result.gross)}</td>
+          </tr>
+          <tr>
+            <td colSpan={12} className="border border-brand-light/60 px-2 py-2 text-left text-xs">＊應稅、零稅率、免稅之銷售額應分別開立統一發票、並應於各該欄打「V」</td>
+            <td colSpan={4} className="border border-brand-light/60 px-2 py-2">第 一 聯 存根聯</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  );
+}
+
+function TwoPartInvoicePreview({
+  result,
+  activeDate,
+  mark,
+}: {
+  result: ReturnType<typeof computeInvoice>;
+  activeDate: string;
+  mark: (rate: TaxRateCode) => string;
+}) {
+  return (
+    <div className="overflow-x-auto">
+      <h4 className="mb-3 text-sm font-bold text-brand-primary">手開發票示意（二聯式）</h4>
+      <table className="w-full min-w-[680px] border-collapse bg-white text-center text-[13px] leading-6 text-brand-charcoal">
+        <tbody>
+          <tr>
+            <th colSpan={12} className="border border-brand-light/60 px-3 py-2">
+              <span className="grid grid-cols-3 items-center text-xs">
+                <span className="text-left">YS 12345678</span>
+                <span className="text-base font-bold tracking-[0.12em]">統 一 發 票 （ 二 聯 式 ）</span>
+                <span />
+              </span>
+              <span className="mt-1 block">{chineseDigitDatePeriod(activeDate)}</span>
+            </th>
+          </tr>
+          <tr>
+            <td colSpan={12} className="border border-brand-light/60 px-3 py-2 text-left">買受人：可省略　中華民國 {formatRocDate(activeDate)}</td>
+          </tr>
+          <tr>
+            <td colSpan={12} className="border border-brand-light/60 px-3 py-2 text-left">地址：縣市...可省略</td>
+          </tr>
+          <tr>
+            <td colSpan={3} className="border border-brand-light/60 px-2 py-2">品名</td>
+            <td colSpan={2} className="border border-brand-light/60 px-2 py-2">數量</td>
+            <td colSpan={2} className="border border-brand-light/60 px-2 py-2">單價</td>
+            <td colSpan={2} className="border border-brand-light/60 px-2 py-2">金額</td>
+            <td colSpan={3} className="border border-brand-light/60 px-2 py-2">備註</td>
+          </tr>
+          {Array.from({ length: 4 }).map((_, index) => (
+            <tr key={index}>
+              <td colSpan={3} className="h-9 border border-brand-light/60" />
+              <td colSpan={2} className="border border-brand-light/60" />
+              <td colSpan={2} className="border border-brand-light/60" />
+              <td colSpan={2} className="border border-brand-light/60" />
+              {index === 2 ? <td colSpan={3} className="border border-brand-light/60 text-xs">營業人蓋統一發票專用章</td> : <td colSpan={3} className="border border-brand-light/60" />}
+            </tr>
+          ))}
+          <tr>
+            <td colSpan={7} className="border border-brand-light/60 px-2 py-2">總計</td>
+            <td colSpan={2} className="border border-brand-light/60 px-2 py-2">{formatMoney(result.gross)}</td>
+            <td colSpan={3} rowSpan={4} className="border border-brand-light/60 text-xs text-zinc-500">發票章</td>
+          </tr>
+          <tr>
+            <td colSpan={9} className="border border-brand-light/60 px-2 py-2 text-left">總計新台幣（中文大寫）{ntdUpper(result.gross)}</td>
+          </tr>
+          <tr>
+            <td colSpan={3} className="border border-brand-light/60 px-2 py-2">課稅別</td>
+            <td className="border border-brand-light/60 px-2 py-2">應稅</td>
+            <td className="border border-brand-light/60 px-2 py-2 font-bold">{mark("5")}</td>
+            <td className="border border-brand-light/60 px-2 py-2">零稅率</td>
+            <td className="border border-brand-light/60 px-2 py-2 font-bold">{mark("0")}</td>
+            <td className="border border-brand-light/60 px-2 py-2">免稅</td>
+            <td className="border border-brand-light/60 px-2 py-2 font-bold">{mark("exempt")}</td>
+          </tr>
+          <tr>
+            <td colSpan={9} className="border border-brand-light/60 px-2 py-2 text-left text-xs">＊應稅、零稅率、免稅之銷售額應分別開立統一發票、並應於各該欄打「V」</td>
+          </tr>
+          <tr>
+            <td colSpan={12} className="border border-brand-light/60 px-2 py-2">第 一 聯 存根聯</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   );
 }

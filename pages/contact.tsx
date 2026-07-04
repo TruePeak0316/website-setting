@@ -14,23 +14,25 @@ export default function ContactPage() {
       <PageHero title="聯絡我們" description="歡迎預約諮詢，讓我們協助您釐清稅務、帳務與公司設立相關問題。" image="/images/environment01.jpg" />
 
       <section className="overflow-hidden bg-white py-8">
-        <div className="flex gap-4 overflow-x-auto px-4 no-scrollbar">
-          {ENVIRONMENT_IMAGES.map((image) => (
-            <div key={image} className="relative h-56 min-w-[320px] overflow-hidden rounded-xs border border-brand-light/25 bg-brand-cream md:min-w-[420px]">
-              <Image src={image} alt="誠峰會計師事務所辦公環境" fill sizes="420px" className="object-cover" />
-            </div>
-          ))}
+        <div className="contact-photo-marquee service-marquee-mask" tabIndex={0} aria-label="誠峰會計師事務所辦公環境照片">
+          <div className="contact-photo-track">
+            {[...ENVIRONMENT_IMAGES, ...ENVIRONMENT_IMAGES].map((image, index) => (
+              <div key={`${image}-${index}`} className="relative h-56 w-[320px] shrink-0 overflow-hidden rounded-xs border border-brand-light/25 bg-brand-cream md:w-[420px]">
+                <Image src={image} alt={index < ENVIRONMENT_IMAGES.length ? "誠峰會計師事務所辦公環境" : ""} fill sizes="420px" className="object-cover" />
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 
       <section className="section-pad bg-brand-cream">
-        <div className="page-shell grid gap-8 lg:grid-cols-[1.05fr_0.95fr]">
+        <div className="page-shell grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
           <div className="overflow-hidden rounded-xs border border-brand-light/25 bg-white shadow-[0_14px_40px_rgb(74_53_37_/_0.06)]">
             <iframe
               src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3617.5775814850554!2d121.37145137604894!3d24.94645634180992!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x34681d18beb9d4fd%3A0x99a2525f6c24dc96!2z6Kqg5bOw5pyD6KiI5bir5LqL5YuZ5omAIC8g5rC46IGW56iF5YuZ6KiY5biz5aOr5LqL5YuZ5omA!5e0!3m2!1szh-TW!2stw!4v1752032398375!5m2!1szh-TW!2stw"
               title="誠峰會計師事務所 Google 地圖"
               loading="lazy"
-              className="h-[420px] w-full border-0"
+              className="h-[340px] w-full border-0 sm:h-[380px] lg:h-[360px]"
               referrerPolicy="no-referrer-when-downgrade"
               allowFullScreen
             />
