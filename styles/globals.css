@@ -268,13 +268,14 @@
   }
 
   .home-hero-photo-wrap {
-    filter: drop-shadow(0 30px 90px rgb(74 53 37 / 0.14));
+    filter: drop-shadow(0 28px 70px rgb(74 53 37 / 0.12));
   }
 
   .home-hero-photo-frame {
     position: relative;
     z-index: 1;
     border-radius: 24px;
+    background: transparent;
     box-shadow: none;
   }
 

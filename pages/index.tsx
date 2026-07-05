@@ -60,9 +60,9 @@ export default function HomePage() {
           </div>
 
           <div className="home-hero-photo-wrap relative">
-            <div className="home-hero-photo-frame relative aspect-[4/5] overflow-hidden border border-brand-light/35 bg-white shadow-[0_30px_90px_rgb(74_53_37_/_0.14)]">
+            <div className="home-hero-photo-frame relative aspect-[4/5] overflow-hidden">
               <div className="home-hero-photo-soft-edge absolute inset-0">
-                <Image src="/images/about.jpg" alt="誠峰會計師事務所服務形象" fill sizes="(min-width: 1024px) 42vw, 100vw" className="home-hero-photo-image object-cover" priority />
+                <Image src="/images/about.jpg" alt="誠峰會計師事務所服務形象" fill sizes="(min-width: 1024px) 42vw, 100vw" className="home-hero-photo-image object-cover" style={{ objectPosition: "82% center" }} priority />
               </div>
             </div>
             <div className="absolute -bottom-5 left-5 right-5 z-20 rounded-xs border border-brand-light/40 bg-white p-5 shadow-[0_18px_60px_rgb(74_53_37_/_0.12)]">
