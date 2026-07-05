@@ -3,8 +3,10 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, X } from "@phosphor-icons/react";
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Icon } from "@/components/ui/Icon";
+import { MarqueeControls } from "@/components/ui/MarqueeControls";
+import { useLoopingMarqueeScroll } from "@/components/ui/useLoopingMarqueeScroll";
 import type { ServiceSection } from "@/lib/types";
 
 interface SlidingServiceCardsProps {
@@ -19,14 +21,38 @@ interface MarqueeServiceItem {
 export function SlidingServiceCards({ services }: SlidingServiceCardsProps) {
   const [isPaused, setIsPaused] = useState(false);
   const [selectedService, setSelectedService] = useState<ServiceSection | null>(null);
+  const serviceScrollerRef = useRef<HTMLDivElement>(null);
+  const serviceTrackRef = useRef<HTMLDivElement>(null);
+  const [serviceCycleWidth, setServiceCycleWidth] = useState(0);
+  const {
+    onScroll: onServiceScroll,
+    scrollByAmount: scrollServiceByAmount,
+  } = useLoopingMarqueeScroll({ enabled: serviceCycleWidth > 0, cycleWidth: serviceCycleWidth, scrollerRef: serviceScrollerRef });
   const marqueeItems = useMemo<MarqueeServiceItem[]>(
     () =>
-      [...services, ...services].map((service, index) => ({
+      [...services, ...services, ...services].map((service, index) => ({
         service,
         duplicateIndex: Math.floor(index / services.length),
       })),
     [services],
   );
+
+  useEffect(() => {
+    const track = serviceTrackRef.current;
+    if (!track) {
+      return;
+    }
+
+    const updateCycleWidth = () => {
+      setServiceCycleWidth(Math.round(track.scrollWidth / 3));
+    };
+
+    updateCycleWidth();
+
+    const resizeObserver = new ResizeObserver(updateCycleWidth);
+    resizeObserver.observe(track);
+    return () => resizeObserver.disconnect();
+  }, [services]);
 
   useEffect(() => {
     if (!selectedService) {
@@ -56,25 +82,38 @@ export function SlidingServiceCards({ services }: SlidingServiceCardsProps) {
           <h2 className="font-serif text-3xl font-bold text-brand-charcoal sm:text-4xl">核心服務</h2>
           <p className="mt-3 text-sm leading-7 text-zinc-600">從日常帳務到公司設立與簽證，協助企業把財稅風險放回可管理的範圍內。</p>
         </div>
-        <Link href="/services" className="brand-button-secondary w-fit">
-          查看全部
-          <ArrowRight size={15} weight="bold" />
-        </Link>
+        <div className="flex flex-wrap items-center gap-3">
+          <MarqueeControls label="核心服務" onPrevious={() => scrollServiceByAmount(-390)} onNext={() => scrollServiceByAmount(390)} />
+          <Link href="/services" className="brand-button-secondary w-fit">
+            查看全部
+            <ArrowRight size={15} weight="bold" />
+          </Link>
+        </div>
       </div>
 
       <div
-        className="service-marquee-mask relative overflow-hidden py-2"
+        ref={serviceScrollerRef}
+        className="marquee-scrollable service-marquee-mask relative overflow-x-auto overflow-y-hidden py-2"
         onMouseEnter={() => setIsPaused(true)}
         onMouseLeave={() => setIsPaused(false)}
         onFocus={() => setIsPaused(true)}
         onBlur={() => setIsPaused(false)}
+        onScroll={onServiceScroll}
+        tabIndex={0}
+        aria-label="核心服務列表，可自動或手動左右滑動"
       >
-        <div className="animate-service-marquee flex w-max gap-5 px-4 sm:px-6 lg:px-8" style={{ animationPlayState: isPaused ? "paused" : "running" }}>
+        <div ref={serviceTrackRef} className="animate-service-marquee flex w-max gap-5 px-4 sm:px-6 lg:px-8" style={{ animationPlayState: isPaused ? "paused" : "running" }}>
           {marqueeItems.map(({ service, duplicateIndex }, index) => (
             <button
               key={`${service.id}-${duplicateIndex}-${index}`}
               type="button"
+              tabIndex={duplicateIndex === 1 ? 0 : -1}
+              aria-hidden={duplicateIndex !== 1}
               className="group w-[310px] flex-shrink-0 rounded-xs border border-brand-light/30 bg-brand-cream/45 p-5 text-left shadow-[0_18px_60px_rgb(74_53_37_/_0.08)] transition duration-300 hover:-translate-y-1 hover:border-brand-primary/60 hover:bg-white hover:shadow-[0_24px_70px_rgb(74_53_37_/_0.13)] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary/50 sm:w-[370px]"
+              onMouseEnter={() => setIsPaused(true)}
+              onMouseLeave={() => setIsPaused(false)}
+              onFocus={() => setIsPaused(true)}
+              onBlur={() => setIsPaused(false)}
               onClick={() => setSelectedService(service)}
               aria-label={`查看${service.title}服務詳情`}
             >

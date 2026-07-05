@@ -1,22 +1,59 @@
 import Image from "next/image";
 import { EnvelopeSimple, MapPin, Phone } from "@phosphor-icons/react";
+import { useEffect, useRef, useState } from "react";
 import { LineCopyButton } from "@/components/contact/LineCopyButton";
 import { Seo } from "@/components/layout/Seo";
 import { SiteLayout } from "@/components/layout/SiteLayout";
+import { MarqueeControls } from "@/components/ui/MarqueeControls";
 import { PageHero } from "@/components/ui/PageHero";
+import { useLoopingMarqueeScroll } from "@/components/ui/useLoopingMarqueeScroll";
 import { ENVIRONMENT_IMAGES } from "@/lib/content";
 import { SITE } from "@/lib/site";
 
 export default function ContactPage() {
+  const photoScrollerRef = useRef<HTMLDivElement>(null);
+  const photoTrackRef = useRef<HTMLDivElement>(null);
+  const [photoCycleWidth, setPhotoCycleWidth] = useState(0);
+  const {
+    onScroll: onPhotoScroll,
+    scrollByAmount: scrollPhotoByAmount,
+  } = useLoopingMarqueeScroll({ enabled: photoCycleWidth > 0, cycleWidth: photoCycleWidth, scrollerRef: photoScrollerRef });
+
+  useEffect(() => {
+    const track = photoTrackRef.current;
+    if (!track) {
+      return;
+    }
+
+    const updateCycleWidth = () => {
+      setPhotoCycleWidth(Math.round(track.scrollWidth / 3));
+    };
+
+    updateCycleWidth();
+
+    const resizeObserver = new ResizeObserver(updateCycleWidth);
+    resizeObserver.observe(track);
+    return () => resizeObserver.disconnect();
+  }, []);
+
   return (
     <SiteLayout>
       <Seo title="聯絡我們" path="/contact" description="歡迎聯絡誠峰會計師事務所，了解更多稅務與財務服務。" />
       <PageHero title="聯絡我們" description="歡迎預約諮詢，讓我們協助您釐清稅務、帳務與公司設立相關問題。" image="/images/environment01.jpg" />
 
       <section className="overflow-hidden bg-white py-8">
-        <div className="contact-photo-marquee service-marquee-mask" tabIndex={0} aria-label="誠峰會計師事務所辦公環境照片">
-          <div className="contact-photo-track">
-            {[...ENVIRONMENT_IMAGES, ...ENVIRONMENT_IMAGES].map((image, index) => (
+        <div className="page-shell mb-4 flex justify-end">
+          <MarqueeControls label="辦公環境照片" onPrevious={() => scrollPhotoByAmount(-436)} onNext={() => scrollPhotoByAmount(436)} />
+        </div>
+        <div
+          ref={photoScrollerRef}
+          className="contact-photo-marquee marquee-scrollable service-marquee-mask"
+          tabIndex={0}
+          onScroll={onPhotoScroll}
+          aria-label="誠峰會計師事務所辦公環境照片，可自動或手動左右滑動"
+        >
+          <div ref={photoTrackRef} className="contact-photo-track">
+            {[...ENVIRONMENT_IMAGES, ...ENVIRONMENT_IMAGES, ...ENVIRONMENT_IMAGES].map((image, index) => (
               <div key={`${image}-${index}`} className="relative h-56 w-[320px] shrink-0 overflow-hidden rounded-xs border border-brand-light/25 bg-brand-cream md:w-[420px]">
                 <Image src={image} alt={index < ENVIRONMENT_IMAGES.length ? "誠峰會計師事務所辦公環境" : ""} fill sizes="420px" className="object-cover" />
               </div>
@@ -60,7 +97,6 @@ export default function ContactPage() {
                 <a href={SITE.bookingUrl} target="_blank" rel="noopener" className="brand-button">
                   預約諮詢
                 </a>
-                <LineCopyButton />
               </div>
             </div>
 
@@ -71,9 +107,12 @@ export default function ContactPage() {
               <div>
                 <h3 className="font-bold text-brand-charcoal">官方 LINE 帳號</h3>
                 <p className="mt-2 text-sm leading-7 text-zinc-600">加入好友後可傳送資料、預約諮詢或確認文件準備方向。</p>
-                <a href={SITE.lineUrl} target="_blank" rel="noopener" className="mt-4 inline-flex text-sm font-bold text-brand-primary">
-                  加入好友
-                </a>
+                <div className="mt-4 flex flex-wrap gap-3">
+                  <a href={SITE.lineUrl} target="_blank" rel="noopener" className="inline-flex items-center text-sm font-bold text-brand-primary transition hover:text-brand-dark">
+                    加入好友
+                  </a>
+                  <LineCopyButton />
+                </div>
               </div>
             </div>
           </div>

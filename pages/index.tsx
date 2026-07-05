@@ -26,6 +26,9 @@ export default function HomePage() {
         <div className="home-hero-line home-hero-line-b" aria-hidden="true" />
         <div className="page-shell relative grid min-h-[calc(100dvh-72px)] items-center gap-10 py-12 lg:grid-cols-[1.05fr_0.95fr]">
           <div className="relative z-10 max-w-2xl">
+            <div className="mb-9 w-72 max-w-[78vw] sm:w-80 lg:w-[400px]">
+              <Image src="/images/LOGO.PNG" alt="誠峰會計師事務所" width={520} height={180} className="h-auto w-full object-contain" priority />
+            </div>
             <p className="eyebrow mb-5">三峽北大特區專業會計師</p>
             <h1 className="hero-gradient-text font-serif text-4xl font-bold leading-[1.12] sm:text-5xl lg:text-6xl">
               誠信為本，峰頂為志
@@ -46,7 +49,7 @@ export default function HomePage() {
               {[
                 ["1998", "在地服務起點"],
                 ["2024", "誠峰成立"],
-                ["1:1", "會計師諮詢"],
+                ["1v1", "會計師諮詢"],
               ].map(([value, label]) => (
                 <div key={label}>
                   <dt className="font-serif text-2xl font-bold text-brand-primary">{value}</dt>
@@ -56,11 +59,13 @@ export default function HomePage() {
             </dl>
           </div>
 
-          <div className="relative">
-            <div className="relative aspect-[4/5] overflow-hidden rounded-xs border border-brand-light/35 bg-white shadow-[0_30px_90px_rgb(74_53_37_/_0.14)]">
-              <Image src="/images/about.jpg" alt="誠峰會計師事務所服務形象" fill sizes="(min-width: 1024px) 42vw, 100vw" className="object-cover" priority />
+          <div className="home-hero-photo-wrap relative">
+            <div className="home-hero-photo-frame relative aspect-[4/5] overflow-hidden border border-brand-light/35 bg-white shadow-[0_30px_90px_rgb(74_53_37_/_0.14)]">
+              <div className="home-hero-photo-soft-edge absolute inset-0">
+                <Image src="/images/about.jpg" alt="誠峰會計師事務所服務形象" fill sizes="(min-width: 1024px) 42vw, 100vw" className="home-hero-photo-image object-cover" priority />
+              </div>
             </div>
-            <div className="absolute -bottom-5 left-5 right-5 rounded-xs border border-brand-light/40 bg-white p-5 shadow-[0_18px_60px_rgb(74_53_37_/_0.12)]">
+            <div className="absolute -bottom-5 left-5 right-5 z-20 rounded-xs border border-brand-light/40 bg-white p-5 shadow-[0_18px_60px_rgb(74_53_37_/_0.12)]">
               <p className="flex items-center gap-2 text-sm font-bold text-brand-charcoal">
                 <CalendarCheck size={18} className="text-brand-primary" weight="bold" />
                 清楚、合規、可長期合作的財稅節奏

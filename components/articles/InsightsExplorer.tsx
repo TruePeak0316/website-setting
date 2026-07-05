@@ -5,6 +5,8 @@ import Link from "next/link";
 import { ArrowRight, MagnifyingGlass } from "@phosphor-icons/react";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { CSSProperties } from "react";
+import { MarqueeControls } from "@/components/ui/MarqueeControls";
+import { useLoopingMarqueeScroll } from "@/components/ui/useLoopingMarqueeScroll";
 import type { ArticleCategory, ArticleSummary } from "@/lib/types";
 
 interface InsightsExplorerProps {
@@ -77,6 +79,10 @@ export function InsightsExplorer({ articles }: InsightsExplorerProps) {
     "--insight-marquee-duration": `${metrics.duration}s`,
     animationPlayState: isPaused ? "paused" : "running",
   } satisfies CSSProperties & Record<"--insight-marquee-distance" | "--insight-marquee-duration", string>;
+  const {
+    onScroll: onMarqueeScroll,
+    scrollByAmount: scrollMarqueeByAmount,
+  } = useLoopingMarqueeScroll({ enabled: metrics.shouldAnimate, cycleWidth: metrics.distance, scrollerRef: viewportRef });
   const activeFilterIndex = filters.indexOf(filter);
   const filterIndicatorStyle: CSSProperties = {
     position: "absolute",
@@ -129,27 +135,39 @@ export function InsightsExplorer({ articles }: InsightsExplorerProps) {
       </div>
 
       {filtered.length > 0 ? (
-        <div
-          ref={viewportRef}
-          className={`relative -mx-4 overflow-hidden py-2 sm:-mx-6 lg:-mx-8 ${metrics.shouldAnimate ? "service-marquee-mask" : ""}`}
-          onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => setIsPaused(false)}
-          onFocus={() => setIsPaused(true)}
-          onBlur={() => setIsPaused(false)}
-        >
-          <div className={`flex w-max gap-5 px-4 sm:px-6 lg:px-8 ${metrics.shouldAnimate ? "insight-marquee-track" : ""}`} style={marqueeStyle}>
-            <div ref={cycleRef} className="flex gap-5">
-              {filtered.map((article) => (
-                <InsightArticleCard key={article.slug} article={article} />
-              ))}
-            </div>
-            {metrics.shouldAnimate ? (
-              <div className="flex gap-5" aria-hidden="true">
+        <div className="space-y-3">
+          <div className="flex justify-end">
+            <MarqueeControls label="文章列表" onPrevious={() => scrollMarqueeByAmount(-420)} onNext={() => scrollMarqueeByAmount(420)} />
+          </div>
+          <div
+            ref={viewportRef}
+            className={`marquee-scrollable relative -mx-4 overflow-x-auto overflow-y-hidden py-2 sm:-mx-6 lg:-mx-8 ${metrics.shouldAnimate ? "service-marquee-mask" : ""}`}
+            onMouseEnter={() => setIsPaused(true)}
+            onMouseLeave={() => setIsPaused(false)}
+            onScroll={onMarqueeScroll}
+            aria-label="文章列表，可自動或手動左右滑動"
+          >
+            <div className={`flex w-max gap-5 px-4 sm:px-6 lg:px-8 ${metrics.shouldAnimate ? "insight-marquee-track" : ""}`} style={marqueeStyle}>
+              {metrics.shouldAnimate ? (
+                <div className="flex gap-5" aria-hidden="true">
+                  {filtered.map((article) => (
+                    <InsightArticleCard key={`${article.slug}-leading-duplicate`} article={article} tabIndex={-1} />
+                  ))}
+                </div>
+              ) : null}
+              <div ref={cycleRef} className="flex gap-5">
                 {filtered.map((article) => (
-                  <InsightArticleCard key={`${article.slug}-duplicate`} article={article} tabIndex={-1} />
+                  <InsightArticleCard key={article.slug} article={article} />
                 ))}
               </div>
-            ) : null}
+              {metrics.shouldAnimate ? (
+                <div className="flex gap-5" aria-hidden="true">
+                  {filtered.map((article) => (
+                    <InsightArticleCard key={`${article.slug}-duplicate`} article={article} tabIndex={-1} />
+                  ))}
+                </div>
+              ) : null}
+            </div>
           </div>
         </div>
       ) : (
@@ -172,6 +190,7 @@ function InsightArticleCard({ article, tabIndex }: InsightArticleCardProps) {
     <Link
       href={`/Library/${article.slug}`}
       tabIndex={tabIndex}
+      draggable={false}
       className="group w-[310px] flex-shrink-0 overflow-hidden rounded-xs border border-brand-light/30 bg-white shadow-[0_18px_60px_rgb(74_53_37_/_0.08)] transition duration-300 hover:-translate-y-1 hover:border-brand-primary/60 hover:shadow-[0_24px_70px_rgb(74_53_37_/_0.13)] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary/50 sm:w-[380px]"
     >
       <div className="relative aspect-[16/10] overflow-hidden bg-brand-light/20">

@@ -41,7 +41,7 @@ export function SiteHeader() {
               <Phone size={16} weight="bold" />
               {SITE.phone}
             </a>
-            <a href={SITE.bookingUrl} className="brand-button px-4 py-2.5" target="_blank" rel="noopener">
+            <a href={SITE.bookingUrl} className="brand-button rounded-full px-4 py-2.5" target="_blank" rel="noopener">
               預約諮詢
               <ArrowRight size={15} weight="bold" />
             </a>
