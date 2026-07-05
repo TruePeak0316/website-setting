@@ -1,4 +1,6 @@
 AGENTS.md
+PROJECT_STATUS.md
+.codex/
 node_modules/
 .next/
 out/
@@ -6,6 +8,3 @@ dist/
 .env*.local
 npm-debug.log*
 *.tsbuildinfo
-ref/
-title-ref/
-card-ref/
