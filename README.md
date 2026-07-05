@@ -28,6 +28,93 @@ npm run lint
 npm run build
 ```
 
+## GitHub Pages 部署
+
+目前正式網站部署在 GitHub Pages。`main` 分支仍是舊版 HTML/CSS/JavaScript 靜態站，重構後的 Next.js 版本不可直接把原始碼分支設為 Pages 來源；需要先產生靜態輸出，再部署輸出資料夾。
+
+### 1. 確認 Next.js 使用靜態輸出
+
+GitHub Pages 只能服務靜態檔案。部署重構版前，`next.config.ts` 需要啟用 static export，讓 `npm run build` 產生 `out/`：
+
+```ts
+import type { NextConfig } from "next";
+
+const nextConfig: NextConfig = {
+  output: "export",
+  reactStrictMode: true,
+  images: {
+    unoptimized: true,
+  },
+};
+
+export default nextConfig;
+```
+
+若仍需要保留舊 `.html` URL 的相容性，不能只依賴 `next.config.ts` 的 `redirects()`，因為 GitHub Pages 沒有 Next.js server 來執行 redirect。應改用靜態 HTML redirect 檔，或保留對應的舊路徑靜態檔。
+
+### 2. 本機產生部署檔
+
+```bash
+export PATH=/home/hsuan/.cache/codex-node/node-v24.15.0-linux-x64/bin:$PATH
+npm install
+npm run lint
+npm run build
+touch out/.nojekyll
+```
+
+建置成功後，部署內容會在 `out/`。`public/CNAME`、`robots.txt`、`sitemap.xml`、圖片與 Library 靜態資源會一起複製到 `out/`；`.nojekyll` 用來避免 GitHub Pages 對 `_next/` 這類底線目錄套用 Jekyll 處理。
+
+### 3. 部署方式
+
+建議使用 GitHub Actions 部署 `out/` artifact。Repository 的 GitHub Pages 設定需選擇 GitHub Actions 作為來源，workflow 內容可採用：
+
+```yaml
+name: Deploy GitHub Pages
+
+on:
+  push:
+    branches: ["dev"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run build
+      - run: touch out/.nojekyll
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: out
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - id: deployment
+        uses: actions/deploy-pages@v4
+```
+
+若不使用 GitHub Actions，也可以手動把 `out/` 的內容推到目前 GitHub Pages 指定的發布分支或資料夾。重點是遠端 Pages 來源必須收到 `out/` 內的靜態檔，而不是 Next.js 專案原始碼本身。
+
 ## 路由對應
 
 - `/`：原 `index.html`
