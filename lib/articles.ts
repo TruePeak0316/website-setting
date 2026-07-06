@@ -9,8 +9,9 @@ const ARTICLE_DIR = path.join(process.cwd(), "Library");
 function resolveAsset(src: string | undefined, fallback: string): string {
   if (!src) return fallback;
   if (src.startsWith("http")) return src;
-  if (src.startsWith("/")) return src;
-  return `/Library/${src}`;
+  const path = src.startsWith("/") ? src : `/Library/${src}`;
+  // Local raster assets have pre-generated WebP versions; prefer them.
+  return path.replace(/\.(jpe?g|png)$/i, ".webp");
 }
 
 function normalizeHtml(html: string): string {

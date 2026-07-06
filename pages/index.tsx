@@ -27,7 +27,7 @@ export default function HomePage() {
         <div className="page-shell relative grid min-h-[calc(100dvh-72px)] items-center gap-10 py-12 lg:grid-cols-[1.05fr_0.95fr]">
           <div className="relative z-10 max-w-2xl">
             <div className="mb-9 w-72 max-w-[78vw] sm:w-80 lg:w-[400px]">
-              <Image src="/images/LOGO.PNG" alt="誠峰會計師事務所" width={520} height={180} className="h-auto w-full object-contain" priority />
+              <Image src="/images/LOGO.webp" alt="誠峰會計師事務所" width={520} height={180} className="h-auto w-full object-contain" priority />
             </div>
             <p className="eyebrow mb-5">三峽北大特區專業會計師</p>
             <h1 className="hero-gradient-text font-serif text-4xl font-bold leading-[1.12] sm:text-5xl lg:text-6xl">
@@ -62,7 +62,7 @@ export default function HomePage() {
           <div className="home-hero-photo-wrap relative">
             <div className="home-hero-photo-frame relative aspect-[4/5] overflow-hidden">
               <div className="home-hero-photo-soft-edge absolute inset-0">
-                <Image src="/images/about.jpg" alt="誠峰會計師事務所服務形象" fill sizes="(min-width: 1024px) 42vw, 100vw" className="home-hero-photo-image object-cover" style={{ objectPosition: "82% center" }} priority />
+                <Image src="/images/about.webp" alt="誠峰會計師事務所服務形象" fill sizes="(min-width: 1024px) 42vw, 100vw" className="home-hero-photo-image object-cover" style={{ objectPosition: "82% center" }} priority />
               </div>
             </div>
             <div className="absolute -bottom-5 left-5 right-5 z-20 rounded-xs border border-brand-light/40 bg-white p-5 shadow-[0_18px_60px_rgb(74_53_37_/_0.12)]">

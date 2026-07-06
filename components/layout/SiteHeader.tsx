@@ -16,7 +16,7 @@ export function SiteHeader() {
       <div className="page-shell">
         <div className="flex h-[72px] items-center justify-between gap-4">
           <Link href="/" className="relative block h-12 w-[150px] flex-shrink-0 sm:h-14 sm:w-[180px]" aria-label="回到首頁">
-            <Image src="/images/LOGO.PNG" alt="誠峰會計師事務所標誌" fill sizes="(min-width: 640px) 180px, 150px" className="object-contain object-left" priority />
+            <Image src="/images/LOGO.webp" alt="誠峰會計師事務所標誌" fill sizes="(min-width: 640px) 180px, 150px" className="object-contain object-left" priority />
           </Link>
 
           <nav className="hidden items-center gap-5 lg:flex" aria-label="主選單">

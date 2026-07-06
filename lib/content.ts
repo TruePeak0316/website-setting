@@ -5,7 +5,7 @@ export const SERVICES: ServiceSection[] = [
     id: "tax-service",
     title: "稅務申報及記帳",
     summary: "讓您放心的稅務後盾，建立穩定帳務制度並降低補稅與裁罰風險。",
-    image: "/images/Tax Filling.jpg",
+    image: "/images/Tax Filling.webp",
     icon: "receipt",
     sections: [
       {
@@ -26,7 +26,7 @@ export const SERVICES: ServiceSection[] = [
     id: "finance-service",
     title: "財務顧問及管理",
     summary: "把財務報表轉譯為經營決策，協助企業看懂現金流與風險。",
-    image: "/images/Accounting Management.jpg",
+    image: "/images/Accounting Management.webp",
     icon: "chart",
     sections: [
       {
@@ -47,7 +47,7 @@ export const SERVICES: ServiceSection[] = [
     id: "company-setup",
     title: "公司設立與變更",
     summary: "從創業第一步開始，協助設立、資本額簽證與登記事項規劃。",
-    image: "/images/Company Establishment and Changes.jpg",
+    image: "/images/Company Establishment and Changes.webp",
     icon: "building",
     sections: [
       {
@@ -68,7 +68,7 @@ export const SERVICES: ServiceSection[] = [
     id: "audit-service",
     title: "簽證與審計服務",
     summary: "守護企業公信力與透明度，支援增資、貸款、補助與標案需求。",
-    image: "/images/Certification and Audit Services.jpg",
+    image: "/images/Certification and Audit Services.webp",
     icon: "file",
     sections: [
       {
@@ -89,7 +89,7 @@ export const SERVICES: ServiceSection[] = [
     id: "inheritance-tax",
     title: "遺產與贈與稅諮詢及申報",
     summary: "結合法令解析與財務評估，量身打造傳承與節稅安排。",
-    image: "/images/estate and gift tax planning and consultation.jpg",
+    image: "/images/estate and gift tax planning and consultation.webp",
     icon: "shield",
     sections: [
       {
@@ -175,7 +175,7 @@ export const TEAM: TeamMember[] = [
   {
     name: "誠峰",
     role: "會計師事務所",
-    image: "/images/AboutUs.jpg",
+    image: "/images/AboutUs.webp",
     paragraphs: [
       "誠峰會計師事務所由彭裕峰會計師於 2024 年創立，名稱寓意對誠信的堅持與持續追求專業高峰的精神。",
       "我們深信，誠信與專業是會計工作的根本。無論是提出建議還是計費方式，誠峰始終以坦率透明為原則。",
@@ -185,7 +185,7 @@ export const TEAM: TeamMember[] = [
   {
     name: "彭裕峰",
     role: "會計師",
-    image: "/images/Angus.jpg",
+    image: "/images/Angus.webp",
     paragraphs: [
       "畢業於國立台北大學會計學系，雙主修應用外語學系，擅長以清晰、溫和的方式協助客戶理解複雜財務議題。",
       "曾任職於 KPMG 安侯建業聯合會計師事務所，服務上市櫃電子製造業，並三度派駐美國參與跨國審計專案。",
@@ -196,7 +196,7 @@ export const TEAM: TeamMember[] = [
   {
     name: "陳滿景",
     role: "記帳士",
-    image: "/images/May.jpg",
+    image: "/images/May.webp",
     paragraphs: [
       "擁有三十年實務經驗，專長於中小企業帳務處理與稅務申報。",
       "她長期以細心、穩定與誠懇的服務風格，獲得眾多客戶信任。",
@@ -239,26 +239,26 @@ export const GOOGLE_REVIEWS: ReviewItem[] = [
 ];
 
 export const ENVIRONMENT_IMAGES = [
-  "/images/environment01.jpg",
-  "/images/environment02.jpg",
-  "/images/environment03.jpg",
-  "/images/environment05.jpg",
-  "/images/environment06.jpg",
+  "/images/environment01.webp",
+  "/images/environment02.webp",
+  "/images/environment03.webp",
+  "/images/environment05.webp",
+  "/images/environment06.webp",
 ];
 
 export const ARTICLE_INDEX: ArticleSummary[] = [
-  { slug: "014", title: "申報完畢", subtitle: "相關附件上傳", date: "2026-05-25", year: "2026", category: "財稅實務", image: "/Library/PictureOf014.jpg", alt: "申報完畢" },
-  { slug: "013", title: "執行業務所得申報操作", subtitle: "", date: "2026-05-25", year: "2026", category: "財稅實務", image: "/Library/PictureOf013.jpg", alt: "執行業務所得申報操作" },
-  { slug: "012", title: "綜合所得稅申報", subtitle: "行號71D", date: "2026-05-25", year: "2026", category: "財稅實務", image: "/Library/PictureOf012.jpg", alt: "綜合所得稅申報" },
-  { slug: "011", title: "各類所得扣繳常見問題與實務重點一次說清楚", subtitle: "", date: "2026-01-27", year: "2026", category: "財稅實務", image: "/Library/PictureOf011.jpg", alt: "各類所得扣繳" },
-  { slug: "010", title: "當贈與變成遺產", subtitle: "113年憲判字第11號揭開擬制遺產課稅的憲法爭議(下)", date: "2025-12-12", year: "2025", category: "誠峰解析", image: "/Library/PictureOf010.jpg", alt: "遺產稅爭議下篇" },
-  { slug: "009", title: "當贈與變成遺產", subtitle: "113年憲判字第11號揭開擬制遺產課稅的憲法爭議(上)", date: "2025-12-12", year: "2025", category: "誠峰解析", image: "/Library/PictureOf009.jpg", alt: "遺產稅爭議上篇" },
-  { slug: "008", title: "電子發票一定要上傳平台嗎？", subtitle: "什麼資料要上傳？多久內要完成？不上傳會被罰嗎？", date: "2025-12-05", year: "2025", category: "財稅實務", image: "/Library/PictureOf008.jpg", alt: "電子發票一定要上傳平台嗎" },
-  { slug: "007", title: "何謂扣繳？", subtitle: "到底在繳什麼東西", date: "2025-10-14", year: "2025", category: "財稅實務", image: "/Library/PictureOf007.jpg", alt: "何謂扣繳" },
-  { slug: "006", title: "網紅課稅新制上路", subtitle: "YouTube、IG、直播收入都要報稅？", date: "2025-10-03", year: "2025", category: "財稅實務", image: "/Library/PictureOf006.jpg", alt: "網紅課稅新制上路" },
-  { slug: "005", title: "營業稅是什麼？", subtitle: "創業老闆必懂的基礎觀念", date: "2025-09-17", year: "2025", category: "財稅實務", image: "/Library/PictureOf005.jpg", alt: "營業稅是什麼" },
-  { slug: "004", title: "我要創業", subtitle: "是開公司好還是行號好？", date: "2025-08-29", year: "2025", category: "公司經營", image: "/Library/PictureOf004.jpg", alt: "我要創業" },
-  { slug: "003", title: "會計也能很永續？", subtitle: "看我們怎麼把 ESG 落實在每一天", date: "2025-07-31", year: "2025", category: "誠峰解析", image: "/Library/PictureOf003.jpg", alt: "會計也能很永續" },
-  { slug: "002", title: "不能說的秘密:擴大書面審核", subtitle: "從便民到變質，一項福國利民政策，如何拖垮會計產業？", date: "2025-06-30", year: "2025", category: "誠峰解析", image: "/Library/PictureOf002.jpg", alt: "不能說的秘密擴大書面審核" },
-  { slug: "001", title: "一年不開發票會違法嗎？", subtitle: "談營業稅免用統一發票制度的實務解析", date: "2025-05-31", year: "2025", category: "財稅實務", image: "/Library/PictureOf001.jpg", alt: "一年不開發票會違法嗎" },
+  { slug: "014", title: "申報完畢", subtitle: "相關附件上傳", date: "2026-05-25", year: "2026", category: "財稅實務", image: "/Library/PictureOf014.webp", alt: "申報完畢" },
+  { slug: "013", title: "執行業務所得申報操作", subtitle: "", date: "2026-05-25", year: "2026", category: "財稅實務", image: "/Library/PictureOf013.webp", alt: "執行業務所得申報操作" },
+  { slug: "012", title: "綜合所得稅申報", subtitle: "行號71D", date: "2026-05-25", year: "2026", category: "財稅實務", image: "/Library/PictureOf012.webp", alt: "綜合所得稅申報" },
+  { slug: "011", title: "各類所得扣繳常見問題與實務重點一次說清楚", subtitle: "", date: "2026-01-27", year: "2026", category: "財稅實務", image: "/Library/PictureOf011.webp", alt: "各類所得扣繳" },
+  { slug: "010", title: "當贈與變成遺產", subtitle: "113年憲判字第11號揭開擬制遺產課稅的憲法爭議(下)", date: "2025-12-12", year: "2025", category: "誠峰解析", image: "/Library/PictureOf010.webp", alt: "遺產稅爭議下篇" },
+  { slug: "009", title: "當贈與變成遺產", subtitle: "113年憲判字第11號揭開擬制遺產課稅的憲法爭議(上)", date: "2025-12-12", year: "2025", category: "誠峰解析", image: "/Library/PictureOf009.webp", alt: "遺產稅爭議上篇" },
+  { slug: "008", title: "電子發票一定要上傳平台嗎？", subtitle: "什麼資料要上傳？多久內要完成？不上傳會被罰嗎？", date: "2025-12-05", year: "2025", category: "財稅實務", image: "/Library/PictureOf008.webp", alt: "電子發票一定要上傳平台嗎" },
+  { slug: "007", title: "何謂扣繳？", subtitle: "到底在繳什麼東西", date: "2025-10-14", year: "2025", category: "財稅實務", image: "/Library/PictureOf007.webp", alt: "何謂扣繳" },
+  { slug: "006", title: "網紅課稅新制上路", subtitle: "YouTube、IG、直播收入都要報稅？", date: "2025-10-03", year: "2025", category: "財稅實務", image: "/Library/PictureOf006.webp", alt: "網紅課稅新制上路" },
+  { slug: "005", title: "營業稅是什麼？", subtitle: "創業老闆必懂的基礎觀念", date: "2025-09-17", year: "2025", category: "財稅實務", image: "/Library/PictureOf005.webp", alt: "營業稅是什麼" },
+  { slug: "004", title: "我要創業", subtitle: "是開公司好還是行號好？", date: "2025-08-29", year: "2025", category: "公司經營", image: "/Library/PictureOf004.webp", alt: "我要創業" },
+  { slug: "003", title: "會計也能很永續？", subtitle: "看我們怎麼把 ESG 落實在每一天", date: "2025-07-31", year: "2025", category: "誠峰解析", image: "/Library/PictureOf003.webp", alt: "會計也能很永續" },
+  { slug: "002", title: "不能說的秘密:擴大書面審核", subtitle: "從便民到變質，一項福國利民政策，如何拖垮會計產業？", date: "2025-06-30", year: "2025", category: "誠峰解析", image: "/Library/PictureOf002.webp", alt: "不能說的秘密擴大書面審核" },
+  { slug: "001", title: "一年不開發票會違法嗎？", subtitle: "談營業稅免用統一發票制度的實務解析", date: "2025-05-31", year: "2025", category: "財稅實務", image: "/Library/PictureOf001.webp", alt: "一年不開發票會違法嗎" },
 ];

@@ -46,7 +46,7 @@ export default function TestimonialsPage() {
   return (
     <SiteLayout>
       <Seo title="客戶見證" path="/testimonials" description="看看客戶如何評價誠峰會計師事務所的專業服務與合作經驗。" />
-      <PageHero title="客戶見證" description="來自 Google 地圖的合作回饋，記錄客戶對誠峰服務品質與溝通方式的評價。" image="/images/AboutUs.jpg" />
+      <PageHero title="客戶見證" description="來自 Google 地圖的合作回饋，記錄客戶對誠峰服務品質與溝通方式的評價。" image="/images/AboutUs.webp" />
 
       <section className="testimonial-section section-pad overflow-hidden bg-brand-cream">
         <div className="page-shell">

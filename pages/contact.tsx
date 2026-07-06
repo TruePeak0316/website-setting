@@ -39,7 +39,7 @@ export default function ContactPage() {
   return (
     <SiteLayout>
       <Seo title="聯絡我們" path="/contact" description="歡迎聯絡誠峰會計師事務所，了解更多稅務與財務服務。" />
-      <PageHero title="聯絡我們" description="歡迎預約諮詢，讓我們協助您釐清稅務、帳務與公司設立相關問題。" image="/images/environment01.jpg" />
+      <PageHero title="聯絡我們" description="歡迎預約諮詢，讓我們協助您釐清稅務、帳務與公司設立相關問題。" image="/images/environment01.webp" />
 
       <section className="overflow-hidden bg-white py-8">
         <div className="page-shell mb-4 flex justify-end">
@@ -55,7 +55,7 @@ export default function ContactPage() {
           <div ref={photoTrackRef} className="contact-photo-track">
             {[...ENVIRONMENT_IMAGES, ...ENVIRONMENT_IMAGES, ...ENVIRONMENT_IMAGES].map((image, index) => (
               <div key={`${image}-${index}`} className="relative h-56 w-[320px] shrink-0 overflow-hidden rounded-xs border border-brand-light/25 bg-brand-cream md:w-[420px]">
-                <Image src={image} alt={index < ENVIRONMENT_IMAGES.length ? "誠峰會計師事務所辦公環境" : ""} fill sizes="420px" className="object-cover" />
+                <Image src={image} alt={index < ENVIRONMENT_IMAGES.length ? "誠峰會計師事務所辦公環境" : ""} fill sizes="420px" className="object-cover" priority={index === 0} />
               </div>
             ))}
           </div>
@@ -102,7 +102,7 @@ export default function ContactPage() {
 
             <div className="brand-card grid gap-5 rounded-xs p-6 sm:grid-cols-[150px_1fr] sm:items-center">
               <div className="relative aspect-square overflow-hidden rounded-xs border border-brand-light/25 bg-white">
-                <Image src="/images/LineQRcode.png" alt="誠峰 LINE 官方帳號 QR Code" fill sizes="150px" className="object-contain p-2" />
+                <Image src="/images/LineQRcode.webp" alt="誠峰 LINE 官方帳號 QR Code" fill sizes="150px" className="object-contain p-2" />
               </div>
               <div>
                 <h3 className="font-bold text-brand-charcoal">官方 LINE 帳號</h3>

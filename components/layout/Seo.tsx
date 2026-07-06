@@ -9,7 +9,7 @@ interface SeoProps {
   type?: "website" | "article";
 }
 
-export function Seo({ title, description = SITE.description, path = "", image = "/images/LOGO.PNG", type = "website" }: SeoProps) {
+export function Seo({ title, description = SITE.description, path = "", image = "/images/LOGO.webp", type = "website" }: SeoProps) {
   const absoluteTitle = title.includes(SITE.name) ? title : `${title}｜${SITE.name}`;
   const url = `${SITE.url}${path}`;
   const imageUrl = image.startsWith("http") ? image : `${SITE.url}${image}`;
