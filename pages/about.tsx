@@ -26,7 +26,7 @@ export default function AboutPage() {
       <PageHero title="關於誠峰" description="從在地記帳服務到會計師專業簽證，誠峰延續務實、穩定與透明的服務精神。" image="/images/AboutUs.webp" />
 
       <section className="about-scroll-section section-pad bg-white">
-        <div className="page-shell grid gap-10 lg:grid-cols-[0.88fr_1.12fr] lg:items-end">
+        <div className="page-shell grid gap-10 lg:grid-cols-[0.88fr_1.12fr] lg:items-start">
           <div>
             <p className="text-sm font-semibold text-brand-primary">誠信為本，峰頂為志</p>
             <h2 className="mt-3 font-serif text-3xl font-bold leading-tight text-brand-charcoal sm:text-4xl">把會計專業變成企業能長期依靠的制度</h2>
