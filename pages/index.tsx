@@ -4,10 +4,10 @@ import { ArrowRight, CalendarCheck, Star } from "@phosphor-icons/react";
 import { useEffect, useState } from "react";
 import { ArticleCard } from "@/components/articles/ArticleCard";
 import { SlidingServiceCards } from "@/components/home/SlidingServiceCards";
+import { TrustScaleSection } from "@/components/home/TrustScaleSection";
 import { Seo } from "@/components/layout/Seo";
 import { SiteLayout } from "@/components/layout/SiteLayout";
-import { Icon } from "@/components/ui/Icon";
-import { ADVANTAGES, ARTICLE_INDEX, SERVICES } from "@/lib/content";
+import { ARTICLE_INDEX, SERVICES } from "@/lib/content";
 import { SITE } from "@/lib/site";
 
 const heroDescription = "深耕三峽與鶯歌，提供記帳、報稅、公司設立、財務顧問與會計師簽證服務。";
@@ -77,32 +77,7 @@ export default function HomePage() {
 
       <SlidingServiceCards services={SERVICES} />
 
-      <section className="section-pad bg-brand-cream">
-        <div className="page-shell grid gap-10 lg:grid-cols-[0.8fr_1.2fr] lg:items-center">
-          <div>
-            <h2 className="font-serif text-3xl font-bold text-brand-charcoal sm:text-4xl">為什麼選擇誠峰</h2>
-            <p className="mt-4 text-sm leading-7 text-zinc-600">我們把傳統事務所的穩定度，結合會計師親自判斷與清楚溝通，讓財務資訊真正能被經營使用。</p>
-            <Link href="/about" className="hero-cta-secondary mt-7 inline-flex items-center justify-center gap-2 rounded-xs border border-brand-light bg-white px-5 py-3 text-sm font-bold text-brand-primary transition duration-300 hover:bg-brand-cream active:translate-y-px">
-              認識團隊
-              <ArrowRight size={15} weight="bold" className="hero-cta-icon" />
-            </Link>
-          </div>
-          <div className="grid gap-5 sm:grid-cols-2">
-            {ADVANTAGES.map((item) => (
-              <div key={item.id} className="rounded-xs border border-brand-light/30 bg-white p-6 shadow-[0_14px_40px_rgb(0_63_115_/_0.06)]">
-                <div className="mb-5 flex items-center justify-between">
-                  <span className="flex h-11 w-11 items-center justify-center rounded-xs bg-brand-cream text-brand-primary">
-                    <Icon name={item.icon} weight="bold" />
-                  </span>
-                  {item.stat ? <span className="font-serif text-3xl font-bold text-brand-light">{item.stat}</span> : null}
-                </div>
-                <h3 className="font-bold text-brand-charcoal">{item.title}</h3>
-                <p className="mt-3 text-sm leading-6 text-zinc-500">{item.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <TrustScaleSection />
 
       <section className="section-pad bg-white">
         <div className="page-shell">

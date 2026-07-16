@@ -1,4 +1,4 @@
-import type { AdvantageItem, ArticleSummary, ReviewItem, ServiceSection, TeamMember, TimelineItem } from "@/lib/types";
+import type { ArticleSummary, ReviewItem, ServiceSection, TeamMember, TimelineItem } from "@/lib/types";
 
 export const SERVICES: ServiceSection[] = [
   {
@@ -108,40 +108,12 @@ export const SERVICES: ServiceSection[] = [
   },
 ];
 
-export const ADVANTAGES: AdvantageItem[] = [
-  {
-    id: "legacy",
-    title: "在地深耕與跨國視野",
-    description: "從鶯歌到三峽，累積長期在地服務經驗，也具備四大事務所與跨國審計背景。",
-    icon: "globe",
-    stat: "1998",
-    label: "服務脈絡起點",
-  },
-  {
-    id: "quality",
-    title: "會計師親自把關",
-    description: "重要案件由會計師直接判斷風險、檢視申報品質，避免服務停留在資料輸入層次。",
-    icon: "award",
-    stat: "1:1",
-    label: "專業諮詢",
-  },
-  {
-    id: "clarity",
-    title: "透明溝通與清楚報價",
-    description: "以白話說明稅務與財務後果，讓經營者理解每一項服務的內容與價值。",
-    icon: "check",
-    stat: "清楚",
-    label: "流程與費用",
-  },
-  {
-    id: "systems",
-    title: "制度化帳務流程",
-    description: "協助企業把憑證、申報、報表與內部管理串起來，讓會計成為可持續的經營基礎。",
-    icon: "book",
-    stat: "SOP",
-    label: "帳務制度",
-  },
-];
+export const TRUST_METRICS = [
+  { value: "1998", label: "在地服務起點" },
+  { value: "2024", label: "誠峰正式成立" },
+  { value: "5項", label: "核心專業服務" },
+  { value: "1:1", label: "會計師親自把關" },
+] as const;
 
 export const TIMELINE: TimelineItem[] = [
   {

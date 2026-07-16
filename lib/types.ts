@@ -25,15 +25,6 @@ export interface ServiceSection {
   }>;
 }
 
-export interface AdvantageItem {
-  id: string;
-  title: string;
-  description: string;
-  icon: IconName;
-  stat?: string;
-  label?: string;
-}
-
 export interface TimelineItem {
   year: string;
   title: string;
