@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { ArrowUpRight, MapPin, Phone, ShieldCheck } from "@phosphor-icons/react";
+import { MapPin, Phone, ShieldCheck } from "@phosphor-icons/react";
 import { NAV_ITEMS, SITE } from "@/lib/site";
 import { SERVICES } from "@/lib/content";
 
@@ -9,7 +9,7 @@ export function SiteFooter() {
   return (
     <footer className="bg-brand-charcoal text-white">
       <div className="page-shell py-14">
-        <div className="grid gap-10 border-b border-white/10 pb-10 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
+        <div className="grid gap-10 border-b border-white/10 pb-10 lg:grid-cols-2 xl:grid-cols-[1.25fr_0.72fr_1fr_1.45fr]">
           <div className="space-y-5">
             <div>
               <p className="font-serif text-2xl font-bold">誠峰會計師事務所</p>
@@ -64,10 +64,16 @@ export function SiteFooter() {
                 {SITE.phone}
               </a>
               <p>{SITE.email}</p>
-              <a href={SITE.mapUrl} target="_blank" rel="noopener" className="inline-flex items-center gap-1 text-brand-accent">
-                Google 地圖
-                <ArrowUpRight size={14} />
-              </a>
+              <div className="aspect-video w-full overflow-hidden border border-white/20 bg-white/5">
+                <iframe
+                  src={SITE.mapEmbedUrl}
+                  title={`${SITE.name} Google 地圖位置`}
+                  className="h-full w-full border-0"
+                  loading="lazy"
+                  referrerPolicy="no-referrer-when-downgrade"
+                  allowFullScreen
+                />
+              </div>
             </div>
           </div>
         </div>
