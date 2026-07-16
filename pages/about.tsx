@@ -51,7 +51,7 @@ export default function AboutPage() {
           </div>
           <div className="grid gap-5">
             {TIMELINE.map((item) => (
-              <article key={item.year} className="about-timeline-card grid gap-4 rounded-xs border border-brand-light/25 bg-white p-6 shadow-[0_14px_40px_rgb(0_63_115_/_0.06)] md:grid-cols-[140px_1fr]">
+              <article key={item.year} className="about-timeline-card grid gap-4 rounded-xs border border-brand-light/25 bg-white p-6 shadow-[0_14px_40px_rgb(7_86_111_/_0.06)] md:grid-cols-[140px_1fr]">
                 <p className="font-serif text-4xl font-bold text-brand-primary">{item.year}</p>
                 <div>
                   <h3 className="text-lg font-bold text-brand-charcoal">{item.title}</h3>

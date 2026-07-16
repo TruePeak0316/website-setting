@@ -65,7 +65,7 @@ export default function HomePage() {
                 <Image src="/images/about.webp" alt="誠峰會計師事務所服務形象" fill sizes="(min-width: 1024px) 42vw, 100vw" className="home-hero-photo-image object-cover" style={{ objectPosition: "82% center" }} priority />
               </div>
             </div>
-            <div className="absolute -bottom-5 left-5 right-5 z-20 rounded-xs border border-brand-light/40 bg-white p-5 shadow-[0_18px_60px_rgb(0_63_115_/_0.12)]">
+            <div className="absolute -bottom-5 left-5 right-5 z-20 rounded-xs border border-brand-light/40 bg-white p-5 shadow-[0_18px_60px_rgb(7_86_111_/_0.12)]">
               <p className="flex items-center gap-2 text-sm font-bold text-brand-charcoal">
                 <CalendarCheck size={18} className="text-brand-primary" weight="bold" />
                 清楚、合規、可長期合作的財稅節奏

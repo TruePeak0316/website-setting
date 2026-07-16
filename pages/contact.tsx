@@ -64,7 +64,7 @@ export default function ContactPage() {
 
       <section className="section-pad bg-brand-cream">
         <div className="page-shell grid gap-8 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
-          <div className="overflow-hidden rounded-xs border border-brand-light/25 bg-white shadow-[0_14px_40px_rgb(0_63_115_/_0.06)]">
+          <div className="overflow-hidden rounded-xs border border-brand-light/25 bg-white shadow-[0_14px_40px_rgb(7_86_111_/_0.06)]">
             <iframe
               src={SITE.mapEmbedUrl}
               title="誠峰會計師事務所 Google 地圖"
