@@ -109,7 +109,7 @@ export function SlidingServiceCards({ services }: SlidingServiceCardsProps) {
               type="button"
               tabIndex={duplicateIndex === 1 ? 0 : -1}
               aria-hidden={duplicateIndex !== 1}
-              className="group w-[310px] flex-shrink-0 rounded-xs border border-brand-light/30 bg-brand-cream/45 p-5 text-left shadow-[0_18px_60px_rgb(74_53_37_/_0.08)] transition duration-300 hover:-translate-y-1 hover:border-brand-primary/60 hover:bg-white hover:shadow-[0_24px_70px_rgb(74_53_37_/_0.13)] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary/50 sm:w-[370px]"
+              className="group w-[310px] flex-shrink-0 rounded-xs border border-brand-light/30 bg-brand-cream/45 p-5 text-left shadow-[0_18px_60px_rgb(0_63_115_/_0.08)] transition duration-300 hover:-translate-y-1 hover:border-brand-primary/60 hover:bg-white hover:shadow-[0_24px_70px_rgb(0_63_115_/_0.13)] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary/50 sm:w-[370px]"
               onMouseEnter={() => setIsPaused(true)}
               onMouseLeave={() => setIsPaused(false)}
               onFocus={() => setIsPaused(true)}
@@ -154,7 +154,7 @@ function ServiceDetailModal({ service, onClose }: ServiceDetailModalProps) {
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center bg-brand-charcoal/55 p-4 backdrop-blur-sm" role="dialog" aria-modal="true" aria-labelledby="service-modal-title" onMouseDown={onClose}>
       <div
-        className="service-modal-panel relative max-h-[calc(100dvh-2rem)] w-full max-w-2xl overflow-y-auto rounded-xs border border-brand-light/40 bg-white p-6 shadow-[0_30px_100px_rgb(30_27_24_/_0.28)] sm:p-8"
+        className="service-modal-panel relative max-h-[calc(100dvh-2rem)] w-full max-w-2xl overflow-y-auto rounded-xs border border-brand-light/40 bg-white p-6 shadow-[0_30px_100px_rgb(23_33_43_/_0.28)] sm:p-8"
         onMouseDown={(event) => event.stopPropagation()}
       >
         <button

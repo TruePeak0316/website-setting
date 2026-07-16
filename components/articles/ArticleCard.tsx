@@ -9,7 +9,7 @@ interface ArticleCardProps {
 
 export function ArticleCard({ article }: ArticleCardProps) {
   return (
-    <Link href={`/Library/${article.slug}`} className="group flex h-full flex-col overflow-hidden rounded-xs border border-brand-light/25 bg-white shadow-[0_14px_40px_rgb(74_53_37_/_0.07)]">
+    <Link href={`/Library/${article.slug}`} className="group flex h-full flex-col overflow-hidden rounded-xs border border-brand-light/25 bg-white shadow-[0_14px_40px_rgb(0_63_115_/_0.07)]">
       <div className="relative aspect-[4/3] overflow-hidden bg-brand-light/20">
         <Image src={article.image} alt={article.alt} fill sizes="(min-width: 1024px) 25vw, (min-width: 640px) 50vw, 100vw" className="object-cover transition duration-500 group-hover:scale-[1.04]" />
       </div>

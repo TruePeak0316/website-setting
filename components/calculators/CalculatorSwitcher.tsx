@@ -26,7 +26,7 @@ export function CalculatorSwitcher() {
 
   return (
     <div className="space-y-8">
-      <div className="calculator-switcher rounded-full border border-brand-light/35 bg-white p-1.5 shadow-[0_18px_54px_rgb(74_53_37_/_0.08)]" role="tablist" aria-label="計算小工具切換">
+      <div className="calculator-switcher rounded-full border border-brand-light/35 bg-white p-1.5 shadow-[0_18px_54px_rgb(0_63_115_/_0.08)]" role="tablist" aria-label="計算小工具切換">
         <span className="calculator-switcher-indicator" style={{ transform: `translateX(${activeIndex * 100}%)` }} />
         {CALCULATOR_TABS.map((tab) => {
           const Icon = tab.icon;

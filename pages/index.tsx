@@ -65,7 +65,7 @@ export default function HomePage() {
                 <Image src="/images/about.webp" alt="誠峰會計師事務所服務形象" fill sizes="(min-width: 1024px) 42vw, 100vw" className="home-hero-photo-image object-cover" style={{ objectPosition: "82% center" }} priority />
               </div>
             </div>
-            <div className="absolute -bottom-5 left-5 right-5 z-20 rounded-xs border border-brand-light/40 bg-white p-5 shadow-[0_18px_60px_rgb(74_53_37_/_0.12)]">
+            <div className="absolute -bottom-5 left-5 right-5 z-20 rounded-xs border border-brand-light/40 bg-white p-5 shadow-[0_18px_60px_rgb(0_63_115_/_0.12)]">
               <p className="flex items-center gap-2 text-sm font-bold text-brand-charcoal">
                 <CalendarCheck size={18} className="text-brand-primary" weight="bold" />
                 清楚、合規、可長期合作的財稅節奏
@@ -89,7 +89,7 @@ export default function HomePage() {
           </div>
           <div className="grid gap-5 sm:grid-cols-2">
             {ADVANTAGES.map((item) => (
-              <div key={item.id} className="rounded-xs border border-brand-light/30 bg-white p-6 shadow-[0_14px_40px_rgb(74_53_37_/_0.06)]">
+              <div key={item.id} className="rounded-xs border border-brand-light/30 bg-white p-6 shadow-[0_14px_40px_rgb(0_63_115_/_0.06)]">
                 <div className="mb-5 flex items-center justify-between">
                   <span className="flex h-11 w-11 items-center justify-center rounded-xs bg-brand-cream text-brand-primary">
                     <Icon name={item.icon} weight="bold" />

@@ -50,7 +50,7 @@ export default function TestimonialsPage() {
 
       <section className="testimonial-section section-pad overflow-hidden bg-brand-cream">
         <div className="page-shell">
-          <div className="testimonial-summary relative overflow-hidden rounded-xs border border-brand-light/30 bg-white p-6 shadow-[0_18px_60px_rgb(74_53_37_/_0.08)] sm:p-8">
+          <div className="testimonial-summary relative overflow-hidden rounded-xs border border-brand-light/30 bg-white p-6 shadow-[0_18px_60px_rgb(0_63_115_/_0.08)] sm:p-8">
             <div className="testimonial-orbit testimonial-orbit-a" />
             <div className="testimonial-orbit testimonial-orbit-b" />
             <div className="relative z-10 grid gap-8 lg:grid-cols-[1fr_0.9fr] lg:items-end">
@@ -75,7 +75,7 @@ export default function TestimonialsPage() {
           </div>
 
           <div className="mt-10 grid gap-6 lg:grid-cols-[0.95fr_1.05fr] lg:items-stretch">
-            <article className="testimonial-feature testimonial-card rounded-xs border border-brand-primary/25 bg-brand-dark p-6 text-white shadow-[0_22px_70px_rgb(74_53_37_/_0.16)] sm:p-8">
+            <article className="testimonial-feature testimonial-card rounded-xs border border-brand-primary/25 bg-brand-dark p-6 text-white shadow-[0_22px_70px_rgb(0_63_115_/_0.16)] sm:p-8">
               <div className="flex items-center justify-between gap-4">
                 <div className="flex gap-1 text-brand-accent">
                   {Array.from({ length: 5 }).map((_, index) => (
@@ -111,7 +111,7 @@ export default function TestimonialsPage() {
                     <article
                       key={`${review.author}-${review.age}-${index}`}
                       aria-hidden={index < supportingReviews.length || index >= supportingReviews.length * 2}
-                      className={`testimonial-card testimonial-review-card w-[82vw] shrink-0 rounded-xs border border-brand-light/25 bg-white p-5 shadow-[0_14px_40px_rgb(74_53_37_/_0.06)] sm:w-[58vw] md:w-auto md:min-w-0 ${index < supportingReviews.length || index >= supportingReviews.length * 2 ? "md:hidden" : ""}`}
+                      className={`testimonial-card testimonial-review-card w-[82vw] shrink-0 rounded-xs border border-brand-light/25 bg-white p-5 shadow-[0_14px_40px_rgb(0_63_115_/_0.06)] sm:w-[58vw] md:w-auto md:min-w-0 ${index < supportingReviews.length || index >= supportingReviews.length * 2 ? "md:hidden" : ""}`}
                       style={{ "--testimonial-index": index % supportingReviews.length } as CSSProperties}
                     >
                       <div className="mb-4 flex gap-1 text-brand-accent">
