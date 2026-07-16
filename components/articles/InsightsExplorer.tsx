@@ -90,8 +90,8 @@ export function InsightsExplorer({ articles }: InsightsExplorerProps) {
     left: "0.25rem",
     width: "calc((100% - 0.5rem) / 4)",
     borderRadius: "0.125rem",
-    background: "#005eaa",
-    boxShadow: "0 10px 24px rgb(0 63 115 / 0.18)",
+    background: "var(--color-brand-primary)",
+    boxShadow: "0 10px 24px rgb(var(--brand-dark-rgb) / 0.18)",
     transform: `translateX(${activeFilterIndex * 100}%)`,
     transition: "transform 280ms cubic-bezier(0.16, 1, 0.3, 1), box-shadow 280ms ease",
   };
@@ -191,11 +191,11 @@ function InsightArticleCard({ article, tabIndex }: InsightArticleCardProps) {
       href={`/Library/${article.slug}`}
       tabIndex={tabIndex}
       draggable={false}
-      className="group w-[310px] flex-shrink-0 overflow-hidden rounded-xs border border-brand-light/30 bg-white shadow-[0_18px_60px_rgb(0_63_115_/_0.08)] transition duration-300 hover:-translate-y-1 hover:border-brand-primary/60 hover:shadow-[0_24px_70px_rgb(0_63_115_/_0.13)] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary/50 sm:w-[380px]"
+      className="group w-[310px] flex-shrink-0 overflow-hidden rounded-xs border border-brand-light/30 bg-white shadow-[0_18px_60px_rgb(7_86_111_/_0.08)] transition duration-300 hover:-translate-y-1 hover:border-brand-primary/60 hover:shadow-[0_24px_70px_rgb(7_86_111_/_0.13)] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary/50 sm:w-[380px]"
     >
       <div className="relative aspect-[16/10] overflow-hidden bg-brand-light/20">
         <Image src={article.image} alt={article.alt} fill sizes="380px" className="object-cover transition duration-700 group-hover:scale-[1.05]" />
-        <div className="absolute left-4 top-4 rounded-xs bg-white/90 px-3 py-1 text-xs font-bold text-brand-primary shadow-[0_8px_24px_rgb(0_63_115_/_0.12)]">
+        <div className="absolute left-4 top-4 rounded-xs bg-white/90 px-3 py-1 text-xs font-bold text-brand-primary shadow-[0_8px_24px_rgb(7_86_111_/_0.12)]">
           {article.category}
         </div>
       </div>
