@@ -30,11 +30,11 @@ npm run build
 
 ## GitHub Pages 部署
 
-目前正式網站部署在 GitHub Pages。`main` 分支仍是舊版 HTML/CSS/JavaScript 靜態站，重構後的 Next.js 版本不可直接把原始碼分支設為 Pages 來源；需要先產生靜態輸出，再部署輸出資料夾。
+目前正式網站部署在 GitHub Pages。Next.js 原始碼不可直接作為 Pages 發布內容，必須先產生靜態輸出，再部署 `out/` 資料夾。
 
 ### 1. 確認 Next.js 使用靜態輸出
 
-GitHub Pages 只能服務靜態檔案。部署重構版前，`next.config.ts` 需要啟用 static export，讓 `npm run build` 產生 `out/`：
+GitHub Pages 只能服務靜態檔案。`next.config.ts` 已啟用 static export 與 trailing slash，讓 `npm run build` 產生可直接服務的 `out/`：
 
 ```ts
 import type { NextConfig } from "next";
@@ -42,6 +42,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   output: "export",
   reactStrictMode: true,
+  trailingSlash: true,
   images: {
     unoptimized: true,
   },
@@ -50,7 +51,7 @@ const nextConfig: NextConfig = {
 export default nextConfig;
 ```
 
-若仍需要保留舊 `.html` URL 的相容性，不能只依賴 `next.config.ts` 的 `redirects()`，因為 GitHub Pages 沒有 Next.js server 來執行 redirect。應改用靜態 HTML redirect 檔，或保留對應的舊路徑靜態檔。
+舊 `.html` URL 的相容性由 `scripts/add-legacy-redirects.mjs` 在 build 後產生靜態 HTML redirect 檔，不能依賴 GitHub Pages 不支援的 Next.js server-side `redirects()`。
 
 ### 2. 本機產生部署檔
 
@@ -62,18 +63,18 @@ npm run build
 touch out/.nojekyll
 ```
 
-建置成功後，部署內容會在 `out/`。`public/CNAME`、`robots.txt`、`sitemap.xml`、圖片與 Library 靜態資源會一起複製到 `out/`；`.nojekyll` 用來避免 GitHub Pages 對 `_next/` 這類底線目錄套用 Jekyll 處理。
+建置成功後，部署內容會在 `out/`。`npm run build` 會另外產生舊 `.html` URL 的靜態 redirect 檔；`public/CNAME`、`robots.txt`、`sitemap.xml`、圖片與 Library 靜態資源會一起複製到 `out/`；`.nojekyll` 用來避免 GitHub Pages 對 `_next/` 這類底線目錄套用 Jekyll 處理。
 
 ### 3. 部署方式
 
-建議使用 GitHub Actions 部署 `out/` artifact。Repository 的 GitHub Pages 設定需選擇 GitHub Actions 作為來源，workflow 內容可採用：
+專案已提供 `.github/workflows/deploy-pages.yml`，在 `main` 有 push 時使用 GitHub Actions 部署 `out/` artifact。Repository 的 GitHub Pages 設定需選擇 GitHub Actions 作為來源：
 
 ```yaml
 name: Deploy GitHub Pages
 
 on:
   push:
-    branches: ["dev"]
+    branches: ["main"]
   workflow_dispatch:
 
 permissions:
@@ -126,7 +127,7 @@ jobs:
 - `/caculators`：原 `caculators.html`
 - `/Library/001` 至 `/Library/014`：原 `Library/001.html` 至 `Library/014.html`
 
-舊 `.html` URL 已在 `next.config.ts` 設定 redirect 至新的 route。
+舊 `.html` URL 由 build 後產生的靜態 HTML redirect 檔導向新的 route。
 
 ## 專案結構
 
