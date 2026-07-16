@@ -36,7 +36,7 @@ export function ArticlePage({ article }: ArticlePageProps) {
               <p className="mt-6 text-sm font-semibold text-zinc-500">撰文：{article.author}</p>
             </div>
 
-            <div className="relative overflow-hidden rounded-xs border border-brand-light/30 bg-brand-cream shadow-[0_18px_60px_rgb(0_63_115_/_0.10)]">
+            <div className="relative overflow-hidden rounded-xs border border-brand-light/30 bg-brand-cream shadow-[0_18px_60px_rgb(7_86_111_/_0.10)]">
               {article.youtube ? (
                 <div className="aspect-video">
                   <iframe
@@ -57,7 +57,7 @@ export function ArticlePage({ article }: ArticlePageProps) {
         </header>
 
         <div className="page-shell py-12 lg:py-16">
-          <div className="mx-auto max-w-3xl rounded-xs border border-brand-light/25 bg-white p-6 shadow-[0_18px_60px_rgb(0_63_115_/_0.08)] sm:p-10">
+          <div className="mx-auto max-w-3xl rounded-xs border border-brand-light/25 bg-white p-6 shadow-[0_18px_60px_rgb(7_86_111_/_0.08)] sm:p-10">
             <div className="article-rich">
               {article.blocks.map((block, index) =>
                 block.type === "heading" ? (

@@ -43,8 +43,8 @@ export function ServicesTabs({ services }: ServicesTabsProps) {
               onClick={() => setDesktopActiveId(service.id)}
               className={`group flex w-full items-center gap-3 rounded-xs border p-4 text-left transition duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] active:translate-y-px ${
                 activeService.id === service.id
-                  ? "translate-x-1 border-brand-primary bg-white shadow-[0_18px_44px_rgb(0_63_115_/_0.12)]"
-                  : "border-brand-light/30 bg-white/60 hover:-translate-y-0.5 hover:border-brand-primary/45 hover:bg-white hover:shadow-[0_16px_38px_rgb(0_63_115_/_0.08)]"
+                  ? "translate-x-1 border-brand-primary bg-white shadow-[0_18px_44px_rgb(7_86_111_/_0.12)]"
+                  : "border-brand-light/30 bg-white/60 hover:-translate-y-0.5 hover:border-brand-primary/45 hover:bg-white hover:shadow-[0_16px_38px_rgb(7_86_111_/_0.08)]"
               }`}
             >
               <span
@@ -89,7 +89,7 @@ function MobileServiceAccordionItem({
   const panelId = `${service.id}-mobile-panel`;
 
   return (
-    <article className={`overflow-hidden rounded-xs border bg-white transition duration-300 ${expanded ? "border-brand-primary shadow-[0_18px_52px_rgb(0_63_115_/_0.1)]" : "border-brand-light/30"}`}>
+    <article className={`overflow-hidden rounded-xs border bg-white transition duration-300 ${expanded ? "border-brand-primary shadow-[0_18px_52px_rgb(7_86_111_/_0.1)]" : "border-brand-light/30"}`}>
       <button type="button" onClick={onSelect} aria-expanded={expanded} aria-controls={panelId} className="flex w-full items-center gap-3 p-4 text-left">
         <span className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-xs transition duration-300 ${expanded ? "bg-brand-primary text-white" : "bg-brand-cream text-brand-primary"}`}>
           <Icon name={service.icon} />
@@ -144,7 +144,7 @@ function ServiceSections({ sections }: { sections: ServiceSection["sections"] })
   return (
     <div className="grid gap-4 lg:gap-5">
       {sections.map((section) => (
-        <section key={section.heading} className="rounded-xs border border-brand-light/25 bg-brand-cream/35 p-4 transition duration-300 sm:p-5 lg:hover:-translate-y-0.5 lg:hover:border-brand-primary/30 lg:hover:bg-white lg:hover:shadow-[0_12px_30px_rgb(0_63_115_/_0.07)]">
+        <section key={section.heading} className="rounded-xs border border-brand-light/25 bg-brand-cream/35 p-4 transition duration-300 sm:p-5 lg:hover:-translate-y-0.5 lg:hover:border-brand-primary/30 lg:hover:bg-white lg:hover:shadow-[0_12px_30px_rgb(7_86_111_/_0.07)]">
           <h3 className="mb-3 text-sm font-bold text-brand-primary">{section.heading}</h3>
           <ul className="space-y-2.5">
             {section.body.map((line) => (

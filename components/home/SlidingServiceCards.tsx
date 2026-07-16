@@ -109,7 +109,7 @@ export function SlidingServiceCards({ services }: SlidingServiceCardsProps) {
               type="button"
               tabIndex={duplicateIndex === 1 ? 0 : -1}
               aria-hidden={duplicateIndex !== 1}
-              className="group w-[310px] flex-shrink-0 rounded-xs border border-brand-light/30 bg-brand-cream/45 p-5 text-left shadow-[0_18px_60px_rgb(0_63_115_/_0.08)] transition duration-300 hover:-translate-y-1 hover:border-brand-primary/60 hover:bg-white hover:shadow-[0_24px_70px_rgb(0_63_115_/_0.13)] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary/50 sm:w-[370px]"
+              className="group w-[310px] flex-shrink-0 rounded-xs border border-brand-light/30 bg-brand-cream/45 p-5 text-left shadow-[0_18px_60px_rgb(7_86_111_/_0.08)] transition duration-300 hover:-translate-y-1 hover:border-brand-primary/60 hover:bg-white hover:shadow-[0_24px_70px_rgb(7_86_111_/_0.13)] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary/50 sm:w-[370px]"
               onMouseEnter={() => setIsPaused(true)}
               onMouseLeave={() => setIsPaused(false)}
               onFocus={() => setIsPaused(true)}

@@ -50,7 +50,7 @@ export function SiteHeader() {
           <button
             type="button"
             onClick={() => setOpen((value) => !value)}
-            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-brand-light/50 bg-white text-brand-primary shadow-[0_8px_24px_rgb(0_63_115_/_0.08)] transition duration-300 hover:border-brand-primary/45 hover:bg-brand-cream active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary/35 lg:hidden"
+            className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-brand-light/50 bg-white text-brand-primary shadow-[0_8px_24px_rgb(7_86_111_/_0.08)] transition duration-300 hover:border-brand-primary/45 hover:bg-brand-cream active:scale-95 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary/35 lg:hidden"
             aria-label={open ? "關閉主選單" : "開啟主選單"}
             aria-expanded={open}
           >
