@@ -26,7 +26,7 @@ export default function HomePage() {
         <div className="home-hero-line home-hero-line-b" aria-hidden="true" />
         <div className="page-shell relative grid min-h-[calc(100dvh-72px)] items-center gap-10 py-12 lg:grid-cols-[1.05fr_0.95fr]">
           <div className="relative z-10 max-w-2xl">
-            <div className="mb-9 w-72 max-w-[78vw] sm:w-80 lg:w-[400px]">
+            <div className="mx-auto mb-9 w-72 max-w-[78vw] sm:w-80 lg:mx-0 lg:w-[400px]">
               <Image src="/images/LOGO.webp" alt="誠峰會計師事務所" width={520} height={180} className="h-auto w-full object-contain" priority />
             </div>
             <p className="eyebrow mb-5">三峽北大特區專業會計師</p>
