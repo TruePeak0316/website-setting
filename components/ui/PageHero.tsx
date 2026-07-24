@@ -1,7 +1,8 @@
 import Image from "next/image";
+import type { ReactNode } from "react";
 
 interface PageHeroProps {
-  title: string;
+  title: ReactNode;
   description?: string;
   image: string;
   kicker?: string;

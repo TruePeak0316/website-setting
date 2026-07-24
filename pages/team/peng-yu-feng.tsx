@@ -38,10 +38,17 @@ export default function PengYuFengPage() {
   return (
     <SiteLayout>
       <Seo title="彭裕峰｜主持會計師" path="/team/peng-yu-feng" description="彭裕峰主持會計師的資格、學歷、經歷與專長介紹。" />
-      <PageHero title="專業團隊 > 彭裕峰" image="/images/home-trust-team.webp" />
+      <PageHero
+        title={
+          <>
+            專業團隊 &gt; <span className="hero-gradient-text-on-dark">彭裕峰</span>
+          </>
+        }
+        image="/images/home-trust-team.webp"
+      />
       <section className="section-pad bg-white" aria-label="彭裕峰專業介紹內容區">
         <div className="page-shell grid gap-12 lg:grid-cols-[350px_minmax(0,1fr)] lg:items-start lg:gap-20">
-          <div className="w-full max-w-[350px]">
+          <div className="mx-auto w-full max-w-[350px] lg:mx-0">
             <div className="relative aspect-square w-full overflow-hidden rounded-[4px] bg-brand-light/35">
               <Image src="/images/彭裕峰.jpg" alt="彭裕峰主持會計師" fill sizes="(min-width: 1024px) 350px, 100vw" className="object-cover" priority />
             </div>

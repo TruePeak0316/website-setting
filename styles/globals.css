@@ -141,6 +141,15 @@
     animation: hero-title-gradient 8s ease-in-out infinite;
   }
 
+  .hero-gradient-text-on-dark {
+    background-image: linear-gradient(105deg, #ffffff 0%, #ffffff 34%, #58b6c6 50%, #b7dde7 58%, #ffffff 72%, #ffffff 100%);
+    background-size: 220% 100%;
+    color: transparent;
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation: hero-title-gradient 8s ease-in-out infinite;
+  }
+
   .home-hero {
     background:
       radial-gradient(circle at 16% 18%, rgb(var(--brand-secondary-rgb) / 0.26), transparent 30%),
@@ -745,6 +754,7 @@
     }
 
     .hero-gradient-text,
+    .hero-gradient-text-on-dark,
     .home-hero-grid,
     .home-hero-line,
     .home-hero-shape,
