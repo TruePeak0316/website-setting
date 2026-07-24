@@ -21,6 +21,7 @@ export const NAV_ITEMS = [
   { href: "/", label: "首頁" },
   { href: "/services", label: "服務項目" },
   { href: "/about", label: "關於我們" },
+  { href: "/team", label: "專業團隊" },
   { href: "/truepeakinsights", label: "誠峰觀點" },
   { href: "/testimonials", label: "客戶見證" },
   { href: "/caculators", label: "計算小工具" },

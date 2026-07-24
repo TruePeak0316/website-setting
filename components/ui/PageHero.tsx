@@ -2,7 +2,7 @@ import Image from "next/image";
 
 interface PageHeroProps {
   title: string;
-  description: string;
+  description?: string;
   image: string;
   kicker?: string;
 }
@@ -18,7 +18,7 @@ export function PageHero({ title, description, image, kicker }: PageHeroProps) {
         <div className="max-w-3xl">
           {kicker ? <p className="mb-4 text-xs font-semibold uppercase tracking-[0.18em] text-brand-accent">{kicker}</p> : null}
           <h1 className="font-serif text-4xl font-bold leading-tight sm:text-5xl lg:text-6xl">{title}</h1>
-          <p className="mt-5 max-w-2xl text-base leading-7 text-white/75 sm:text-lg">{description}</p>
+          {description ? <p className="mt-5 max-w-2xl text-base leading-7 text-white/75 sm:text-lg">{description}</p> : null}
         </div>
       </div>
     </section>
