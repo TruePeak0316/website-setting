@@ -64,6 +64,7 @@ export type ArticleBlock =
 
 export interface ArticleDetail extends ArticleSummary {
   metaTitle: string;
+  metaDescription: string;
   author: string;
   youtube?: string;
   blocks: ArticleBlock[];

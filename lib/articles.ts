@@ -44,6 +44,7 @@ export function loadArticle(slug: string): ArticleDetail {
   const contentRoot = $(".insights-text").first();
   const title = contentRoot.find("h1").first().text().trim() || summary.title;
   const subtitle = contentRoot.find("h2").first().text().trim() || summary.subtitle;
+  const metaDescription = $('meta[name="description"]').attr("content")?.trim() || subtitle || title;
   const authorText = contentRoot
     .find("p")
     .toArray()
@@ -85,6 +86,7 @@ export function loadArticle(slug: string): ArticleDetail {
     subtitle,
     image,
     metaTitle: $("title").first().text().trim() || `${title}｜誠峰會計師事務所`,
+    metaDescription,
     author: authorText?.replace("撰文：", "").trim() || "彭裕峰 會計師",
     blocks,
     ...(youtube ? { youtube } : {}),

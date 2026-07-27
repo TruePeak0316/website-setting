@@ -14,7 +14,7 @@ export function ArticlePage({ article }: ArticlePageProps) {
     <SiteLayout>
       <Seo
         title={article.metaTitle}
-        description={article.subtitle || article.title}
+        description={article.metaDescription}
         path={`/Library/${article.slug}`}
         image={article.image}
         type="article"
