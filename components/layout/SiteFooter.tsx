@@ -1,9 +1,14 @@
 import Link from "next/link";
 import { MapPin, Phone, ShieldCheck } from "@phosphor-icons/react";
+import { FirebaseViewCounter } from "@/components/layout/FirebaseViewCounter";
 import { NAV_ITEMS, SITE } from "@/lib/site";
 import { SERVICES } from "@/lib/content";
 
-export function SiteFooter() {
+interface SiteFooterProps {
+  showViewCounter?: boolean;
+}
+
+export function SiteFooter({ showViewCounter = false }: SiteFooterProps) {
   const year = new Date().getFullYear();
 
   return (
@@ -80,7 +85,10 @@ export function SiteFooter() {
 
         <div className="flex flex-col gap-3 pt-8 text-xs text-white/45 md:flex-row md:items-center md:justify-between">
           <p>© {year} 誠峰會計師事務所｜彭裕峰會計師 All Rights Reserved.</p>
-          <p>本網站資訊為一般說明，個案仍須依實際資料與主管機關規定判斷。</p>
+          <div className="flex flex-col gap-2 md:items-end">
+            {showViewCounter ? <FirebaseViewCounter /> : null}
+            <p>本網站資訊為一般說明，個案仍須依實際資料與主管機關規定判斷。</p>
+          </div>
         </div>
       </div>
     </footer>

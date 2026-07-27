@@ -4,14 +4,15 @@ import { SiteHeader } from "@/components/layout/SiteHeader";
 
 interface SiteLayoutProps {
   children: ReactNode;
+  showViewCounter?: boolean;
 }
 
-export function SiteLayout({ children }: SiteLayoutProps) {
+export function SiteLayout({ children, showViewCounter = false }: SiteLayoutProps) {
   return (
     <div className="min-h-[100dvh] bg-brand-cream text-brand-charcoal">
       <SiteHeader />
       <main>{children}</main>
-      <SiteFooter />
+      <SiteFooter showViewCounter={showViewCounter} />
     </div>
   );
 }

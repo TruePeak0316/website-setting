@@ -14,7 +14,7 @@ const heroDescription = "深耕三峽與鶯歌，提供記帳、報稅、公司�
 
 export default function HomePage() {
   return (
-    <SiteLayout>
+    <SiteLayout showViewCounter>
       <Seo title="誠峰會計師事務所 - 彭裕峰會計師" path="/" />
 
       <section className="home-hero relative overflow-hidden bg-brand-cream">
