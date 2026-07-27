@@ -38,7 +38,7 @@ export default function ContactPage() {
 
   return (
     <SiteLayout>
-      <Seo title="聯絡我們" path="/contact" description="歡迎聯絡誠峰會計師事務所，了解更多稅務與財務服務。" />
+      <Seo title="聯絡我們" path="/contact" description="誠峰會計師事務所位於新北市三峽區，提供電話、LINE、預約諮詢與交通資訊，方便您洽詢記帳、報稅及公司設立服務。" />
       <PageHero title="聯絡我們" description="歡迎預約諮詢，讓我們協助您釐清稅務、帳務與公司設立相關問題。" image="/images/environment01.webp" />
 
       <section className="overflow-hidden bg-white py-8">

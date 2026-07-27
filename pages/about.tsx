@@ -22,7 +22,7 @@ const ABOUT_VALUES = [
 export default function AboutPage() {
   return (
     <SiteLayout>
-      <Seo title="關於我們" path="/about" description="誠峰會計師事務所秉持誠信與專業，深耕三鶯地區，致力成為企業長期可靠的財務夥伴。" />
+      <Seo title="關於我們" path="/about" description="誠峰會計師事務所秉持誠信與專業，深耕三鶯地區，放眼台北，致力成為企業長期可靠的財務夥伴。" />
       <PageHero title="關於誠峰" description="從在地記帳服務到會計師專業簽證，誠峰延續務實、穩定與透明的服務精神。" image="/images/AboutUs.webp" />
 
       <section className="about-scroll-section section-pad bg-white">
