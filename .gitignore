@@ -3,6 +3,7 @@ AGENTS.md
 .codex/
 node_modules/
 .next/
+/next-env.d.ts
 out/
 dist/
 .env*.local
