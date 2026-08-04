@@ -90,8 +90,8 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
         with:
           node-version: 24
           cache: npm
@@ -99,7 +99,7 @@ jobs:
       - run: npm run lint
       - run: npm run build
       - run: touch out/.nojekyll
-      - uses: actions/upload-pages-artifact@v3
+      - uses: actions/upload-pages-artifact@v5
         with:
           path: out
 
@@ -111,7 +111,7 @@ jobs:
     needs: build
     steps:
       - id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
 ```
 
 若不使用 GitHub Actions，也可以手動把 `out/` 的內容推到目前 GitHub Pages 指定的發布分支或資料夾。重點是遠端 Pages 來源必須收到 `out/` 內的靜態檔，而不是 Next.js 專案原始碼本身。
