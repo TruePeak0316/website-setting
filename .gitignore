@@ -1,0 +1,12 @@
+AGENTS.md
+/PROJECT_STATUS.md
+.codex/
+node_modules/
+.next/
+/next-env.d.ts
+out/
+dist/
+.env*.local
+npm-debug.log*
+*.tsbuildinfo
+.codegraph/
