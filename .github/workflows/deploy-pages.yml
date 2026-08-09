@@ -4,6 +4,27 @@ on:
   push:
     branches: ["main"]
   workflow_dispatch:
+    inputs:
+      deployment_id:
+        description: CMS deployment UUID
+        required: true
+        type: string
+      release_id:
+        description: Immutable CMS release UUID
+        required: true
+        type: string
+      site_key:
+        description: CMS site key
+        required: true
+        type: string
+      attempt_number:
+        description: CMS deployment attempt number
+        required: true
+        type: string
+      content_api_url:
+        description: Public CMS API base URL
+        required: true
+        type: string
 
 permissions:
   contents: read
@@ -19,6 +40,116 @@ jobs:
     if: github.event_name != 'push' || github.ref == 'refs/heads/main'
     runs-on: ubuntu-latest
     steps:
+      - name: Validate CMS dispatch
+        if: github.event_name == 'workflow_dispatch'
+        shell: bash
+        env:
+          ATTEMPT_NUMBER: ${{ inputs.attempt_number }}
+          BUILD_TOKEN: ${{ secrets.CMS_BUILD_TOKEN }}
+          CONTENT_API_URL: ${{ inputs.content_api_url }}
+          DEPLOYMENT_ID: ${{ inputs.deployment_id }}
+          RELEASE_ID: ${{ inputs.release_id }}
+          SITE_KEY: ${{ inputs.site_key }}
+          STATUS_TOKEN: ${{ secrets.CMS_DEPLOYMENT_STATUS_TOKEN }}
+        run: |
+          set -euo pipefail
+
+          uuid_pattern='^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$'
+          [[ "$DEPLOYMENT_ID" =~ $uuid_pattern ]] || {
+            echo "::error::deployment_id must be a UUID"
+            exit 1
+          }
+          [[ "$RELEASE_ID" =~ $uuid_pattern ]] || {
+            echo "::error::release_id must be a UUID"
+            exit 1
+          }
+          [[ "$SITE_KEY" =~ ^[a-z0-9][a-z0-9_-]{0,63}$ ]] || {
+            echo "::error::site_key is invalid"
+            exit 1
+          }
+          [[ "$ATTEMPT_NUMBER" =~ ^[1-9][0-9]*$ ]] || {
+            echo "::error::attempt_number must be a positive integer"
+            exit 1
+          }
+          [[ "$CONTENT_API_URL" =~ ^https:// ]] || {
+            echo "::error::content_api_url must use HTTPS"
+            exit 1
+          }
+          [[ -n "$BUILD_TOKEN" ]] || {
+            echo "::error::CMS_BUILD_TOKEN is not configured"
+            exit 1
+          }
+          [[ -n "$STATUS_TOKEN" ]] || {
+            echo "::error::CMS_DEPLOYMENT_STATUS_TOKEN is not configured"
+            exit 1
+          }
+
+      - name: Report CMS deployment started
+        if: github.event_name == 'workflow_dispatch'
+        shell: bash
+        env:
+          ATTEMPT_NUMBER: ${{ inputs.attempt_number }}
+          CONTENT_API_URL: ${{ inputs.content_api_url }}
+          DEPLOYMENT_ID: ${{ inputs.deployment_id }}
+          RUN_ATTEMPT: ${{ github.run_attempt }}
+          RUN_ID: ${{ github.run_id }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          STATUS_TOKEN: ${{ secrets.CMS_DEPLOYMENT_STATUS_TOKEN }}
+        run: |
+          set -euo pipefail
+
+          recorded_at="$(date -u +'%Y-%m-%dT%H:%M:%SZ')"
+          payload="$(jq -n \
+            --arg attempt "$ATTEMPT_NUMBER" \
+            --arg event_id "github-$RUN_ID-$RUN_ATTEMPT-started" \
+            --arg recorded_at "$recorded_at" \
+            --arg run_id "$RUN_ID" \
+            --arg run_url "$RUN_URL" \
+            '{
+              attemptNumber: ($attempt | tonumber),
+              status: "in_progress",
+              providerWorkflowRunId: $run_id,
+              providerStatus: "in_progress",
+              providerEventId: $event_id,
+              workflowUrl: $run_url,
+              recordedAt: $recorded_at,
+              details: { source: "github-actions" }
+            }')"
+
+          curl --fail-with-body --silent --show-error \
+            --retry 3 --retry-all-errors --retry-delay 2 \
+            --request POST \
+            --header "Content-Type: application/json" \
+            --header "X-CMS-Deployment-Status-Token: $STATUS_TOKEN" \
+            --data "$payload" \
+            "${CONTENT_API_URL%/}/deployments/$DEPLOYMENT_ID/status"
+
+      - name: Fetch immutable CMS snapshot
+        if: github.event_name == 'workflow_dispatch'
+        shell: bash
+        env:
+          BUILD_TOKEN: ${{ secrets.CMS_BUILD_TOKEN }}
+          CONTENT_API_URL: ${{ inputs.content_api_url }}
+          RELEASE_ID: ${{ inputs.release_id }}
+          SITE_KEY: ${{ inputs.site_key }}
+        run: |
+          set -euo pipefail
+
+          snapshot_path="$RUNNER_TEMP/published-content.json"
+          curl --fail-with-body --silent --show-error \
+            --retry 3 --retry-all-errors --retry-delay 2 \
+            --get \
+            --header "X-CMS-Build-Token: $BUILD_TOKEN" \
+            --data-urlencode "siteKey=$SITE_KEY" \
+            --data-urlencode "releaseId=$RELEASE_ID" \
+            --output "$snapshot_path" \
+            "${CONTENT_API_URL%/}/build/content"
+
+          jq -e --arg release_id "$RELEASE_ID" \
+            '.schemaVersion == "1.0" and .releaseId == $release_id' \
+            "$snapshot_path" >/dev/null
+          echo "Validated CMS snapshot $(sha256sum "$snapshot_path" | cut -d ' ' -f 1)"
+
       - name: Checkout
         uses: actions/checkout@v7
 
@@ -56,3 +187,87 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
+
+  report:
+    if: ${{ always() && github.event_name == 'workflow_dispatch' }}
+    runs-on: ubuntu-latest
+    needs: [build, deploy]
+    steps:
+      - name: Report CMS deployment result
+        shell: bash
+        env:
+          ATTEMPT_NUMBER: ${{ inputs.attempt_number }}
+          BUILD_RESULT: ${{ needs.build.result }}
+          COMMIT_SHA: ${{ github.sha }}
+          CONTENT_API_URL: ${{ inputs.content_api_url }}
+          DEPLOYMENT_ID: ${{ inputs.deployment_id }}
+          DEPLOY_RESULT: ${{ needs.deploy.result }}
+          RUN_ATTEMPT: ${{ github.run_attempt }}
+          RUN_ID: ${{ github.run_id }}
+          RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
+          STATUS_TOKEN: ${{ secrets.CMS_DEPLOYMENT_STATUS_TOKEN }}
+        run: |
+          set -euo pipefail
+
+          [[ "$CONTENT_API_URL" =~ ^https:// ]] || {
+            echo "::error::content_api_url must use HTTPS"
+            exit 1
+          }
+          [[ -n "$STATUS_TOKEN" ]] || {
+            echo "::error::CMS_DEPLOYMENT_STATUS_TOKEN is not configured"
+            exit 1
+          }
+
+          if [[ "$DEPLOY_RESULT" == "success" ]]; then
+            status="succeeded"
+            provider_status="completed:success"
+            failure_message=""
+          elif [[ "$BUILD_RESULT" == "cancelled" || "$DEPLOY_RESULT" == "cancelled" ]]; then
+            status="cancelled"
+            provider_status="completed:cancelled"
+            failure_message="GitHub workflow was cancelled"
+          else
+            status="failed"
+            provider_status="completed:failure"
+            failure_message="GitHub build=$BUILD_RESULT deploy=$DEPLOY_RESULT"
+          fi
+
+          recorded_at="$(date -u +'%Y-%m-%dT%H:%M:%SZ')"
+          payload="$(jq -n \
+            --arg attempt "$ATTEMPT_NUMBER" \
+            --arg build_result "$BUILD_RESULT" \
+            --arg commit_sha "$COMMIT_SHA" \
+            --arg deploy_result "$DEPLOY_RESULT" \
+            --arg event_id "github-$RUN_ID-$RUN_ATTEMPT-terminal" \
+            --arg failure_message "$failure_message" \
+            --arg provider_status "$provider_status" \
+            --arg recorded_at "$recorded_at" \
+            --arg run_id "$RUN_ID" \
+            --arg run_url "$RUN_URL" \
+            --arg status "$status" \
+            '{
+              attemptNumber: ($attempt | tonumber),
+              status: $status,
+              providerWorkflowRunId: $run_id,
+              providerStatus: $provider_status,
+              providerEventId: $event_id,
+              workflowUrl: $run_url,
+              commitSha: $commit_sha,
+              failureMessage: (
+                if $failure_message == "" then null else $failure_message end
+              ),
+              recordedAt: $recorded_at,
+              details: {
+                source: "github-actions",
+                buildResult: $build_result,
+                deployResult: $deploy_result
+              }
+            }')"
+
+          curl --fail-with-body --silent --show-error \
+            --retry 3 --retry-all-errors --retry-delay 2 \
+            --request POST \
+            --header "Content-Type: application/json" \
+            --header "X-CMS-Deployment-Status-Token: $STATUS_TOKEN" \
+            --data "$payload" \
+            "${CONTENT_API_URL%/}/deployments/$DEPLOYMENT_ID/status"
