@@ -8,7 +8,6 @@ import { TrustScaleSection } from "@/components/home/TrustScaleSection";
 import { Seo } from "@/components/layout/Seo";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { ARTICLE_INDEX, SERVICES } from "@/lib/content";
-import { SITE } from "@/lib/site";
 
 const heroDescription = "深耕三峽與鶯歌，提供記帳、報稅、公司設立、財務顧問與會計師簽證服務。";
 
@@ -35,10 +34,6 @@ export default function HomePage() {
             </h1>
             <LoopingHeroText text={heroDescription} />
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <a href={SITE.bookingUrl} target="_blank" rel="noopener" className="brand-button hero-cta-primary">
-                預約諮詢
-                <ArrowRight size={17} weight="bold" className="hero-cta-icon" />
-              </a>
               <Link href="/services" className="brand-button-secondary hero-cta-secondary">
                 查看服務
                 <ArrowRight size={15} weight="bold" className="hero-cta-icon" />
@@ -100,17 +95,14 @@ export default function HomePage() {
       </section>
 
       <section className="bg-brand-charcoal py-14 text-white">
-        <div className="page-shell flex flex-col gap-6 md:flex-row md:items-center md:justify-between">
-          <div>
+        <div className="page-shell">
+          <div className="max-w-3xl">
             <p className="flex items-center gap-2 text-sm font-semibold text-brand-accent">
               <Star size={17} weight="fill" />
               Google 地圖五星好評
             </p>
             <h2 className="mt-2 font-serif text-3xl font-bold">讓財稅問題回到可理解、可處理的狀態</h2>
           </div>
-          <a href={SITE.bookingUrl} target="_blank" rel="noopener" className="brand-button bg-brand-accent text-brand-charcoal hover:bg-brand-light">
-            預約會計師諮詢
-          </a>
         </div>
       </section>
     </SiteLayout>
