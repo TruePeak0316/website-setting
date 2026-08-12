@@ -1,141 +1,99 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { CopySimple, LinkSimple } from "@phosphor-icons/react";
+import { useEffect, useMemo, useState } from "react";
+import {
+  chineseDigitDatePeriod,
+  buildInvoiceQuery,
+  computeInvoice,
+  formatMoney,
+  formatRocDate,
+  initialInvoiceState,
+  ntdUpper,
+  parseInvoiceQuery,
+  rateLabel,
+  validateTaxId,
+  type InvoiceSource,
+  type InvoiceState,
+  type TaxRateCode,
+} from "@/lib/invoice";
 
-type InvoiceType = "three" | "two";
-type TaxRateCode = "5" | "0" | "exempt";
-type Source = "net" | "gross";
-
-interface InvoiceState {
-  invoiceType: InvoiceType;
-  issueDate: string;
-  buyerTaxId: string;
-  buyerName: string;
-  taxRate: TaxRateCode;
-  netAmount: string;
-  grossAmount: string;
-  twoIssueDate: string;
-  twoTaxRate: TaxRateCode;
-  twoGross: string;
-}
-
-const initialInvoiceState: InvoiceState = {
-  invoiceType: "three",
-  issueDate: "",
-  buyerTaxId: "",
-  buyerName: "",
-  taxRate: "5",
-  netAmount: "",
-  grossAmount: "",
-  twoIssueDate: "",
-  twoTaxRate: "5",
-  twoGross: "",
-};
-
-function rateValue(rate: TaxRateCode): number {
-  return rate === "5" ? 0.05 : 0;
-}
-
-function formatMoney(value: number): string {
-  return Number.isFinite(value) ? Math.round(value).toLocaleString("zh-TW") : "-";
-}
-
-function validateTaxId(value: string): { ok: boolean; reason?: string } {
-  const digits = value.replace(/\D/g, "");
-  if (digits.length !== 8) return { ok: false, reason: "統編需為 8 位數字" };
-  const weights = [1, 2, 1, 2, 1, 2, 4, 1];
-  const sum = digits.split("").reduce((total, digit, index) => {
-    const product = Number(digit) * weights[index];
-    return total + Math.floor(product / 10) + (product % 10);
-  }, 0);
-  const seventhIsSeven = digits[6] === "7";
-  return sum % 5 === 0 || (seventhIsSeven && (sum + 1) % 5 === 0)
-    ? { ok: true }
-    : { ok: false, reason: "統編檢核未通過" };
-}
-
-function ntdUpper(value: number): string {
-  if (!Number.isFinite(value)) return "-";
-  const units = ["元", "拾", "佰", "仟", "萬", "拾", "佰", "仟", "億", "拾", "佰", "仟", "兆"];
-  const numerals = ["零", "壹", "貳", "參", "肆", "伍", "陸", "柒", "捌", "玖"];
-  const integer = Math.floor(value);
-  if (integer === 0) return "新台幣零元整";
-  return (
-    String(integer)
-      .split("")
-      .reverse()
-      .map((digit, index) => {
-        const num = Number(digit);
-        return num === 0 ? `零${units[index] ?? ""}` : `${numerals[num]}${units[index] ?? ""}`;
-      })
-      .reverse()
-      .join("") + "整"
-  );
-}
-
-function formatRocDate(dateValue: string): string {
-  if (!dateValue) return "-";
-  const date = new Date(`${dateValue}T00:00:00`);
-  if (Number.isNaN(date.getTime())) return "-";
-  return `${date.getFullYear() - 1911}年 ${String(date.getMonth() + 1).padStart(2, "0")}月 ${String(date.getDate()).padStart(2, "0")}日`;
-}
-
-function chineseDigitDatePeriod(dateValue: string): string {
-  const date = dateValue ? new Date(`${dateValue}T00:00:00`) : new Date();
-  const safeDate = Number.isNaN(date.getTime()) ? new Date() : date;
-  const numerals = ["零", "一", "二", "三", "四", "五", "六", "七", "八", "九"];
-  const rocYear = String(safeDate.getFullYear() - 1911)
-    .split("")
-    .map((digit) => numerals[Number(digit)])
-    .join("");
-  const startMonth = Math.floor(safeDate.getMonth() / 2) * 2 + 1;
-  const endMonth = startMonth + 1;
-  return `${rocYear}年${numerals[startMonth]}、${numerals[endMonth]}月份`;
-}
-
-function computeInvoice(state: InvoiceState, source: Source) {
-  const type = state.invoiceType;
-  const activeRate = rateValue(type === "two" ? state.twoTaxRate : state.taxRate);
-  let net = Number.NaN;
-  let gross = Number.NaN;
-  let tax = Number.NaN;
-
-  if (type === "two") {
-    const enteredGross = Number(state.twoGross);
-    if (Number.isFinite(enteredGross)) {
-      gross = Math.round(enteredGross);
-      net = activeRate === 0 ? gross : Math.round(gross / (1 + activeRate));
-      tax = gross - net;
-    }
-  } else if (source === "gross" && state.grossAmount) {
-    const enteredGross = Number(state.grossAmount);
-    if (Number.isFinite(enteredGross)) {
-      gross = Math.round(enteredGross);
-      net = activeRate === 0 ? gross : Math.round(gross / (1 + activeRate));
-      tax = gross - net;
-    }
-  } else {
-    const enteredNet = Number(state.netAmount);
-    if (Number.isFinite(enteredNet)) {
-      net = enteredNet;
-      gross = activeRate === 0 ? net : Math.round(net * (1 + activeRate));
-      tax = gross - net;
-    }
+async function copyValue(value: string): Promise<boolean> {
+  try {
+    await navigator.clipboard.writeText(value);
+    return true;
+  } catch {
+    const textarea = document.createElement("textarea");
+    textarea.value = value;
+    textarea.style.position = "fixed";
+    textarea.style.opacity = "0";
+    document.body.appendChild(textarea);
+    textarea.select();
+    const copied = document.execCommand("copy");
+    textarea.remove();
+    if (!copied) window.prompt("請手動複製以下內容：", value);
+    return copied;
   }
-
-  return { net, gross, tax };
 }
 
 export function InvoiceCalculator() {
   const [state, setState] = useState<InvoiceState>(initialInvoiceState);
-  const [source, setSource] = useState<Source>("net");
+  const [source, setSource] = useState<InvoiceSource>("net");
+  const [copyFeedback, setCopyFeedback] = useState("");
   const result = useMemo(() => computeInvoice(state, source), [state, source]);
   const taxIdCheck = state.buyerTaxId ? validateTaxId(state.buyerTaxId) : null;
   const activeDate = state.invoiceType === "two" ? state.twoIssueDate : state.issueDate;
   const activeRate = state.invoiceType === "two" ? state.twoTaxRate : state.taxRate;
 
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const parsed = parseInvoiceQuery(params);
+    if (!parsed) return;
+    setState(parsed.state);
+    setSource(parsed.source);
+  }, []);
+
+  useEffect(() => {
+    if (!copyFeedback) return;
+    const timer = window.setTimeout(() => setCopyFeedback(""), 2500);
+    return () => window.clearTimeout(timer);
+  }, [copyFeedback]);
+
   function update<K extends keyof InvoiceState>(key: K, value: InvoiceState[K]) {
     setState((current) => ({ ...current, [key]: value }));
+  }
+
+  async function copyShareLink() {
+    const params = buildInvoiceQuery(state, source);
+    const url = `${window.location.origin}${window.location.pathname}?${params.toString()}#invoice-calculator-panel`;
+    setCopyFeedback((await copyValue(url)) ? "已複製分享連結" : "請手動複製分享連結");
+  }
+
+  async function copyResultText() {
+    if (!Number.isFinite(result.gross)) {
+      setCopyFeedback("請先輸入試算金額");
+      return;
+    }
+
+    const lines = [
+      "發票營業稅試算",
+      `發票類型：${state.invoiceType === "three" ? "三聯式（公司）" : "二聯式（個人）"}`,
+      ...(activeDate ? [`日期：${formatRocDate(activeDate)}`] : []),
+      ...(state.invoiceType === "three" && state.buyerName ? [`買受人：${state.buyerName}`] : []),
+      ...(state.invoiceType === "three" && state.buyerTaxId ? [`統一編號：${state.buyerTaxId}`] : []),
+      `稅率：${rateLabel(activeRate)}`,
+      `銷售額（未稅）：${formatMoney(result.net)} 元`,
+      `營業稅額：${formatMoney(result.tax)} 元`,
+      `總計金額（含稅）：${formatMoney(result.gross)} 元`,
+      `新台幣中文大寫：${ntdUpper(result.gross)}`,
+    ];
+    setCopyFeedback((await copyValue(lines.join("\n"))) ? "已複製試算文字" : "請手動複製試算文字");
+  }
+
+  function resetInvoice() {
+    setState(initialInvoiceState);
+    setSource("net");
+    setCopyFeedback("");
   }
 
   return (
@@ -244,13 +202,26 @@ export function InvoiceCalculator() {
             <p className="font-semibold text-brand-charcoal">{state.invoiceType === "three" ? "統一發票（三聯式）" : "統一發票（二聯式）"}</p>
             <p>日期：{formatRocDate(activeDate)}</p>
             <p>買受人：{state.invoiceType === "three" ? state.buyerName || "必填" : "可省略"}</p>
-            <p>稅率：{activeRate === "5" ? "5%" : activeRate === "0" ? "0%" : "免稅"}</p>
+            <p>稅率：{rateLabel(activeRate)}</p>
             <p>總計：{formatMoney(result.gross)}</p>
           </div>
 
-          <button type="button" onClick={() => setState(initialInvoiceState)} className="mt-5 w-full rounded-xs border border-brand-primary px-4 py-2.5 text-sm font-semibold text-brand-primary transition hover:bg-brand-primary hover:text-white">
-            清除資料
-          </button>
+          <div className="mt-5 grid gap-2 sm:grid-cols-2">
+            <button type="button" onClick={copyShareLink} className="inline-flex items-center justify-center gap-2 whitespace-nowrap rounded-xs border border-brand-primary px-4 py-2.5 text-sm font-semibold text-brand-primary transition hover:bg-brand-primary hover:text-white active:scale-[0.98]">
+              <LinkSimple size={17} weight="bold" />
+              分享試算連結
+            </button>
+            <button type="button" onClick={copyResultText} className="brand-button whitespace-nowrap">
+              <CopySimple size={17} weight="bold" />
+              複製試算文字
+            </button>
+            <button type="button" onClick={resetInvoice} className="rounded-xs border border-brand-light/50 px-4 py-2.5 text-sm font-semibold text-zinc-600 transition hover:border-brand-primary hover:text-brand-primary active:scale-[0.98] sm:col-span-2">
+              清除資料
+            </button>
+          </div>
+          <p className="mt-3 min-h-5 text-center text-xs font-semibold text-brand-primary" aria-live="polite">
+            {copyFeedback}
+          </p>
         </div>
       </div>
 
