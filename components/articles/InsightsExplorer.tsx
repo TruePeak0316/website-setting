@@ -141,7 +141,7 @@ export function InsightsExplorer({ articles }: InsightsExplorerProps) {
           </div>
           <div
             ref={viewportRef}
-            className={`marquee-scrollable relative -mx-4 overflow-x-auto overflow-y-hidden py-2 sm:-mx-6 lg:-mx-8 ${metrics.shouldAnimate ? "service-marquee-mask" : ""}`}
+            className={`marquee-scrollable relative -mx-4 snap-x snap-proximity overflow-x-auto overflow-y-hidden py-2 sm:-mx-6 lg:-mx-8 lg:snap-none ${metrics.shouldAnimate ? "service-marquee-mask" : ""}`}
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}
             onScroll={onMarqueeScroll}
@@ -191,20 +191,20 @@ function InsightArticleCard({ article, tabIndex }: InsightArticleCardProps) {
       href={`/Library/${article.slug}`}
       tabIndex={tabIndex}
       draggable={false}
-      className="group w-[310px] flex-shrink-0 overflow-hidden rounded-xs border border-brand-light/30 bg-white shadow-[0_18px_60px_rgb(7_86_111_/_0.08)] transition duration-300 hover:-translate-y-1 hover:border-brand-primary/60 hover:shadow-[0_24px_70px_rgb(7_86_111_/_0.13)] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary/50 sm:w-[380px]"
+      className="group flex h-full w-[310px] flex-shrink-0 snap-start flex-col overflow-hidden rounded-xs border border-brand-light/30 bg-white shadow-[0_18px_60px_rgb(7_86_111_/_0.08)] transition duration-300 hover:-translate-y-1 hover:border-brand-primary/60 hover:shadow-[0_24px_70px_rgb(7_86_111_/_0.13)] focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-primary/50 sm:w-[380px] lg:snap-align-none"
     >
-      <div className="relative aspect-[16/10] overflow-hidden bg-brand-light/20">
+      <div className="relative aspect-square overflow-hidden bg-brand-light/20">
         <Image src={article.image} alt={article.alt} fill sizes="380px" className="object-cover transition duration-700 group-hover:scale-[1.05]" />
         <div className="absolute left-4 top-4 rounded-xs bg-white/90 px-3 py-1 text-xs font-bold text-brand-primary shadow-[0_8px_24px_rgb(7_86_111_/_0.12)]">
           {article.category}
         </div>
       </div>
 
-      <div className="p-5">
+      <div className="flex flex-1 flex-col p-5">
         <p className="font-display text-xs font-semibold text-zinc-500">{article.date}</p>
-        <h3 className="mt-3 line-clamp-2 text-xl font-bold leading-snug text-brand-charcoal transition duration-300 group-hover:text-brand-primary">{article.title}</h3>
-        {article.subtitle ? <p className="mt-3 line-clamp-2 text-sm leading-6 text-zinc-600">{article.subtitle}</p> : null}
-        <div className="mt-5 flex items-center justify-between border-t border-brand-light/35 pt-4 text-xs font-bold tracking-[0.08em] text-brand-primary">
+        <h3 className="mt-3 line-clamp-2 min-h-14 text-xl font-bold leading-snug text-brand-charcoal transition duration-300 group-hover:text-brand-primary">{article.title}</h3>
+        {article.subtitle ? <p className="mt-3 line-clamp-2 min-h-12 text-sm leading-6 text-zinc-600">{article.subtitle}</p> : <span className="mt-3 min-h-12" aria-hidden="true" />}
+        <div className="mt-auto flex items-center justify-between border-t border-brand-light/35 pt-4 text-xs font-bold tracking-[0.08em] text-brand-primary">
           <span>閱讀文章</span>
           <ArrowRight size={15} weight="bold" className="transition duration-300 group-hover:translate-x-1" />
         </div>

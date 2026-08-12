@@ -315,7 +315,7 @@
   .marquee-scrollable {
     cursor: grab;
     overscroll-behavior-inline: contain;
-    touch-action: pan-x;
+    touch-action: pan-x pan-y;
     -webkit-overflow-scrolling: touch;
     scrollbar-color: rgb(var(--brand-primary-rgb) / 0.48) rgb(var(--brand-secondary-rgb) / 0.16);
     scrollbar-width: thin;
@@ -393,6 +393,17 @@
   @media (max-width: 767px) {
     .marquee-scrollable {
       scrollbar-width: none;
+    }
+
+    .animate-service-marquee,
+    .insight-marquee-track {
+      animation: none;
+      transform: none;
+    }
+
+    .mobile-marquee-duplicate,
+    .insight-marquee-track > [aria-hidden="true"] {
+      display: none;
     }
 
     .marquee-scrollable::-webkit-scrollbar {
