@@ -34,7 +34,7 @@ export default function HomePage() {
             </h1>
             <LoopingHeroText text={heroDescription} />
             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-              <Link href="/services" className="brand-button-secondary hero-cta-secondary">
+              <Link href="/services" className="brand-button hero-cta-primary">
                 查看服務
                 <ArrowRight size={15} weight="bold" className="hero-cta-icon" />
               </Link>
