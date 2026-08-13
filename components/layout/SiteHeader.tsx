@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
-import { ArrowRight, List, Phone, X } from "@phosphor-icons/react";
+import { List, Phone, X } from "@phosphor-icons/react";
 import { useState } from "react";
 import { NAV_ITEMS, SITE } from "@/lib/site";
 
@@ -40,10 +40,6 @@ export function SiteHeader() {
             <a href={SITE.phoneHref} className="inline-flex items-center gap-2 text-sm font-medium text-zinc-700 transition hover:text-brand-primary">
               <Phone size={16} weight="bold" />
               {SITE.phone}
-            </a>
-            <a href={SITE.bookingUrl} className="brand-button rounded-full px-4 py-2.5" target="_blank" rel="noopener">
-              預約諮詢
-              <ArrowRight size={15} weight="bold" />
             </a>
           </div>
 

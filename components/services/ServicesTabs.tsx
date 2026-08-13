@@ -1,8 +1,9 @@
 "use client";
 
 import Image from "next/image";
+import { useRouter } from "next/router";
 import { ArrowRight, CaretDown } from "@phosphor-icons/react";
-import { useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Icon } from "@/components/ui/Icon";
 import type { ServiceSection } from "@/lib/types";
 
@@ -11,14 +12,71 @@ interface ServicesTabsProps {
 }
 
 export function ServicesTabs({ services }: ServicesTabsProps) {
+  const router = useRouter();
   const [desktopActiveId, setDesktopActiveId] = useState(services[0]?.id ?? "");
   const [mobileOpenId, setMobileOpenId] = useState<string | null>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const skipNextHashScrollRef = useRef(false);
+  const serviceIds = useMemo(() => new Set(services.map((service) => service.id)), [services]);
   const activeService = useMemo(() => services.find((service) => service.id === desktopActiveId) ?? services[0], [desktopActiveId, services]);
+
+  const selectService = useCallback((serviceId: string, shouldScroll = false) => {
+    setDesktopActiveId(serviceId);
+    setMobileOpenId(serviceId);
+
+    if (shouldScroll) {
+      window.requestAnimationFrame(() => containerRef.current?.scrollIntoView({ block: "start" }));
+    }
+  }, []);
+
+  useEffect(() => {
+    const syncFromHash = () => {
+      const encodedHash = window.location.hash.slice(1);
+      const shouldScroll = !skipNextHashScrollRef.current;
+      skipNextHashScrollRef.current = false;
+      let hash = encodedHash;
+      try {
+        hash = decodeURIComponent(encodedHash);
+      } catch {
+        hash = encodedHash;
+      }
+      if (!hash) return;
+
+      if (serviceIds.has(hash)) {
+        selectService(hash, shouldScroll);
+        return;
+      }
+
+      const firstServiceId = services[0]?.id;
+      if (firstServiceId) {
+        selectService(firstServiceId, true);
+        void router.replace(`${window.location.pathname}${window.location.search}`, undefined, { shallow: true, scroll: false });
+      }
+    };
+
+    syncFromHash();
+    window.addEventListener("hashchange", syncFromHash);
+    window.addEventListener("popstate", syncFromHash);
+    router.events.on("hashChangeComplete", syncFromHash);
+    return () => {
+      window.removeEventListener("hashchange", syncFromHash);
+      window.removeEventListener("popstate", syncFromHash);
+      router.events.off("hashChangeComplete", syncFromHash);
+    };
+  }, [router.events, selectService, serviceIds, services]);
+
+  const updateHash = useCallback((serviceId: string | null) => {
+    const nextUrl = serviceId
+      ? `${window.location.pathname}${window.location.search}#${encodeURIComponent(serviceId)}`
+      : `${window.location.pathname}${window.location.search}`;
+    skipNextHashScrollRef.current = true;
+    void router.push(nextUrl, undefined, { shallow: true, scroll: false });
+  }, [router]);
 
   if (!activeService) return null;
 
   return (
-    <>
+    <div ref={containerRef} className="scroll-mt-28">
       <div className="lg:hidden">
         <div className="space-y-3">
           {services.map((service, index) => (
@@ -27,7 +85,12 @@ export function ServicesTabs({ services }: ServicesTabsProps) {
               service={service}
               expanded={mobileOpenId === service.id}
               priorityImage={index === 0}
-              onSelect={() => setMobileOpenId((current) => (current === service.id ? null : service.id))}
+              onSelect={() => {
+                const nextId = mobileOpenId === service.id ? null : service.id;
+                setMobileOpenId(nextId);
+                if (nextId) setDesktopActiveId(nextId);
+                updateHash(nextId);
+              }}
             />
           ))}
         </div>
@@ -40,7 +103,10 @@ export function ServicesTabs({ services }: ServicesTabsProps) {
               key={service.id}
               type="button"
               aria-pressed={activeService.id === service.id}
-              onClick={() => setDesktopActiveId(service.id)}
+              onClick={() => {
+                selectService(service.id);
+                updateHash(service.id);
+              }}
               className={`group flex w-full items-center gap-3 rounded-xs border p-4 text-left transition duration-300 ease-[cubic-bezier(0.16,1,0.3,1)] active:translate-y-px ${
                 activeService.id === service.id
                   ? "translate-x-1 border-brand-primary bg-white shadow-[0_18px_44px_rgb(7_86_111_/_0.12)]"
@@ -71,7 +137,7 @@ export function ServicesTabs({ services }: ServicesTabsProps) {
 
         <ServiceDetailCard key={activeService.id} service={activeService} />
       </div>
-    </>
+    </div>
   );
 }
 

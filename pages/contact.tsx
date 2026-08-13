@@ -38,8 +38,8 @@ export default function ContactPage() {
 
   return (
     <SiteLayout>
-      <Seo title="聯絡我們" path="/contact" description="誠峰會計師事務所位於新北市三峽區，提供電話、LINE、預約諮詢與交通資訊，方便您洽詢記帳、報稅及公司設立服務。" />
-      <PageHero title="聯絡我們" description="歡迎預約諮詢，讓我們協助您釐清稅務、帳務與公司設立相關問題。" image="/images/environment01.webp" />
+      <Seo title="聯絡我們" path="/contact" description="誠峰會計師事務所位於新北市三峽區，提供電話、LINE 與交通資訊，方便您洽詢記帳、報稅及公司設立服務。" />
+      <PageHero title="聯絡我們" description="歡迎來電或透過 LINE 洽詢，讓我們協助您釐清稅務、帳務與公司設立相關問題。" image="/images/environment01.webp" />
 
       <section className="overflow-hidden bg-white py-8">
         <div className="page-shell mb-4 flex justify-end">
@@ -93,11 +93,6 @@ export default function ContactPage() {
                 </p>
                 <p>服務時間：08:30-12:30、13:30-17:30</p>
               </div>
-              <div className="mt-6 flex flex-wrap gap-3">
-                <a href={SITE.bookingUrl} target="_blank" rel="noopener" className="brand-button">
-                  預約諮詢
-                </a>
-              </div>
             </div>
 
             <div className="brand-card grid gap-5 rounded-xs p-6 sm:grid-cols-[150px_1fr] sm:items-center">
@@ -106,7 +101,7 @@ export default function ContactPage() {
               </div>
               <div>
                 <h3 className="font-bold text-brand-charcoal">官方 LINE 帳號</h3>
-                <p className="mt-2 text-sm leading-7 text-zinc-600">加入好友後可傳送資料、預約諮詢或確認文件準備方向。</p>
+                <p className="mt-2 text-sm leading-7 text-zinc-600">加入好友後可傳送資料、洽詢服務或確認文件準備方向。</p>
                 <div className="mt-4 flex flex-wrap gap-3">
                   <a href={SITE.lineUrl} target="_blank" rel="noopener" className="inline-flex items-center text-sm font-bold text-brand-primary transition hover:text-brand-dark">
                     加入好友

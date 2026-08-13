@@ -13,11 +13,8 @@
 
 ## 開發指令
 
-WSL 內建 Node 版本偏舊，本次開發使用暫存在 `~/.cache/codex-node/node-v24.15.0-linux-x64` 的 Node runtime。執行指令前請先設定 PATH：
-
-```bash
-export PATH=/home/hsuan/.cache/codex-node/node-v24.15.0-linux-x64/bin:$PATH
-```
+本機與 WSL 開發環境目前全域使用 Node.js `v22.23.2`；GitHub Actions
+workflow 使用 Node.js 24。兩者都符合目前 Next.js 16 的 runtime 需求。
 
 常用指令：
 
@@ -56,7 +53,6 @@ export default nextConfig;
 ### 2. 本機產生部署檔
 
 ```bash
-export PATH=/home/hsuan/.cache/codex-node/node-v24.15.0-linux-x64/bin:$PATH
 npm install
 npm run lint
 npm run build
@@ -76,6 +72,22 @@ on:
   push:
     branches: ["main"]
   workflow_dispatch:
+    inputs:
+      deployment_id:
+        required: true
+        type: string
+      release_id:
+        required: true
+        type: string
+      site_key:
+        required: true
+        type: string
+      attempt_number:
+        required: true
+        type: string
+      content_api_url:
+        required: true
+        type: string
 
 permissions:
   contents: read
@@ -114,6 +126,25 @@ jobs:
         uses: actions/deploy-pages@v5
 ```
 
+### 4. CMS publish trigger
+
+CMS 以 `workflow_dispatch` 傳入 `deployment_id`、`release_id`、
+`site_key`、`attempt_number` 與 HTTPS `content_api_url`。Repository
+Actions secrets 必須提供：
+
+- `CMS_BUILD_TOKEN`：讀取 immutable `PublishedContentV1` snapshot。
+- `CMS_DEPLOYMENT_STATUS_TOKEN`：回報 `in_progress` 與
+  `succeeded`／`failed`／`cancelled`。
+
+Workflow 會驗證 inputs／secrets、取得並核對 snapshot
+`schemaVersion: "1.0"` 與 `releaseId`、執行 lint/build、部署 Pages，
+最後以 run ID、workflow URL、commit SHA 與終態 callback 回報 CMS。
+`github-pages` environment 目前只允許 `main`，因此 production CMS
+dispatcher 的 `GITHUB_PUBLISH_REF` 必須設為 `main`。
+
+目前 workflow 已取得並驗證 snapshot，但網站 source 尚未將 snapshot 轉成
+頁面內容；消費 published content 仍是後續獨立整合工作。
+
 若不使用 GitHub Actions，也可以手動把 `out/` 的內容推到目前 GitHub Pages 指定的發布分支或資料夾。重點是遠端 Pages 來源必須收到 `out/` 內的靜態檔，而不是 Next.js 專案原始碼本身。
 
 ## 路由對應
@@ -149,5 +180,14 @@ jobs:
 npm run lint
 npm run build
 ```
+
+- CMS real-target acceptance：預期的 token failure callback、retry、snapshot
+  驗證、完整 static build、main Pages deployment 與 succeeded callback 均通過。
+- GitHub Actions run `31313846310` 成功部署 commit
+  `e3679ef270e7c19e0a461fa1e02e8aa606edea58`；deployment
+  `5818769587` 的 environment URL 為
+  `https://www.tpcpa.com.tw/`，即時 HTTPS 驗證回應 `200`。
+- 驗收使用的 TryCloudflare tunnel、allowlist gateway、temporary SQLite、
+  API process 與兩個 temporary Actions secrets 均已清除。
 
 瀏覽器截圖與 console 驗證請參考 `PROJECT_STATUS.md`。
