@@ -11,6 +11,7 @@ export interface InvoiceState {
   netAmount: string;
   grossAmount: string;
   twoIssueDate: string;
+  twoBuyerName: string;
   twoTaxRate: TaxRateCode;
   twoGross: string;
 }
@@ -24,6 +25,7 @@ export const initialInvoiceState: InvoiceState = {
   netAmount: "",
   grossAmount: "",
   twoIssueDate: "",
+  twoBuyerName: "",
   twoTaxRate: "5",
   twoGross: "",
 };
@@ -95,7 +97,7 @@ export function rateLabel(rate: TaxRateCode): string {
 }
 
 export function parseInvoiceQuery(params: URLSearchParams): { state: InvoiceState; source: InvoiceSource } | null {
-  const keys = ["type", "invoiceType", "date", "twoDate", "taxId", "buyer", "net", "gross", "twoGross", "rate", "twoRate", "source"];
+  const keys = ["type", "invoiceType", "date", "twoDate", "taxId", "buyer", "twoBuyer", "net", "gross", "twoGross", "rate", "twoRate", "source"];
   if (!keys.some((key) => params.has(key))) return null;
 
   const invoiceType: InvoiceType = params.get("invoiceType") === "two" || params.get("type") === "duplicate" ? "two" : "three";
@@ -115,6 +117,7 @@ export function parseInvoiceQuery(params: URLSearchParams): { state: InvoiceStat
       netAmount: invoiceType === "three" ? params.get("net") ?? "" : "",
       grossAmount: invoiceType === "three" ? params.get("gross") ?? "" : "",
       twoIssueDate: invoiceType === "two" ? params.get("twoDate") ?? params.get("date") ?? "" : "",
+      twoBuyerName: invoiceType === "two" ? params.get("twoBuyer") ?? "" : "",
       twoTaxRate: invoiceType === "two" ? validTwoRate : "5",
       twoGross: invoiceType === "two" ? params.get("twoGross") ?? params.get("gross") ?? "" : "",
     },
@@ -143,6 +146,7 @@ export function buildInvoiceQuery(state: InvoiceState, source: InvoiceSource): U
     params.set("date", state.twoIssueDate);
     params.set("twoDate", state.twoIssueDate);
   }
+  if (state.twoBuyerName) params.set("twoBuyer", state.twoBuyerName);
   params.set("rate", state.twoTaxRate);
   params.set("twoRate", state.twoTaxRate);
   if (state.twoGross) {

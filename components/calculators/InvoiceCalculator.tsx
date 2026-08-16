@@ -44,6 +44,7 @@ export function InvoiceCalculator() {
   const taxIdCheck = state.buyerTaxId ? validateTaxId(state.buyerTaxId) : null;
   const activeDate = state.invoiceType === "two" ? state.twoIssueDate : state.issueDate;
   const activeRate = state.invoiceType === "two" ? state.twoTaxRate : state.taxRate;
+  const twoBuyerDisplay = state.twoBuyerName.trim() || "(無統編之買受人)";
 
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
@@ -80,6 +81,7 @@ export function InvoiceCalculator() {
       `發票類型：${state.invoiceType === "three" ? "三聯式（公司）" : "二聯式（個人）"}`,
       ...(activeDate ? [`日期：${formatRocDate(activeDate)}`] : []),
       ...(state.invoiceType === "three" && state.buyerName ? [`買受人：${state.buyerName}`] : []),
+      ...(state.invoiceType === "two" ? [`買受人：${twoBuyerDisplay}`] : []),
       ...(state.invoiceType === "three" && state.buyerTaxId ? [`統一編號：${state.buyerTaxId}`] : []),
       `稅率：${rateLabel(activeRate)}`,
       `銷售額（未稅）：${formatMoney(result.net)} 元`,
@@ -122,7 +124,7 @@ export function InvoiceCalculator() {
       </div>
 
       <div className="grid gap-5 lg:grid-cols-[1fr_0.9fr]">
-        <div className="grid gap-4 sm:grid-cols-2">
+        <div className="grid content-evenly gap-4 sm:grid-cols-2">
           {state.invoiceType === "three" ? (
             <>
               <label className="space-y-2 text-sm font-semibold text-zinc-700">
@@ -170,6 +172,10 @@ export function InvoiceCalculator() {
                 </select>
               </label>
               <label className="space-y-2 text-sm font-semibold text-zinc-700 sm:col-span-2">
+                買受人
+                <input value={state.twoBuyerName} onChange={(event) => update("twoBuyerName", event.target.value)} className="w-full rounded-xs border border-brand-light/40 px-3 py-2.5 font-normal outline-none focus:border-brand-primary" placeholder="無統編之買受人" />
+              </label>
+              <label className="space-y-2 text-sm font-semibold text-zinc-700 sm:col-span-2">
                 銷售額（含稅）實收
                 <input type="number" value={state.twoGross} onChange={(event) => update("twoGross", event.target.value)} className="w-full rounded-xs border border-brand-light/40 px-3 py-2.5 font-normal outline-none focus:border-brand-primary" placeholder="請輸入含稅總額" />
               </label>
@@ -201,7 +207,7 @@ export function InvoiceCalculator() {
           <div className="mt-6 rounded-xs border border-brand-light/40 bg-white p-4 text-xs leading-6 text-zinc-600">
             <p className="font-semibold text-brand-charcoal">{state.invoiceType === "three" ? "統一發票（三聯式）" : "統一發票（二聯式）"}</p>
             <p>日期：{formatRocDate(activeDate)}</p>
-            <p>買受人：{state.invoiceType === "three" ? state.buyerName || "必填" : "可省略"}</p>
+            <p>買受人：{state.invoiceType === "three" ? state.buyerName || "必填" : twoBuyerDisplay}</p>
             <p>稅率：{rateLabel(activeRate)}</p>
             <p>總計：{formatMoney(result.gross)}</p>
           </div>
@@ -246,7 +252,7 @@ function HandInvoicePreview({ state, result, activeDate, activeRate }: HandInvoi
       {isThreePart ? (
         <ThreePartInvoicePreview state={state} result={result} activeDate={activeDate} mark={mark} />
       ) : (
-        <TwoPartInvoicePreview result={result} activeDate={activeDate} mark={mark} />
+        <TwoPartInvoicePreview state={state} result={result} activeDate={activeDate} mark={mark} />
       )}
     </div>
   );
@@ -359,10 +365,12 @@ function ThreePartInvoicePreview({
 }
 
 function TwoPartInvoicePreview({
+  state,
   result,
   activeDate,
   mark,
 }: {
+  state: InvoiceState;
   result: ReturnType<typeof computeInvoice>;
   activeDate: string;
   mark: (rate: TaxRateCode) => string;
@@ -383,7 +391,7 @@ function TwoPartInvoicePreview({
             </th>
           </tr>
           <tr>
-            <td colSpan={12} className="border border-brand-light/60 px-3 py-2 text-left">買受人：可省略　中華民國 {formatRocDate(activeDate)}</td>
+            <td colSpan={12} className="border border-brand-light/60 px-3 py-2 text-left">買受人：{state.twoBuyerName.trim() || "(無統編之買受人)"}　中華民國 {formatRocDate(activeDate)}</td>
           </tr>
           <tr>
             <td colSpan={12} className="border border-brand-light/60 px-3 py-2 text-left">地址：縣市...可省略</td>
@@ -425,7 +433,7 @@ function TwoPartInvoicePreview({
             <td colSpan={9} className="border border-brand-light/60 px-2 py-2 text-left text-xs">＊應稅、零稅率、免稅之銷售額應分別開立統一發票、並應於各該欄打「V」</td>
           </tr>
           <tr>
-            <td colSpan={12} className="border border-brand-light/60 px-2 py-2">第 一 聯 存根聯</td>
+            <td colSpan={12} className="border border-brand-light/60 px-2 py-2 text-right">第 一 聯 存根聯</td>
           </tr>
         </tbody>
       </table>
