@@ -128,7 +128,13 @@ export function SlidingServiceCards({ services }: SlidingServiceCardsProps) {
               <p className="mt-3 line-clamp-3 text-sm leading-6 text-zinc-600">{service.summary}</p>
 
               <div className="relative mt-6 aspect-[16/9] overflow-hidden rounded-xs border border-brand-light/25 bg-white">
-                <Image src={service.image} alt={service.title} fill sizes="370px" className="object-cover transition duration-700 group-hover:scale-[1.05]" />
+                {service.image ? (
+                  <Image src={service.image} alt={service.title} fill sizes="370px" className="object-cover transition duration-700 group-hover:scale-[1.05]" />
+                ) : (
+                  <span className="flex h-full w-full items-center justify-center bg-brand-light/15 text-brand-primary/35" aria-hidden="true">
+                    <Icon name={service.icon} size={42} weight="duotone" />
+                  </span>
+                )}
               </div>
 
               <div className="mt-5 flex items-center justify-between border-t border-brand-light/35 pt-4 text-xs font-bold tracking-[0.08em] text-brand-primary">
@@ -182,7 +188,7 @@ function ServiceDetailModal({ service, onClose }: ServiceDetailModalProps) {
           {service.sections.map((section) => (
             <div key={section.heading} className="rounded-xs border border-brand-light/35 bg-brand-cream/55 p-4">
               <h4 className="text-sm font-bold text-brand-charcoal">{section.heading}</h4>
-              <p className="mt-3 text-sm leading-6 text-zinc-600">{section.body[0]}</p>
+              {section.bodyHtml ? <div className="article-rich mt-3 text-sm leading-6 text-zinc-600" dangerouslySetInnerHTML={{ __html: section.bodyHtml }} /> : <p className="mt-3 text-sm leading-6 text-zinc-600">{section.body[0]}</p>}
             </div>
           ))}
         </div>
