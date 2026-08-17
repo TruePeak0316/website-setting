@@ -1,0 +1,42 @@
+{
+  "schemaVersion": "1.0",
+  "releaseId": "11111111-1111-4111-8111-111111111111",
+  "publishedAt": "2026-08-16T00:00:00.000Z",
+  "siteSettings": {
+    "siteName": "Stage 5 Canary Site",
+    "displayName": "Stage 5 Canary Site Display",
+    "description": "Stage 5 fixture description",
+    "publicUrl": "https://fixture.example.com",
+    "phoneNumber": "02-1234-5678",
+    "telephoneHref": "tel:0212345678",
+    "email": "fixture@example.com",
+    "businessAddress": "Fixture address",
+    "lineId": "@fixture",
+    "lineUrl": "https://example.com/line",
+    "bookingUrl": null,
+    "mapUrl": "https://example.com/map",
+    "reviewUrl": "https://example.com/reviews",
+    "logo": { "id": "logo", "url": "https://fixture.example.com/images/logo.webp", "alt": "Fixture logo", "width": 520, "height": 180 },
+    "favicon": null
+  },
+  "navigation": [
+    { "key": "contact", "label": "Fixture Contact", "path": "/contact", "visible": true, "order": 2, "icon": { "id": "contact-nav-icon", "url": "https://fixture.example.com/images/contact-nav.webp", "alt": "Fixture contact navigation icon", "width": 40, "height": 40 } },
+    { "key": "hidden", "label": "Hidden", "path": "/missing", "visible": false, "order": 1, "icon": null },
+    { "key": "home", "label": "Fixture Home", "path": "/", "visible": true, "order": 1, "icon": null }
+  ],
+  "pages": {
+    "home": { "hero": { "eyebrow": "Fixture eyebrow", "title": "Fixture home title", "description": "Fixture home description", "image": null, "primaryAction": { "label": "Contact", "href": "/contact", "external": false }, "secondaryAction": null }, "advantages": [{ "id": "advantage", "title": "Fixture advantage", "description": "Fixture advantage description", "icon": { "id": "advantage-icon", "url": "https://fixture.example.com/images/advantage.webp", "alt": "Fixture advantage icon", "width": 96, "height": 96 } }], "featuredArticleSlugs": ["cms-fixture-article"] },
+    "about": { "hero": { "eyebrow": null, "title": "Fixture about", "description": null, "image": null, "primaryAction": null, "secondaryAction": null }, "introductionHtml": "<p>Fixture about introduction</p>", "values": [{ "id": "value", "title": "Fixture value", "description": "Fixture value description", "icon": { "id": "value-icon", "url": "https://fixture.example.com/images/value.webp", "alt": "Fixture value icon", "width": 80, "height": 80 } }], "timeline": [], "team": [] },
+    "services": { "hero": { "eyebrow": null, "title": "Fixture services", "description": null, "image": null, "primaryAction": null, "secondaryAction": null }, "introductionHtml": "<p>Fixture services introduction</p>", "services": [{ "id": "fixture-service", "slug": "fixture-service", "title": "Fixture service", "summary": "Fixture service summary", "image": { "id": "service-image", "url": "https://fixture.example.com/images/service.webp", "alt": "Fixture service image", "width": 1200, "height": 800 }, "sections": [{ "id": "section", "title": "Fixture service section", "bodyHtml": "<p>Fixture service section body</p>", "image": { "id": "section-image", "url": "https://fixture.example.com/images/service-section.webp", "alt": "Fixture service section image", "width": 900, "height": 600 } }], "action": { "label": "Fixture external action", "href": "https://fixture.example.com/book?from=services#form", "external": true } }] },
+    "testimonials": { "hero": { "eyebrow": null, "title": "Fixture testimonials", "description": null, "image": null, "primaryAction": null, "secondaryAction": null }, "introductionHtml": "<p>Fixture testimonials introduction</p>", "testimonials": [{ "id": "testimonial", "quote": "Fixture testimonial quote", "authorName": "Fixture Reviewer", "authorRole": "Fixture role", "avatar": { "id": "avatar", "url": "https://fixture.example.com/images/avatar.webp", "alt": "Fixture reviewer avatar", "width": 160, "height": 160 }, "rating": 5 }] },
+    "contact": { "hero": { "eyebrow": null, "title": "Fixture contact", "description": null, "image": null, "primaryAction": null, "secondaryAction": null }, "introductionHtml": "<p>Fixture contact introduction</p>" }
+  },
+  "blog": {
+    "articles": [{ "id": "article-1", "slug": "cms-fixture-article", "title": "CMS Fixture Article", "subtitle": "Fixture subtitle", "excerpt": "Fixture excerpt", "coverImage": { "id": "cover", "url": "https://fixture.example.com/images/cover.webp", "alt": "Fixture cover", "width": 1200, "height": 800 }, "author": { "name": "Fixture Author", "slug": "fixture-author", "biography": null, "photo": null }, "category": { "name": "Fixture Category", "slug": "fixture-category" }, "tags": ["fixture"], "publishedAt": "2026-08-15T00:00:00.000Z", "updatedAt": "2026-08-16T00:00:00.000Z", "readTimeMinutes": 3 }],
+    "details": [{ "id": "article-1", "slug": "cms-fixture-article", "title": "CMS Fixture Article", "subtitle": "Fixture subtitle", "excerpt": "Fixture excerpt", "coverImage": { "id": "cover", "url": "https://fixture.example.com/images/cover.webp", "alt": "Fixture cover", "width": 1200, "height": 800 }, "author": { "name": "Fixture Author", "slug": "fixture-author", "biography": null, "photo": null }, "category": { "name": "Fixture Category", "slug": "fixture-category" }, "tags": ["fixture"], "publishedAt": "2026-08-15T00:00:00.000Z", "updatedAt": "2026-08-16T00:00:00.000Z", "readTimeMinutes": 3, "contentHtml": "<p>Stage 5 snapshot canary body</p>", "embedUrl": null, "seo": { "title": "Fixture Article SEO", "description": null, "canonicalUrl": null, "openGraphTitle": null, "openGraphDescription": null, "openGraphImage": null, "noIndex": false } }]
+  },
+  "seo": {
+    "defaults": { "titleTemplate": "%s | Fixture", "defaultDescription": "Fixture SEO default", "defaultOpenGraphImage": null, "twitterCard": "summary_large_image", "canonicalSiteUrl": "https://fixture.example.com", "robotsPolicy": "index,follow", "sitemapIncludeByDefault": true },
+    "pageOverrides": [{ "pageKey": "home", "route": "/", "title": "Fixture Home SEO", "description": "Fixture home SEO description", "canonicalUrl": "https://fixture.example.com/", "openGraphTitle": "Fixture Home OG", "openGraphDescription": "Fixture Home OG description", "openGraphImage": null, "noIndex": false, "sitemapIncluded": true, "sitemapPriority": 1 }]
+  }
+}
