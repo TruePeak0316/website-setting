@@ -5,6 +5,7 @@ import { useRouter } from "next/router";
 import { ArrowRight, CaretDown } from "@phosphor-icons/react";
 import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Icon } from "@/components/ui/Icon";
+import { PublishedAction, PublishedMediaImage } from "@/components/cms/PublishedHero";
 import type { ServiceSection } from "@/lib/types";
 
 interface ServicesTabsProps {
@@ -171,10 +172,11 @@ function MobileServiceAccordionItem({
         <div className="overflow-hidden">
           <div className={`border-t border-brand-light/25 transition-opacity duration-300 ${expanded ? "opacity-100" : "opacity-0"}`}>
             <div className="relative aspect-[16/10] bg-brand-light/20">
-              <Image src={service.image} alt={service.title} fill sizes="100vw" className="object-cover" priority={priorityImage} />
+              <ServiceImage service={service} sizes="100vw" priority={priorityImage} />
             </div>
             <div className="space-y-5 p-4">
               <ServiceSections sections={service.sections} />
+              {service.action ? <PublishedAction action={service.action} /> : null}
             </div>
           </div>
         </div>
@@ -188,7 +190,12 @@ function ServiceDetailCard({ service, anchorId, priorityImage = false }: { servi
     <article id={anchorId} className="service-detail-panel brand-card group scroll-mt-32 overflow-hidden rounded-xs">
       <div className="grid lg:grid-cols-[0.9fr_1.1fr]">
         <div className="relative min-h-[240px] bg-brand-light/20 sm:min-h-[320px] lg:min-h-full">
-          <Image src={service.image} alt={service.title} fill sizes="(min-width: 1024px) 40vw, 100vw" className="object-cover transition duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] lg:group-hover:scale-[1.035]" priority={priorityImage} />
+          <ServiceImage
+            service={service}
+            sizes="(min-width: 1024px) 40vw, 100vw"
+            priority={priorityImage}
+            className="transition duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] lg:group-hover:scale-[1.035]"
+          />
         </div>
         <div className="space-y-6 p-5 sm:p-8 lg:space-y-7 lg:p-10">
           <div>
@@ -200,6 +207,7 @@ function ServiceDetailCard({ service, anchorId, priorityImage = false }: { servi
           </div>
 
           <ServiceSections sections={service.sections} />
+          {service.action ? <PublishedAction action={service.action} /> : null}
         </div>
       </div>
     </article>
@@ -211,17 +219,51 @@ function ServiceSections({ sections }: { sections: ServiceSection["sections"] })
     <div className="grid gap-4 lg:gap-5">
       {sections.map((section) => (
         <section key={section.heading} className="rounded-xs border border-brand-light/25 bg-brand-cream/35 p-4 transition duration-300 sm:p-5 lg:hover:-translate-y-0.5 lg:hover:border-brand-primary/30 lg:hover:bg-white lg:hover:shadow-[0_12px_30px_rgb(7_86_111_/_0.07)]">
+          {section.image ? (
+            <PublishedMediaImage media={section.image} className="mb-4 h-auto w-full rounded-xs object-cover" />
+          ) : null}
           <h3 className="mb-3 text-sm font-bold text-brand-primary">{section.heading}</h3>
-          <ul className="space-y-2.5">
+          {section.bodyHtml ? <div className="article-rich text-sm leading-6 text-zinc-600" dangerouslySetInnerHTML={{ __html: section.bodyHtml }} /> : <ul className="space-y-2.5">
             {section.body.map((line) => (
               <li key={line} className="group/item flex gap-2 text-sm leading-6 text-zinc-600">
                 <ArrowRight size={14} className="mt-1 shrink-0 text-brand-accent transition duration-300 lg:group-hover/item:translate-x-1" weight="bold" />
                 <span>{line}</span>
               </li>
             ))}
-          </ul>
+          </ul>}
         </section>
       ))}
+    </div>
+  );
+}
+
+function ServiceImage({
+  service,
+  sizes,
+  priority,
+  className = "",
+}: {
+  service: ServiceSection;
+  sizes: string;
+  priority: boolean;
+  className?: string;
+}) {
+  if (service.imageMedia) {
+    return (
+      <PublishedMediaImage
+        media={service.imageMedia}
+        className={`h-full w-full object-cover ${className}`}
+      />
+    );
+  }
+
+  if (service.image) {
+    return <Image src={service.image} alt={service.title} fill sizes={sizes} className={`object-cover ${className}`} priority={priority} />;
+  }
+
+  return (
+    <div className={`flex h-full w-full items-center justify-center bg-brand-light/15 text-brand-primary/35 ${className}`} aria-hidden="true">
+      <Icon name={service.icon} size={48} weight="duotone" />
     </div>
   );
 }
