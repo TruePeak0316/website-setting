@@ -5,9 +5,10 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { List, Phone, X } from "@phosphor-icons/react";
 import { useState } from "react";
-import { NAV_ITEMS, SITE } from "@/lib/site";
+import { useSiteContent } from "@/lib/cms/site-content";
 
 export function SiteHeader() {
+  const { navigation, settings } = useSiteContent();
   const router = useRouter();
   const [open, setOpen] = useState(false);
 
@@ -16,11 +17,11 @@ export function SiteHeader() {
       <div className="page-shell">
         <div className="flex h-[72px] items-center justify-between gap-4">
           <Link href="/" className="relative block h-12 w-[150px] flex-shrink-0 sm:h-14 sm:w-[180px]" aria-label="回到首頁">
-            <Image src="/images/LOGO.webp" alt="誠峰會計師事務所標誌" fill sizes="(min-width: 640px) 180px, 150px" className="object-contain object-left" priority />
+            <Image src={settings.logo?.url ?? "/images/LOGO.webp"} alt={settings.logo?.alt || `${settings.name}標誌`} fill sizes="(min-width: 640px) 180px, 150px" className="object-contain object-left" priority />
           </Link>
 
           <nav className="hidden items-center gap-5 lg:flex" aria-label="主選單">
-            {NAV_ITEMS.map((item) => {
+            {navigation.map((item) => {
               const active = item.href === "/" ? router.pathname === "/" : router.pathname.startsWith(item.href);
               return (
                 <Link
@@ -30,6 +31,7 @@ export function SiteHeader() {
                     active ? "text-brand-primary" : "text-zinc-600"
                   }`}
                 >
+                  {item.icon ? <Image src={item.icon.url} alt={item.icon.alt} width={item.icon.width} height={item.icon.height} className="mr-1.5 inline-block h-4 w-4 object-contain" /> : null}
                   {item.label}
                 </Link>
               );
@@ -37,9 +39,9 @@ export function SiteHeader() {
           </nav>
 
           <div className="hidden items-center gap-3 lg:flex">
-            <a href={SITE.phoneHref} className="inline-flex items-center gap-2 text-sm font-medium text-zinc-700 transition hover:text-brand-primary">
+            <a href={settings.phoneHref} className="inline-flex items-center gap-2 text-sm font-medium text-zinc-700 transition hover:text-brand-primary">
               <Phone size={16} weight="bold" />
-              {SITE.phone}
+              {settings.phone}
             </a>
           </div>
 
@@ -57,18 +59,19 @@ export function SiteHeader() {
         {open ? (
           <div className="border-t border-brand-light/30 py-4 lg:hidden">
             <nav className="grid gap-2" aria-label="手機主選單">
-              {NAV_ITEMS.map((item) => (
+              {navigation.map((item) => (
                 <Link
                   key={item.href}
                   href={item.href}
                   onClick={() => setOpen(false)}
                   className="rounded-xs px-3 py-3 text-sm font-medium text-zinc-700 transition hover:bg-white hover:text-brand-primary"
                 >
+                  {item.icon ? <Image src={item.icon.url} alt={item.icon.alt} width={item.icon.width} height={item.icon.height} className="mr-2 inline-block h-5 w-5 object-contain" /> : null}
                   {item.label}
                 </Link>
               ))}
-              <a href={SITE.phoneHref} className="rounded-xs bg-white px-3 py-3 text-sm font-semibold text-brand-primary">
-                諮詢電話：{SITE.phone}
+              <a href={settings.phoneHref} className="rounded-xs bg-white px-3 py-3 text-sm font-semibold text-brand-primary">
+                諮詢電話：{settings.phone}
               </a>
             </nav>
           </div>
