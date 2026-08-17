@@ -8,10 +8,16 @@ import { TrustScaleSection } from "@/components/home/TrustScaleSection";
 import { Seo } from "@/components/layout/Seo";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { ARTICLE_INDEX, SERVICES } from "@/lib/content";
+import { getManagedPage, getSiteFrame } from "@/lib/cms/static-content";
+import type { PublishedHomePageV1 } from "@/lib/cms/published-content-v1";
+import type { ArticleSummary } from "@/lib/types";
+import { loadAllArticles } from "@/lib/articles";
+import { PublishedHero, PublishedMediaImage } from "@/components/cms/PublishedHero";
 
 const heroDescription = "深耕三峽與鶯歌，提供記帳、報稅、公司設立、財務顧問與會計師簽證服務。";
 
-export default function HomePage() {
+export default function HomePage({ cmsPage, articles = ARTICLE_INDEX }: { cmsPage?: PublishedHomePageV1 | null; articles?: ArticleSummary[] }) {
+  if (cmsPage) return <CmsHomePage page={cmsPage} articles={articles} />;
   return (
     <SiteLayout showViewCounter>
       <Seo title="誠峰會計師事務所 - 彭裕峰會計師" path="/" />
@@ -87,7 +93,7 @@ export default function HomePage() {
             </Link>
           </div>
           <div className="grid gap-6 md:grid-cols-3">
-            {ARTICLE_INDEX.slice(0, 3).map((article) => (
+            {articles.slice(0, 3).map((article) => (
               <ArticleCard key={article.slug} article={article} />
             ))}
           </div>
@@ -106,6 +112,51 @@ export default function HomePage() {
         </div>
       </section>
     </SiteLayout>
+  );
+}
+
+export const getStaticProps = () => {
+  return { props: { siteFrame: getSiteFrame(), cmsPage: getManagedPage("home"), articles: loadAllArticles() } };
+};
+
+function CmsHomePage({ page, articles }: { page: PublishedHomePageV1; articles: ArticleSummary[] }) {
+  const bySlug = new Map(articles.map((article) => [article.slug, article]));
+  const featured = page.featuredArticleSlugs.map((slug) => bySlug.get(slug)).filter((article): article is ArticleSummary => Boolean(article));
+  return (
+    <SiteLayout showViewCounter>
+      <Seo title={page.hero.title} path="/" />
+      <PublishedHero hero={page.hero} />
+      <CmsAdvantages items={page.advantages} />
+      <ArticleGrid articles={featured} className="bg-brand-cream" />
+    </SiteLayout>
+  );
+}
+
+function CmsAdvantages({ items }: { items: PublishedHomePageV1["advantages"] }) {
+  if (!items.length) return null;
+  return (
+    <section className="section-pad bg-white">
+      <div className="page-shell grid gap-5 md:grid-cols-3">
+        {items.map((item) => (
+          <article key={item.id} className="brand-card rounded-xs p-6">
+            {item.icon ? <PublishedMediaImage media={item.icon} className="mb-4 h-12 w-12 object-contain" /> : null}
+            <h2 className="text-xl font-bold text-brand-charcoal">{item.title}</h2>
+            <p className="mt-3 text-sm leading-7 text-zinc-600">{item.description}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+  );
+}
+
+function ArticleGrid({ articles, className }: { articles: ArticleSummary[]; className: string }) {
+  if (!articles.length) return null;
+  return (
+    <section className={`section-pad ${className}`}>
+      <div className="page-shell grid gap-6 md:grid-cols-3">
+        {articles.map((article) => <ArticleCard key={article.slug} article={article} />)}
+      </div>
+    </section>
   );
 }
 

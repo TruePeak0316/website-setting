@@ -4,9 +4,11 @@ import { ArrowLeft, ArrowRight } from "@phosphor-icons/react";
 import { Seo } from "@/components/layout/Seo";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import type { ArticleDetail } from "@/lib/types";
+import type { SiteFrame } from "@/lib/cms/site-content";
 
 export interface ArticlePageProps {
   article: ArticleDetail;
+  siteFrame?: SiteFrame;
 }
 
 export function ArticlePage({ article }: ArticlePageProps) {
@@ -18,6 +20,7 @@ export function ArticlePage({ article }: ArticlePageProps) {
         path={`/Library/${article.slug}`}
         image={article.image}
         type="article"
+        metadata={article.seo}
       />
       <article className="bg-brand-cream">
         <header className="border-b border-brand-light/25 bg-white">

@@ -3,6 +3,9 @@ import { Seo } from "@/components/layout/Seo";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { PageHero } from "@/components/ui/PageHero";
 import { TEAM, TIMELINE } from "@/lib/content";
+import { getManagedPage, getSiteFrame } from "@/lib/cms/static-content";
+import type { PublishedAboutPageV1 } from "@/lib/cms/published-content-v1";
+import { PublishedHero, PublishedHtml, PublishedMediaImage } from "@/components/cms/PublishedHero";
 
 const ABOUT_VALUES = [
   {
@@ -19,7 +22,8 @@ const ABOUT_VALUES = [
   },
 ];
 
-export default function AboutPage() {
+export default function AboutPage({ cmsPage }: { cmsPage?: PublishedAboutPageV1 | null }) {
+  if (cmsPage) return <CmsAboutPage page={cmsPage} />;
   return (
     <SiteLayout>
       <Seo title="關於我們" path="/about" description="誠峰會計師事務所秉持誠信與專業，深耕三鶯地區，放眼台北，致力成為企業長期可靠的財務夥伴。" />
@@ -101,3 +105,51 @@ export default function AboutPage() {
     </SiteLayout>
   );
 }
+
+function CmsAboutPage({ page }: { page: PublishedAboutPageV1 }) {
+  return (
+    <SiteLayout>
+      <Seo title={page.hero.title} path="/about" />
+      <PublishedHero hero={page.hero} />
+      <section className="section-pad bg-white">
+        <div className="page-shell">
+          <PublishedHtml html={page.introductionHtml} />
+          <div className="mt-10 grid gap-4 sm:grid-cols-3">
+            {page.values.map((item) => (
+              <article key={item.id} className="brand-card rounded-xs p-5">
+                {item.icon ? <PublishedMediaImage media={item.icon} className="mb-4 h-12 w-12 object-contain" /> : null}
+                <h2 className="text-lg font-bold text-brand-primary">{item.title}</h2>
+                <p className="mt-3 text-sm leading-7 text-zinc-600">{item.description}</p>
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+      <section className="section-pad bg-brand-cream">
+        <div className="page-shell grid gap-5">
+          {page.timeline.map((item) => (
+            <article key={item.id} className="brand-card rounded-xs p-6">
+              <p className="font-serif text-3xl font-bold text-brand-primary">{item.label}</p>
+              <h2 className="mt-2 text-lg font-bold">{item.title}</h2>
+              <p className="mt-2 text-sm text-zinc-600">{item.description}</p>
+            </article>
+          ))}
+        </div>
+      </section>
+      <section className="section-pad bg-white">
+        <div className="page-shell grid gap-6 md:grid-cols-3">
+          {page.team.map((member) => (
+            <article key={member.id} className="brand-card rounded-xs p-5">
+              {member.photo ? <PublishedMediaImage media={member.photo} className="h-auto w-full" /> : null}
+              <h2 className="mt-4 text-xl font-bold">{member.name}</h2>
+              <p className="text-brand-primary">{member.role}</p>
+              {member.biography ? <PublishedHtml html={member.biography} className="mt-3" /> : null}
+            </article>
+          ))}
+        </div>
+      </section>
+    </SiteLayout>
+  );
+}
+
+export const getStaticProps = () => ({ props: { siteFrame: getSiteFrame(), cmsPage: getManagedPage("about") } });

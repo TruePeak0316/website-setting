@@ -149,6 +149,11 @@ jobs:
             '.schemaVersion == "1.0" and .releaseId == $release_id' \
             "$snapshot_path" >/dev/null
           echo "Validated CMS snapshot $(sha256sum "$snapshot_path" | cut -d ' ' -f 1)"
+          {
+            echo "CMS_CONTENT_REQUIRED=1"
+            echo "CMS_EXPECTED_RELEASE_ID=$RELEASE_ID"
+            echo "CMS_PUBLISHED_CONTENT_PATH=$snapshot_path"
+          } >> "$GITHUB_ENV"
 
       - name: Checkout
         uses: actions/checkout@v7
@@ -177,7 +182,7 @@ jobs:
           path: out
 
   deploy:
-    if: github.event_name != 'push' || github.ref == 'refs/heads/main'
+    if: github.event_name == 'workflow_dispatch'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}

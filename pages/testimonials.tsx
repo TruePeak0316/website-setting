@@ -7,7 +7,10 @@ import { MarqueeControls } from "@/components/ui/MarqueeControls";
 import { PageHero } from "@/components/ui/PageHero";
 import { useLoopingMarqueeScroll } from "@/components/ui/useLoopingMarqueeScroll";
 import { GOOGLE_REVIEWS } from "@/lib/content";
-import { SITE } from "@/lib/site";
+import { useSiteContent } from "@/lib/cms/site-content";
+import { getManagedPage, getSiteFrame } from "@/lib/cms/static-content";
+import type { PublishedTestimonialsPageV1 } from "@/lib/cms/published-content-v1";
+import { PublishedHero, PublishedHtml, PublishedMediaImage } from "@/components/cms/PublishedHero";
 
 const REVIEW_STATS = [
   { value: "4.9", label: "Google 評分" },
@@ -15,7 +18,12 @@ const REVIEW_STATS = [
   { value: "5★", label: "客戶推薦" },
 ];
 
-export default function TestimonialsPage() {
+export default function TestimonialsPage({ cmsPage }: { cmsPage?: PublishedTestimonialsPageV1 | null }) {
+  const { settings } = useSiteContent();
+  return cmsPage ? <CmsTestimonialsPage cmsPage={cmsPage} /> : <LegacyTestimonialsPage reviewUrl={settings.reviewUrl} />;
+}
+
+function LegacyTestimonialsPage({ reviewUrl }: { reviewUrl: string | null }) {
   const featuredReview = GOOGLE_REVIEWS[0];
   const supportingReviews = GOOGLE_REVIEWS.slice(1);
   const reviewScrollerRef = useRef<HTMLDivElement>(null);
@@ -143,13 +151,45 @@ export default function TestimonialsPage() {
 
           <div className="mt-10 flex flex-col gap-4 border-t border-brand-light/35 pt-8 sm:flex-row sm:items-center sm:justify-between">
             <p className="max-w-xl text-sm leading-7 text-zinc-600">想看完整評論或留下合作回饋，可以前往 Google 地圖查看最新公開評價。</p>
-            <a href={SITE.googleReviewsUrl} target="_blank" rel="noopener" className="testimonial-cta brand-button w-fit">
+            {reviewUrl ? <a href={reviewUrl} target="_blank" rel="noopener" className="testimonial-cta brand-button w-fit">
               查看更多 Google 地圖評論
               <ArrowRight size={16} weight="bold" className="testimonial-cta-icon" />
-            </a>
+            </a> : null}
           </div>
         </div>
       </section>
     </SiteLayout>
   );
 }
+
+function CmsTestimonialsPage({ cmsPage }: { cmsPage: PublishedTestimonialsPageV1 }) {
+  return (
+    <SiteLayout>
+      <Seo title={cmsPage.hero.title} path="/testimonials" />
+      <PublishedHero hero={cmsPage.hero} />
+      <section className="section-pad bg-brand-cream">
+        <div className="page-shell">
+          <PublishedHtml html={cmsPage.introductionHtml} />
+          <div className="mt-10 grid gap-5 md:grid-cols-2">
+            {cmsPage.testimonials.map((item) => (
+              <article key={item.id} className="brand-card rounded-xs p-6">
+                {item.avatar ? (
+                  <PublishedMediaImage
+                    media={item.avatar}
+                    className="mb-5 h-16 w-16 rounded-full object-cover"
+                  />
+                ) : null}
+                <p className="text-base leading-8">「{item.quote}」</p>
+                <p className="mt-5 font-bold">{item.authorName}</p>
+                {item.authorRole ? <p className="text-sm text-zinc-500">{item.authorRole}</p> : null}
+                {item.rating !== null ? <p className="mt-2 text-brand-accent">{item.rating} / 5</p> : null}
+              </article>
+            ))}
+          </div>
+        </div>
+      </section>
+    </SiteLayout>
+  );
+}
+
+export const getStaticProps = () => ({ props: { siteFrame: getSiteFrame(), cmsPage: getManagedPage("testimonials") } });

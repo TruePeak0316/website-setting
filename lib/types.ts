@@ -17,12 +17,16 @@ export interface ServiceSection {
   id: string;
   title: string;
   summary: string;
-  image: string;
+  image?: string;
+  imageMedia?: import("@/lib/cms/published-content-v1").PublishedMediaAssetV1;
   icon: IconName;
   sections: Array<{
     heading: string;
     body: string[];
+    bodyHtml?: string;
+    image?: import("@/lib/cms/published-content-v1").PublishedMediaAssetV1;
   }>;
+  action?: import("@/lib/cms/published-content-v1").PublishedActionLinkV1;
 }
 
 export interface TimelineItem {
@@ -45,7 +49,7 @@ export interface ReviewItem {
   content: string;
 }
 
-export type ArticleCategory = "財稅實務" | "公司經營" | "誠峰解析";
+export type ArticleCategory = string;
 
 export interface ArticleSummary {
   slug: string;
@@ -68,6 +72,7 @@ export interface ArticleDetail extends ArticleSummary {
   author: string;
   youtube?: string;
   blocks: ArticleBlock[];
+  seo?: import("@/lib/cms/published-content-v1").PublishedSeoMetadataV1;
   previousSlug?: string;
   nextSlug?: string;
 }
