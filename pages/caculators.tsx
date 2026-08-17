@@ -2,6 +2,7 @@ import { CalculatorSwitcher } from "@/components/calculators/CalculatorSwitcher"
 import { Seo } from "@/components/layout/Seo";
 import { SiteLayout } from "@/components/layout/SiteLayout";
 import { PageHero } from "@/components/ui/PageHero";
+import { getSiteFrame } from "@/lib/cms/static-content";
 
 export default function CaculatorsPage() {
   return (
@@ -16,3 +17,5 @@ export default function CaculatorsPage() {
     </SiteLayout>
   );
 }
+
+export const getStaticProps = () => ({ props: { siteFrame: getSiteFrame() } });

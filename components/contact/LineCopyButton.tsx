@@ -2,13 +2,15 @@
 
 import { Copy, CheckCircle } from "@phosphor-icons/react";
 import { useState } from "react";
-import { SITE } from "@/lib/site";
+import { useSiteContent } from "@/lib/cms/site-content";
 
 export function LineCopyButton() {
+  const { settings } = useSiteContent();
   const [copied, setCopied] = useState(false);
 
   async function copyLineId() {
-    await navigator.clipboard.writeText(SITE.lineId);
+    if (!settings.lineId) return;
+    await navigator.clipboard.writeText(settings.lineId);
     setCopied(true);
     window.setTimeout(() => setCopied(false), 1800);
   }
@@ -20,7 +22,7 @@ export function LineCopyButton() {
       className="inline-flex items-center gap-2 rounded-xs border border-brand-light bg-white px-3 py-2 text-sm font-semibold text-brand-primary transition hover:bg-brand-cream"
     >
       {copied ? <CheckCircle size={17} weight="bold" /> : <Copy size={17} weight="bold" />}
-      {copied ? "已複製 LINE ID" : `複製 ${SITE.lineId}`}
+      {copied ? "已複製 LINE ID" : `複製 ${settings.lineId ?? "LINE ID"}`}
     </button>
   );
 }
