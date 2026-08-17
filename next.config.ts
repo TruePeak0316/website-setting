@@ -1,4 +1,7 @@
 import type { NextConfig } from "next";
+import { loadPublishedContent } from "./lib/cms/load-published-content";
+
+loadPublishedContent();
 
 const nextConfig: NextConfig = {
   output: "export",

@@ -1,6 +1,7 @@
 import type { AppProps } from "next/app";
 import { Noto_Sans_TC, Playfair_Display, Space_Grotesk } from "next/font/google";
 import "@/styles/globals.css";
+import { SiteContentProvider, type SiteFrame } from "@/lib/cms/site-content";
 
 const notoSansTc = Noto_Sans_TC({
   subsets: ["latin"],
@@ -23,10 +24,12 @@ const playfair = Playfair_Display({
   display: "swap",
 });
 
-export default function App({ Component, pageProps }: AppProps) {
+export default function App({ Component, pageProps }: AppProps<{ siteFrame?: SiteFrame }>) {
   return (
     <div className={`${notoSansTc.variable} ${spaceGrotesk.variable} ${playfair.variable}`}>
-      <Component {...pageProps} />
+      <SiteContentProvider value={pageProps.siteFrame}>
+        <Component {...pageProps} />
+      </SiteContentProvider>
     </div>
   );
 }

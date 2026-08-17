@@ -1,6 +1,10 @@
-import { mkdir, writeFile } from "node:fs/promises";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
+import { createRobotsText, createSitemapXml } from "./cms-artifacts.mjs";
 
+const snapshotPath = process.env.CMS_PUBLISHED_CONTENT_PATH?.trim();
+const snapshot = snapshotPath ? JSON.parse(await readFile(snapshotPath, "utf8")) : null;
+const articleSlugs = snapshot?.blog.articles.map(({ slug }) => slug) ?? Array.from({ length: 14 }, (_, index) => String(index + 1).padStart(3, "0"));
 const redirects = [
   ["about.html", "/about/"],
   ["services.html", "/services/"],
@@ -8,10 +12,7 @@ const redirects = [
   ["testimonials.html", "/testimonials/"],
   ["truepeakinsights.html", "/truepeakinsights/"],
   ["caculators.html", "/caculators/"],
-  ...Array.from({ length: 14 }, (_, index) => {
-    const slug = String(index + 1).padStart(3, "0");
-    return [`Library/${slug}.html`, `/Library/${slug}/`];
-  }),
+  ...articleSlugs.map((slug) => [`Library/${slug}.html`, `/Library/${slug}/`]),
 ];
 
 const outputDirectory = path.resolve("out");
@@ -38,3 +39,8 @@ for (const [legacyPath, destination] of redirects) {
 }
 
 console.log(`Generated ${redirects.length} legacy HTML redirects in ${outputDirectory}`);
+
+if (snapshot) {
+  await writeFile(path.join(outputDirectory, "sitemap.xml"), createSitemapXml(snapshot));
+  await writeFile(path.join(outputDirectory, "robots.txt"), createRobotsText(snapshot));
+}

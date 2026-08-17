@@ -3,6 +3,7 @@ import { SiteLayout } from "@/components/layout/SiteLayout";
 import { TeamMemberCard } from "@/components/team/TeamProfile";
 import { PageHero } from "@/components/ui/PageHero";
 import { TEAM_PROFILES } from "@/lib/team";
+import { getSiteFrame } from "@/lib/cms/static-content";
 
 export default function TeamPage() {
   return (
@@ -21,3 +22,5 @@ export default function TeamPage() {
     </SiteLayout>
   );
 }
+
+export const getStaticProps = () => ({ props: { siteFrame: getSiteFrame() } });
