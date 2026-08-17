@@ -1,8 +1,10 @@
 import fs from "node:fs";
 import path from "node:path";
 import * as cheerio from "cheerio";
-import { ARTICLE_INDEX } from "@/lib/content";
-import type { ArticleBlock, ArticleDetail, ArticleSummary } from "@/lib/types";
+import { ARTICLE_INDEX } from "./content";
+import type { ArticleBlock, ArticleDetail, ArticleSummary } from "./types";
+import { loadPublishedContent } from "./cms/load-published-content";
+import type { PublishedBlogArticleSummaryV1 } from "./cms/published-content-v1";
 
 const ARTICLE_DIR = path.join(process.cwd(), "Library");
 
@@ -37,6 +39,24 @@ function pickSummary(slug: string): ArticleSummary {
 }
 
 export function loadArticle(slug: string): ArticleDetail {
+  const published = loadPublishedContent();
+  if (published) {
+    const index = published.blog.details.findIndex((article) => article.slug === slug);
+    const article = published.blog.details[index];
+    if (!article) throw new Error(`Unknown CMS article slug: ${slug}`);
+    const summary = mapPublishedSummary(article);
+    return {
+      ...summary,
+      metaTitle: article.seo.title ?? article.title,
+      metaDescription: article.seo.description ?? article.excerpt ?? published.seo.defaults.defaultDescription,
+      author: article.author.name,
+      blocks: [{ type: "html", html: article.contentHtml }],
+      seo: article.seo,
+      ...(article.embedUrl ? { youtube: article.embedUrl } : {}),
+      ...(published.blog.details[index + 1] ? { previousSlug: published.blog.details[index + 1].slug } : {}),
+      ...(published.blog.details[index - 1] ? { nextSlug: published.blog.details[index - 1].slug } : {}),
+    };
+  }
   const summary = pickSummary(slug);
   const filePath = path.join(ARTICLE_DIR, `${slug}.html`);
   const html = fs.readFileSync(filePath, "utf8");
@@ -96,5 +116,14 @@ export function loadArticle(slug: string): ArticleDetail {
 }
 
 export function loadAllArticles(): ArticleSummary[] {
-  return ARTICLE_INDEX;
+  return loadPublishedContent()?.blog.articles.map(mapPublishedSummary) ?? ARTICLE_INDEX;
+}
+
+function mapPublishedSummary(article: PublishedBlogArticleSummaryV1): ArticleSummary {
+  const date = article.publishedAt.slice(0, 10);
+  return {
+    slug: article.slug, title: article.title, subtitle: article.subtitle ?? article.excerpt ?? "", date,
+    year: date.slice(0, 4), category: article.category?.name ?? "未分類",
+    image: article.coverImage?.url ?? "/images/LOGO.webp", alt: article.coverImage?.alt || article.title,
+  };
 }
