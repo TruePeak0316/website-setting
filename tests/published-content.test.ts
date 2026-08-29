@@ -2,7 +2,11 @@ import fs from "node:fs";
 import path from "node:path";
 import os from "node:os";
 import { afterEach, describe, expect, it } from "vitest";
-import { loadPublishedContent, resetPublishedContentCacheForTests } from "../lib/cms/load-published-content";
+import {
+  loadPublishedContent,
+  resetPublishedContentCacheForTests,
+  TRACKED_PUBLISHED_CONTENT_PATH,
+} from "../lib/cms/load-published-content";
 import { buildSiteFrame, isEmptyManagedPage } from "../lib/cms/site-content";
 import { createRobotsText, createSitemapXml } from "../scripts/cms-artifacts.mjs";
 import { loadArticle } from "../lib/articles";
@@ -41,10 +45,19 @@ describe("loadPublishedContent", () => {
     expect(loadPublishedContent()).toBeNull();
   });
 
-  it("fails closed when CMS content is required without a configured path", () => {
+  it("loads the tracked snapshot in required mode without a configured path", () => {
     process.env.CMS_CONTENT_REQUIRED = "1";
     delete process.env.CMS_PUBLISHED_CONTENT_PATH;
-    expect(() => loadPublishedContent()).toThrow("CMS_PUBLISHED_CONTENT_PATH is missing");
+    expect(TRACKED_PUBLISHED_CONTENT_PATH).toBe(
+      path.join(process.cwd(), "content", "published-content-v1.json"),
+    );
+    const tracked = loadPublishedContent();
+    expect(tracked?.schemaVersion).toBe("1.0");
+    expect(tracked?.blog.articles).toHaveLength(14);
+    expect(tracked?.blog.articles.map(({ slug }) => slug)).toEqual([
+      "014", "013", "012", "011", "010", "009", "008",
+      "007", "006", "005", "004", "003", "002", "001",
+    ]);
   });
 
   it("fails closed for a missing file", () => {

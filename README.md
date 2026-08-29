@@ -68,18 +68,18 @@ URL 的靜態 redirect 檔；legacy mode 直接複製 `public/robots.txt` 與
 
 ### 3. 部署方式
 
-專案已提供 `.github/workflows/deploy-pages.yml`。`main` push 只執行
-lint／static build，不部署 Pages；只有 CMS `workflow_dispatch` 會取得指定
-release snapshot、建置並部署 `out/` artifact，避免一般 push 以 legacy output
-覆蓋已發布的 CMS release。Repository 的 GitHub Pages 設定需選擇 GitHub
-Actions 作為來源：
+專案已提供 `.github/workflows/deploy-pages.yml`。`dev` push 會以 repository 內
+tracked snapshot 執行 required-mode lint／static build，保存 Actions artifact，
+但不部署 Pages。CMS `workflow_dispatch` 會 checkout CMS 提交的精確 commit SHA；
+`preview` 只 build／callback，`production` 才部署 `out/` 至 Pages。Repository 的
+GitHub Pages 設定需選擇 GitHub Actions 作為來源。
 
 ```yaml
-name: Deploy GitHub Pages
+name: Build and Deploy GitHub Pages
 
 on:
   push:
-    branches: ["main"]
+    branches: ["dev"]
   workflow_dispatch:
     inputs:
       deployment_id:
@@ -97,6 +97,13 @@ on:
       content_api_url:
         required: true
         type: string
+      commit_sha:
+        required: true
+        type: string
+      publish_mode:
+        required: true
+        type: choice
+        options: [preview, production]
 
 permissions:
   contents: read
@@ -112,6 +119,11 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+        if: github.event_name == 'push'
+      - uses: actions/checkout@v7
+        if: github.event_name == 'workflow_dispatch'
+        with:
+          ref: ${{ inputs.commit_sha }}
       - uses: actions/setup-node@v7
         with:
           node-version: 24
@@ -125,7 +137,7 @@ jobs:
           path: out
 
   deploy:
-    if: github.event_name == 'workflow_dispatch'
+    if: github.event_name == 'workflow_dispatch' && inputs.publish_mode == 'production'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -138,24 +150,25 @@ jobs:
 
 ### 4. CMS publish trigger
 
-CMS 以 `workflow_dispatch` 傳入 `deployment_id`、`release_id`、
-`site_key`、`attempt_number` 與 HTTPS `content_api_url`。其中
-`content_api_url` 是 public API v1 base；workflow 分別附加
-`/build/content` 與 `/deployments/:id/status`。Repository
-Actions secrets 必須提供：
+CMS 會先以 GitHub Contents API 更新
+`content/published-content-v1.json`，取得 commit SHA 後才 dispatch。輸入包含
+`deployment_id`、`release_id`、`site_key`、`attempt_number`、`commit_sha`、
+`publish_mode` 與 HTTPS `content_api_url`；API URL 只用於
+`/deployments/:id/status` callback。Repository Actions secret 必須提供：
 
-- `CMS_BUILD_TOKEN`：讀取 immutable `PublishedContentV1` snapshot。
 - `CMS_DEPLOYMENT_STATUS_TOKEN`：回報 `in_progress` 與
   `succeeded`／`failed`／`cancelled`。
 
-Workflow 會驗證 inputs／secrets、取得並核對 snapshot
-`schemaVersion: "1.0"` 與 `releaseId`、執行 lint/build、部署 Pages，
+Workflow 會驗證 inputs／secrets、checkout 並核對 commit SHA、驗證 tracked
+snapshot 的 `schemaVersion: "1.0"` 與 `releaseId`、執行 lint/build，
+且只在 production 部署 Pages，
 最後以 run ID、workflow URL、commit SHA 與終態 callback 回報 CMS。
 `github-pages` environment 目前只允許 `main`，因此 production CMS
 dispatcher 的 `GITHUB_PUBLISH_REF` 必須設為 `main`。
 
-Stage 5 網站 source 會在 static build 中消費 snapshot。Workflow 將已驗證的
-檔案路徑（而非 token）傳給 Next build，並設定
+網站 source 會在 static build 中消費 tracked snapshot。Required mode 未明確
+設定路徑時固定讀取 `content/published-content-v1.json`；測試仍可用
+`CMS_PUBLISHED_CONTENT_PATH` 覆寫。Workflow 會設定
 `CMS_CONTENT_REQUIRED=1` 與 `CMS_EXPECTED_RELEASE_ID`；缺檔、格式錯誤、
 schema 不相容、release 不符、未知 visible navigation route、Blog summary/detail
 slug 不一致或必要內容 malformed 都會讓 build 失敗。
@@ -172,15 +185,15 @@ required build fail closed。CMS 目前固定輸出的精確 `emptyPages()` 會�
 整頁回退到既有內容，非空 page 則整頁使用 snapshot，避免局部混搭。
 `mapEmbedUrl`、團隊詳情、計算器、服務時間、LINE QR 與環境照片不在 V1
 contract 內，繼續由本 repository 管理。公開頁面不會在 browser runtime 呼叫
-CMS；`CMS_BUILD_TOKEN` 只存在 workflow fetch step，也不會傳給 Next build 或
-寫入 static artifact。
+CMS；workflow 也不再下載 snapshot 或接收 `CMS_BUILD_TOKEN`，static artifact
+不包含 CMS endpoint 或 token。
 
 Build-only 環境變數：
 
 | 變數 | 用途 |
 | --- | --- |
-| `CMS_PUBLISHED_CONTENT_PATH` | 已下載的 `PublishedContentV1` JSON 檔案路徑；不是 API URL。 |
-| `CMS_CONTENT_REQUIRED=1` | CMS workflow 的 fail-closed mode；缺少 path 時立即失敗。 |
+| `CMS_PUBLISHED_CONTENT_PATH` | 選用的 `PublishedContentV1` JSON 覆寫路徑；不是 API URL。 |
+| `CMS_CONTENT_REQUIRED=1` | fail-closed mode；未覆寫時要求 tracked snapshot 存在。 |
 | `CMS_EXPECTED_RELEASE_ID` | 驗證 snapshot `releaseId` 與 dispatch release 一致。 |
 
 CMS fixture build 可用：
@@ -194,9 +207,8 @@ npm run build
 
 若不使用 GitHub Actions，也可以手動把 `out/` 的內容推到目前 GitHub Pages 指定的發布分支或資料夾。重點是遠端 Pages 來源必須收到 `out/` 內的靜態檔，而不是 Next.js 專案原始碼本身。
 
-目前 consumer implementation 與 local validation 位於 `dev`；尚未 promotion
-到 production `main`，也尚未以正式 credentials 重跑 CMS publish → Pages →
-callback → production URL/content 驗收。
+目前 tracked snapshot 包含既有 14 篇文章與 slug `001`～`014`。Production
+credentials 與 `main` 發布仍需在 dev full-path 驗收後另行啟用。
 
 ## 路由對應
 

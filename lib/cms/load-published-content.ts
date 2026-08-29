@@ -5,17 +5,30 @@ import { publishedContentV1Schema } from "./published-content-schema";
 
 let cached: PublishedContentV1 | null | undefined;
 
+export const TRACKED_PUBLISHED_CONTENT_PATH = path.join(
+  process.cwd(),
+  "content",
+  "published-content-v1.json",
+);
+
 export function loadPublishedContent(): PublishedContentV1 | null {
   if (cached !== undefined) return cached;
   const configuredPath = process.env.CMS_PUBLISHED_CONTENT_PATH?.trim();
   const required = process.env.CMS_CONTENT_REQUIRED === "1";
-  if (!configuredPath) {
-    if (required) throw new Error("CMS content is required but CMS_PUBLISHED_CONTENT_PATH is missing");
+  const trackedSnapshotExists = fs.existsSync(TRACKED_PUBLISHED_CONTENT_PATH);
+  if (!configuredPath && !required) {
     cached = null;
     return cached;
   }
 
-  const snapshotPath = path.resolve(configuredPath);
+  const snapshotPath = configuredPath
+    ? path.resolve(configuredPath)
+    : TRACKED_PUBLISHED_CONTENT_PATH;
+  if (!configuredPath && required && !trackedSnapshotExists) {
+    throw new Error(
+      `CMS content is required but tracked snapshot is missing at ${TRACKED_PUBLISHED_CONTENT_PATH}`,
+    );
+  }
   let raw: string;
   try {
     raw = fs.readFileSync(snapshotPath, "utf8");
