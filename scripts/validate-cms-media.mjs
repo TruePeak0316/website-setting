@@ -15,6 +15,16 @@ export function validateCmsMedia(snapshot, publicDirectory) {
     }
     if (typeof value === 'string' && value.includes('<')) {
       const $ = load(value);
+      $('style, [style]').each((_, element) => {
+        const css = element.tagName === 'style' ? $(element).text() : $(element).attr('style');
+        // Fail closed instead of maintaining a second CSS URL parser. Escapes and
+        // resource functions can bypass a simple url(...) extraction expression.
+        const normalized = (css ?? '').replace(/\/\*[\s\S]*?\*\//g, '');
+        if (/\\|@import\b|(?:url|(?:-webkit-)?image-set|image|src)\s*\(/i.test(normalized)) {
+          throw new Error('CMS CSS resource references are not supported; use managed img elements');
+        }
+      });
+      if ($('[srcset]').length) throw new Error('CMS srcset references are not supported; use managed img elements');
       $('img[src]').each((_, image) => urls.add($(image).attr('src')));
     }
   }

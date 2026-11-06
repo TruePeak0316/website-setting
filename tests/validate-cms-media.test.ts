@@ -20,3 +20,29 @@ it('requires every image to resolve to a local file at the public site origin', 
   expect(() => validateCmsMedia({ siteSettings, html: '<img src="/images/cms/%2e%2e/secret">' }, root)).toThrow('Unsafe CMS image path');
   expect(() => validateCmsMedia({ siteSettings, image: { ...image, url: 'https://cdn.example.test/images/cms/photo.webp' } }, root)).toThrow('public website origin');
 });
+
+for (const css of [
+  'background-image: url(https://outside.example/missing.png)',
+  'background: url(/images/cms/missing.webp)',
+  'background: url(/images/cms/photo.webp)',
+  'background: image-set("https://outside.example/photo.webp" 1x)',
+  '@import "https://outside.example/styles.css";',
+  'background: u/**/rl(/images/cms/missing.webp)',
+  String.raw`background: u\72l(/images/cms/missing.webp)`,
+]) {
+  it(`rejects CSS resources in blocks and attributes: ${css}`, () => {
+    const root = fs.mkdtempSync(path.join(os.tmpdir(), 'cms-css-'));
+    directories.push(root);
+    const siteSettings = { publicUrl: 'https://example.test' };
+    expect(() => validateCmsMedia({ siteSettings, html: `<style>.banner { ${css} }</style>` }, root)).toThrow('CSS resource');
+    expect(() => validateCmsMedia({ siteSettings, html: `<div style='${css}'>text</div>` }, root)).toThrow('CSS resource');
+  });
+}
+
+it('allows ordinary CSS without resource references', () => {
+  const root = fs.mkdtempSync(path.join(os.tmpdir(), 'cms-css-'));
+  directories.push(root);
+  expect(() => validateCmsMedia({ siteSettings: { publicUrl: 'https://example.test' },
+    html: '<style>/* layout */ .banner { color: red; display: grid }</style><div style="padding: 2px">Text</div>',
+  }, root)).not.toThrow();
+});
