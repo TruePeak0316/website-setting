@@ -91,6 +91,7 @@ const articleDetail = articleSummary.extend({ contentHtml: z.string(), embedUrl:
 export const publishedContentV1Schema = z.object({
   schemaVersion: z.literal("1.0"),
   releaseId: z.string().uuid(),
+  siteKey: z.string().regex(/^[a-z0-9][a-z0-9_-]{0,63}$/).optional(),
   publishedAt: z.string().datetime(),
   siteSettings: z.object({
     siteName: z.string().min(1), displayName: z.string().min(1), description: z.string().min(1),

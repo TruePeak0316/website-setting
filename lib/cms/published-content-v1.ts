@@ -169,6 +169,7 @@ export interface PublishedBlogArticleDetailV1 extends PublishedBlogArticleSummar
 export interface PublishedContentV1 {
   schemaVersion: "1.0";
   releaseId: string;
+  siteKey?: string;
   publishedAt: string;
   siteSettings: PublishedSiteSettingsV1;
   navigation: PublishedNavigationItemV1[];
