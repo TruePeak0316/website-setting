@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0",
-  "releaseId": "fe5268f8-7b3f-47ad-859b-008353a4f54f",
-  "publishedAt": "2026-11-06T09:49:54.589Z",
+  "releaseId": "5fdcaaac-c20b-4557-8acb-555b29431c03",
+  "publishedAt": "2026-11-06T09:51:35.990Z",
   "siteSettings": {
     "siteName": "誠峰會計師事務所",
     "displayName": "誠峰會計師事務所｜彭裕峰會計師",
@@ -150,28 +150,6 @@
   },
   "blog": {
     "articles": [
-      {
-        "id": "15",
-        "slug": "test",
-        "title": "測試文章",
-        "subtitle": null,
-        "excerpt": "測試文章",
-        "coverImage": null,
-        "author": {
-          "name": "CMS Super Admin",
-          "slug": null,
-          "biography": null,
-          "photo": null
-        },
-        "category": {
-          "name": "誠峰解析",
-          "slug": "truepeak-analysis"
-        },
-        "tags": [],
-        "publishedAt": "2026-11-06T09:41:00.000Z",
-        "updatedAt": "2026-11-06T09:49:47.852Z",
-        "readTimeMinutes": 1
-      },
       {
         "id": "1",
         "slug": "014",
@@ -566,39 +544,6 @@
       }
     ],
     "details": [
-      {
-        "id": "15",
-        "slug": "test",
-        "title": "測試文章",
-        "subtitle": null,
-        "excerpt": "測試文章",
-        "coverImage": null,
-        "author": {
-          "name": "CMS Super Admin",
-          "slug": null,
-          "biography": null,
-          "photo": null
-        },
-        "category": {
-          "name": "誠峰解析",
-          "slug": "truepeak-analysis"
-        },
-        "tags": [],
-        "publishedAt": "2026-11-06T09:41:00.000Z",
-        "updatedAt": "2026-11-06T09:49:47.852Z",
-        "readTimeMinutes": 1,
-        "contentHtml": "<p>測試文章</p>",
-        "embedUrl": null,
-        "seo": {
-          "title": null,
-          "description": null,
-          "canonicalUrl": null,
-          "openGraphTitle": null,
-          "openGraphDescription": null,
-          "openGraphImage": null,
-          "noIndex": false
-        }
-      },
       {
         "id": "1",
         "slug": "014",
@@ -1376,5 +1321,5 @@
   },
   "siteKey": "main",
   "publishMode": "production",
-  "releaseNumber": 2
+  "releaseNumber": 3
 }
