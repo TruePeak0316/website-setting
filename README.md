@@ -89,6 +89,8 @@ attempt、完整內容 commit 與發布模式。workflow 從指定 commit 讀取
 同一網站應共用同一 CMS 發布序號；獨立資料庫產生相同序號時會被拒絕，需先協調。
 
 只修改網站程式碼、CMS 內容不變時，在新版 CMS 發布頁使用 **重新部署網站程式**。
+此操作需同時具備 `publish.execute` 與 `deploy.retry`；若失敗前尚未固定程式 SHA，
+其重試及中斷恢復也要求雙權限。已固定 SHA 的重試仍使用原版本。
 這會明確選取所確認的最新 release，或目前 active release；首次 preview／production
 失敗、尚無 active release 時也可使用。僅在對應分支的快照完全一致、發布模式相符且
 候選版本未過期時，才選取最新 commit 並建立新部署，不包含未發布草稿。一般 push、媒體上傳與快照提交不會自行部署；重試舊
