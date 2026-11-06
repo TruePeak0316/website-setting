@@ -36,6 +36,7 @@ on:
         type: string
 
 permissions:
+  actions: read
   contents: read
   pages: write
   id-token: write
@@ -140,6 +141,7 @@ jobs:
         env:
           COMMIT_SHA: ${{ inputs.commit_sha }}
           SITE_KEY: ${{ inputs.site_key }}
+          GH_TOKEN: ${{ github.token }}
         run: |
           set -euo pipefail
           git fetch --no-tags origin '+refs/heads/main:refs/remotes/origin/main'
@@ -149,6 +151,7 @@ jobs:
           current="$(git rev-parse "refs/remotes/origin/main:$snapshot")"
           [[ "$expected" == "$current" ]] || { echo '::error::A newer CMS release superseded this deployment'; exit 1; }
           node scripts/verify-release-order.mjs
+          node scripts/verify-deployed-commit.mjs
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
