@@ -86,6 +86,15 @@ describe("loadPublishedContent", () => {
     expect(loadPublishedContent()?.siteKey).toBe("main");
   });
 
+  it("requires the expected publish mode when one is provided", () => {
+    process.env.CMS_PUBLISHED_CONTENT_PATH = withSnapshot((value) => { value.publishMode = "preview"; });
+    process.env.CMS_EXPECTED_PUBLISH_MODE = "production";
+    expect(() => loadPublishedContent()).toThrow("publishMode mismatch");
+    resetPublishedContentCacheForTests();
+    process.env.CMS_EXPECTED_PUBLISH_MODE = "preview";
+    expect(loadPublishedContent()?.publishMode).toBe("preview");
+  });
+
   it("rejects malformed required content", () => {
     process.env.CMS_PUBLISHED_CONTENT_PATH = withSnapshot((value) => {
       (value.siteSettings as Record<string, unknown>).email = "not-an-email";

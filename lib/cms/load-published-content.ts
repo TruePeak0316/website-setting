@@ -38,6 +38,10 @@ export function loadPublishedContent(): PublishedContentV1 | null {
   if (expectedSite && parsed.data.siteKey !== expectedSite) {
     throw new Error(`CMS snapshot siteKey mismatch: expected ${expectedSite}`);
   }
+  const expectedMode = process.env.CMS_EXPECTED_PUBLISH_MODE?.trim();
+  if (expectedMode && parsed.data.publishMode !== expectedMode) {
+    throw new Error(`CMS snapshot publishMode mismatch: expected ${expectedMode}`);
+  }
   validateSemanticContent(parsed.data);
   cached = parsed.data;
   return cached;
