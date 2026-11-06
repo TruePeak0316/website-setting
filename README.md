@@ -73,6 +73,8 @@ URL 的靜態 redirect 檔；legacy mode 直接複製 `public/robots.txt` 與
 attempt、完整內容 commit 與發布模式。workflow 從指定 commit 讀取快照與受管理
 圖片，不連線本機 CMS，也不需要 CMS callback secrets。快照、站台、模式或圖片不符
 時會失敗，不回退到其他內容。
+快照的圖片必須使用網站公開網址的 origin，且檔案必須存在該 commit 的 `public/`；
+不接受可變的第三方圖片網址。請讓 CMS Media 公開網址與網站公開網址一致。
 
 `dev / preview` 只建置；`main / production` 才部署 Pages。正式部署前再次
 核對 main 上的快照與發布序號，拒絕已被較新版本取代的部署。GitHub Actions
