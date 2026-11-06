@@ -1,0 +1,1380 @@
+{
+  "schemaVersion": "1.0",
+  "releaseId": "b08df83e-caf6-4ee1-bf06-2c88c2e29b06",
+  "publishedAt": "2026-11-06T09:41:33.049Z",
+  "siteSettings": {
+    "siteName": "誠峰會計師事務所",
+    "displayName": "誠峰會計師事務所｜彭裕峰會計師",
+    "description": "深耕三峽、北大、鶯歌地區，提供記帳、報稅、公司設立、財務顧問與會計師簽證服務。",
+    "publicUrl": "https://www.tpcpa.com.tw",
+    "phoneNumber": "02-8672-0074",
+    "telephoneHref": "tel:0286720074",
+    "email": "yongsheng@tpcpa.com.tw",
+    "businessAddress": "新北市三峽區大觀路86號4樓",
+    "lineId": "@lua6791g",
+    "lineUrl": "https://lin.ee/DTys3X3",
+    "bookingUrl": null,
+    "mapUrl": "https://maps.app.goo.gl/hKnRcETHjRdDQvYLA",
+    "reviewUrl": "https://www.google.com/maps/place/%E8%AA%A0%E5%B3%B0%E6%9C%83%E8%A8%88%E5%B8%AB%E4%BA%8B%E5%8B%99%E6%89%80+%2F+%E6%B0%B8%E8%81%96%E7%A8%85%E5%8B%99%E8%A8%98%E5%B8%B3%E5%A3%AB%E4%BA%8B%E5%8B%99%E6%89%80/@24.9469289,121.370841,16.67z/data=!4m8!3m7!1s0x34681d18beb9d4fd:0x99a2525f6c24dc96!8m2!3d24.9464515!4d121.3740263!9m1!1b1!16s%2Fg%2F11w8r2xh6w?entry=ttu",
+    "logo": null,
+    "favicon": null
+  },
+  "navigation": [
+    {
+      "key": "home",
+      "label": "首頁",
+      "path": "/",
+      "visible": true,
+      "order": 0,
+      "icon": null
+    },
+    {
+      "key": "services",
+      "label": "服務項目",
+      "path": "/services",
+      "visible": true,
+      "order": 1,
+      "icon": null
+    },
+    {
+      "key": "about",
+      "label": "關於我們",
+      "path": "/about",
+      "visible": true,
+      "order": 2,
+      "icon": null
+    },
+    {
+      "key": "team",
+      "label": "專業團隊",
+      "path": "/team",
+      "visible": true,
+      "order": 3,
+      "icon": null
+    },
+    {
+      "key": "truepeakinsights",
+      "label": "誠峰觀點",
+      "path": "/truepeakinsights",
+      "visible": true,
+      "order": 4,
+      "icon": null
+    },
+    {
+      "key": "testimonials",
+      "label": "客戶見證",
+      "path": "/testimonials",
+      "visible": true,
+      "order": 5,
+      "icon": null
+    },
+    {
+      "key": "caculators",
+      "label": "計算小工具",
+      "path": "/caculators",
+      "visible": true,
+      "order": 6,
+      "icon": null
+    },
+    {
+      "key": "contact",
+      "label": "聯絡我們",
+      "path": "/contact",
+      "visible": true,
+      "order": 7,
+      "icon": null
+    }
+  ],
+  "pages": {
+    "home": {
+      "hero": {
+        "eyebrow": null,
+        "title": "",
+        "description": null,
+        "image": null,
+        "primaryAction": null,
+        "secondaryAction": null
+      },
+      "advantages": [],
+      "featuredArticleSlugs": []
+    },
+    "about": {
+      "hero": {
+        "eyebrow": null,
+        "title": "",
+        "description": null,
+        "image": null,
+        "primaryAction": null,
+        "secondaryAction": null
+      },
+      "introductionHtml": "",
+      "values": [],
+      "timeline": [],
+      "team": []
+    },
+    "services": {
+      "hero": {
+        "eyebrow": null,
+        "title": "",
+        "description": null,
+        "image": null,
+        "primaryAction": null,
+        "secondaryAction": null
+      },
+      "introductionHtml": "",
+      "services": []
+    },
+    "testimonials": {
+      "hero": {
+        "eyebrow": null,
+        "title": "",
+        "description": null,
+        "image": null,
+        "primaryAction": null,
+        "secondaryAction": null
+      },
+      "introductionHtml": "",
+      "testimonials": []
+    },
+    "contact": {
+      "hero": {
+        "eyebrow": null,
+        "title": "",
+        "description": null,
+        "image": null,
+        "primaryAction": null,
+        "secondaryAction": null
+      },
+      "introductionHtml": ""
+    }
+  },
+  "blog": {
+    "articles": [
+      {
+        "id": "15",
+        "slug": "測試文章",
+        "title": "測試文章",
+        "subtitle": null,
+        "excerpt": "測試文章",
+        "coverImage": null,
+        "author": {
+          "name": "CMS Super Admin",
+          "slug": null,
+          "biography": null,
+          "photo": null
+        },
+        "category": {
+          "name": "誠峰解析",
+          "slug": "truepeak-analysis"
+        },
+        "tags": [],
+        "publishedAt": "2026-11-06T09:41:00.000Z",
+        "updatedAt": "2026-11-06T09:41:18.998Z",
+        "readTimeMinutes": 1
+      },
+      {
+        "id": "1",
+        "slug": "014",
+        "title": "申報完畢、相關附件上傳",
+        "subtitle": "相關附件上傳",
+        "excerpt": "相關附件上傳",
+        "coverImage": {
+          "id": "legacy-cover-014",
+          "url": "https://www.tpcpa.com.tw/Library/PictureOf014.webp",
+          "alt": "申報完畢",
+          "width": 350,
+          "height": 350
+        },
+        "author": {
+          "name": "彭裕峰 會計師",
+          "slug": "peng-yu-feng",
+          "biography": null,
+          "photo": null
+        },
+        "category": {
+          "name": "財稅實務",
+          "slug": "tax-practice"
+        },
+        "tags": [],
+        "publishedAt": "2026-05-24T16:00:00.000Z",
+        "updatedAt": "2026-11-06T05:42:56.712Z",
+        "readTimeMinutes": 1
+      },
+      {
+        "id": "2",
+        "slug": "013",
+        "title": "執行業務所得申報操作",
+        "subtitle": null,
+        "excerpt": "執行業務所得申報操作",
+        "coverImage": {
+          "id": "legacy-cover-013",
+          "url": "https://www.tpcpa.com.tw/Library/PictureOf013.webp",
+          "alt": "執行業務所得申報操作",
+          "width": 350,
+          "height": 350
+        },
+        "author": {
+          "name": "彭裕峰 會計師",
+          "slug": "peng-yu-feng",
+          "biography": null,
+          "photo": null
+        },
+        "category": {
+          "name": "財稅實務",
+          "slug": "tax-practice"
+        },
+        "tags": [],
+        "publishedAt": "2026-05-24T16:00:00.000Z",
+        "updatedAt": "2026-11-06T05:42:56.712Z",
+        "readTimeMinutes": 1
+      },
+      {
+        "id": "3",
+        "slug": "012",
+        "title": "綜合所得稅申報-行號71D",
+        "subtitle": "行號71D",
+        "excerpt": "行號71D",
+        "coverImage": {
+          "id": "legacy-cover-012",
+          "url": "https://www.tpcpa.com.tw/Library/PictureOf012.webp",
+          "alt": "綜合所得稅申報",
+          "width": 350,
+          "height": 350
+        },
+        "author": {
+          "name": "彭裕峰 會計師",
+          "slug": "peng-yu-feng",
+          "biography": null,
+          "photo": null
+        },
+        "category": {
+          "name": "財稅實務",
+          "slug": "tax-practice"
+        },
+        "tags": [],
+        "publishedAt": "2026-05-24T16:00:00.000Z",
+        "updatedAt": "2026-11-06T05:42:56.712Z",
+        "readTimeMinutes": 1
+      },
+      {
+        "id": "4",
+        "slug": "011",
+        "title": "各類所得扣繳常見問題與實務重點一次說清楚",
+        "subtitle": null,
+        "excerpt": "公司給付薪資、顧問費、租金一定要扣繳嗎？本文由彭裕峰會計師整理各類所得扣繳常見問題，一次說明扣繳義務、常見錯誤與二代健保補充保費實務，協助企業降低稅務風險。",
+        "coverImage": {
+          "id": "legacy-cover-011",
+          "url": "https://www.tpcpa.com.tw/Library/PictureOf011.webp",
+          "alt": "各類所得扣繳",
+          "width": 350,
+          "height": 350
+        },
+        "author": {
+          "name": "彭裕峰 會計師",
+          "slug": "peng-yu-feng",
+          "biography": null,
+          "photo": null
+        },
+        "category": {
+          "name": "財稅實務",
+          "slug": "tax-practice"
+        },
+        "tags": [],
+        "publishedAt": "2026-01-26T16:00:00.000Z",
+        "updatedAt": "2026-11-06T05:42:56.712Z",
+        "readTimeMinutes": 9
+      },
+      {
+        "id": "5",
+        "slug": "010",
+        "title": "當贈與變成遺產",
+        "subtitle": "113年憲判字第11號揭開『擬制遺產課稅』的憲法爭議(下)",
+        "excerpt": "113年憲判字第11號揭開『擬制遺產課稅』的憲法爭議(下)",
+        "coverImage": {
+          "id": "legacy-cover-010",
+          "url": "https://www.tpcpa.com.tw/Library/PictureOf010.webp",
+          "alt": "遺產稅爭議下篇",
+          "width": 350,
+          "height": 350
+        },
+        "author": {
+          "name": "彭裕峰 會計師",
+          "slug": "peng-yu-feng",
+          "biography": null,
+          "photo": null
+        },
+        "category": {
+          "name": "誠峰解析",
+          "slug": "truepeak-analysis"
+        },
+        "tags": [],
+        "publishedAt": "2025-12-11T16:00:00.000Z",
+        "updatedAt": "2026-11-06T05:42:56.712Z",
+        "readTimeMinutes": 5
+      },
+      {
+        "id": "6",
+        "slug": "009",
+        "title": "當贈與變成遺產",
+        "subtitle": "113年憲判字第11號揭開『擬制遺產課稅』的憲法爭議(上)",
+        "excerpt": "113年憲判字第11號揭開『擬制遺產課稅』的憲法爭議(上)",
+        "coverImage": {
+          "id": "legacy-cover-009",
+          "url": "https://www.tpcpa.com.tw/Library/PictureOf009.webp",
+          "alt": "遺產稅爭議上篇",
+          "width": 350,
+          "height": 350
+        },
+        "author": {
+          "name": "彭裕峰 會計師",
+          "slug": "peng-yu-feng",
+          "biography": null,
+          "photo": null
+        },
+        "category": {
+          "name": "誠峰解析",
+          "slug": "truepeak-analysis"
+        },
+        "tags": [],
+        "publishedAt": "2025-12-11T16:00:00.000Z",
+        "updatedAt": "2026-11-06T05:42:56.712Z",
+        "readTimeMinutes": 4
+      },
+      {
+        "id": "7",
+        "slug": "008",
+        "title": "電子發票一定要上傳平台嗎？",
+        "subtitle": "什麼資料要上傳？多久內要完成？不上傳會被罰嗎？",
+        "excerpt": "什麼資料要上傳？多久內要完成？不上傳會被罰嗎？",
+        "coverImage": {
+          "id": "legacy-cover-008",
+          "url": "https://www.tpcpa.com.tw/Library/PictureOf008.webp",
+          "alt": "電子發票一定要上傳平台嗎",
+          "width": 350,
+          "height": 350
+        },
+        "author": {
+          "name": "彭裕峰 會計師",
+          "slug": "peng-yu-feng",
+          "biography": null,
+          "photo": null
+        },
+        "category": {
+          "name": "財稅實務",
+          "slug": "tax-practice"
+        },
+        "tags": [],
+        "publishedAt": "2025-12-04T16:00:00.000Z",
+        "updatedAt": "2026-11-06T05:42:56.712Z",
+        "readTimeMinutes": 6
+      },
+      {
+        "id": "8",
+        "slug": "007",
+        "title": "何謂扣繳？",
+        "subtitle": "到底在繳什麼東西",
+        "excerpt": "到底在繳什麼東西",
+        "coverImage": {
+          "id": "legacy-cover-007",
+          "url": "https://www.tpcpa.com.tw/Library/PictureOf007.webp",
+          "alt": "何謂扣繳",
+          "width": 350,
+          "height": 350
+        },
+        "author": {
+          "name": "彭裕峰 會計師",
+          "slug": "peng-yu-feng",
+          "biography": null,
+          "photo": null
+        },
+        "category": {
+          "name": "財稅實務",
+          "slug": "tax-practice"
+        },
+        "tags": [],
+        "publishedAt": "2025-10-13T16:00:00.000Z",
+        "updatedAt": "2026-11-06T05:42:56.712Z",
+        "readTimeMinutes": 4
+      },
+      {
+        "id": "9",
+        "slug": "006",
+        "title": "網紅課稅新制上路",
+        "subtitle": "YouTube、IG、直播收入都要報稅？",
+        "excerpt": "YouTube、IG、直播收入都要報稅？",
+        "coverImage": {
+          "id": "legacy-cover-006",
+          "url": "https://www.tpcpa.com.tw/Library/PictureOf006.webp",
+          "alt": "網紅課稅新制上路",
+          "width": 350,
+          "height": 350
+        },
+        "author": {
+          "name": "彭裕峰 會計師",
+          "slug": "peng-yu-feng",
+          "biography": null,
+          "photo": null
+        },
+        "category": {
+          "name": "財稅實務",
+          "slug": "tax-practice"
+        },
+        "tags": [],
+        "publishedAt": "2025-10-02T16:00:00.000Z",
+        "updatedAt": "2026-11-06T05:42:56.712Z",
+        "readTimeMinutes": 5
+      },
+      {
+        "id": "10",
+        "slug": "005",
+        "title": "營業稅是什麼？",
+        "subtitle": "創業老闆必懂的基礎觀念",
+        "excerpt": "創業老闆必懂的基礎觀念",
+        "coverImage": {
+          "id": "legacy-cover-005",
+          "url": "https://www.tpcpa.com.tw/Library/PictureOf005.webp",
+          "alt": "營業稅是什麼",
+          "width": 350,
+          "height": 350
+        },
+        "author": {
+          "name": "彭裕峰 會計師",
+          "slug": "peng-yu-feng",
+          "biography": null,
+          "photo": null
+        },
+        "category": {
+          "name": "財稅實務",
+          "slug": "tax-practice"
+        },
+        "tags": [],
+        "publishedAt": "2025-09-16T16:00:00.000Z",
+        "updatedAt": "2026-11-06T05:42:56.712Z",
+        "readTimeMinutes": 5
+      },
+      {
+        "id": "11",
+        "slug": "004",
+        "title": "我要創業",
+        "subtitle": "是開公司好還是行號好？",
+        "excerpt": "是開公司好還是行號好？",
+        "coverImage": {
+          "id": "legacy-cover-004",
+          "url": "https://www.tpcpa.com.tw/Library/PictureOf004.webp",
+          "alt": "我要創業",
+          "width": 350,
+          "height": 350
+        },
+        "author": {
+          "name": "彭裕峰 會計師",
+          "slug": "peng-yu-feng",
+          "biography": null,
+          "photo": null
+        },
+        "category": {
+          "name": "公司經營",
+          "slug": "business-management"
+        },
+        "tags": [],
+        "publishedAt": "2025-08-28T16:00:00.000Z",
+        "updatedAt": "2026-11-06T05:42:56.712Z",
+        "readTimeMinutes": 5
+      },
+      {
+        "id": "12",
+        "slug": "003",
+        "title": "會計也能很永續？",
+        "subtitle": "看我們怎麼把 ESG 落實在每一天",
+        "excerpt": "看我們怎麼把 ESG 落實在每一天",
+        "coverImage": {
+          "id": "legacy-cover-003",
+          "url": "https://www.tpcpa.com.tw/Library/PictureOf003.webp",
+          "alt": "會計也能很永續",
+          "width": 350,
+          "height": 350
+        },
+        "author": {
+          "name": "彭裕峰 會計師",
+          "slug": "peng-yu-feng",
+          "biography": null,
+          "photo": null
+        },
+        "category": {
+          "name": "誠峰解析",
+          "slug": "truepeak-analysis"
+        },
+        "tags": [],
+        "publishedAt": "2025-07-30T16:00:00.000Z",
+        "updatedAt": "2026-11-06T05:42:56.712Z",
+        "readTimeMinutes": 4
+      },
+      {
+        "id": "13",
+        "slug": "002",
+        "title": "不能說的秘密:擴大書面審核",
+        "subtitle": "從便民到變質，一項福國利民政策，如何拖垮會計產業？",
+        "excerpt": "從便民到變質，一項福國利民政策，如何拖垮會計產業？",
+        "coverImage": {
+          "id": "legacy-cover-002",
+          "url": "https://www.tpcpa.com.tw/Library/PictureOf002.webp",
+          "alt": "不能說的秘密擴大書面審核",
+          "width": 350,
+          "height": 350
+        },
+        "author": {
+          "name": "彭裕峰 會計師",
+          "slug": "peng-yu-feng",
+          "biography": null,
+          "photo": null
+        },
+        "category": {
+          "name": "誠峰解析",
+          "slug": "truepeak-analysis"
+        },
+        "tags": [],
+        "publishedAt": "2025-06-29T16:00:00.000Z",
+        "updatedAt": "2026-11-06T05:42:56.712Z",
+        "readTimeMinutes": 4
+      },
+      {
+        "id": "14",
+        "slug": "001",
+        "title": "一年不開發票會違法嗎？",
+        "subtitle": "談營業稅免用統一發票制度的實務解析",
+        "excerpt": "談營業稅免用統一發票制度的實務解析",
+        "coverImage": {
+          "id": "legacy-cover-001",
+          "url": "https://www.tpcpa.com.tw/Library/PictureOf001.webp",
+          "alt": "一年不開發票會違法嗎",
+          "width": 350,
+          "height": 350
+        },
+        "author": {
+          "name": "彭裕峰 會計師",
+          "slug": "peng-yu-feng",
+          "biography": null,
+          "photo": null
+        },
+        "category": {
+          "name": "財稅實務",
+          "slug": "tax-practice"
+        },
+        "tags": [],
+        "publishedAt": "2025-05-30T16:00:00.000Z",
+        "updatedAt": "2026-11-06T05:42:56.712Z",
+        "readTimeMinutes": 4
+      }
+    ],
+    "details": [
+      {
+        "id": "15",
+        "slug": "測試文章",
+        "title": "測試文章",
+        "subtitle": null,
+        "excerpt": "測試文章",
+        "coverImage": null,
+        "author": {
+          "name": "CMS Super Admin",
+          "slug": null,
+          "biography": null,
+          "photo": null
+        },
+        "category": {
+          "name": "誠峰解析",
+          "slug": "truepeak-analysis"
+        },
+        "tags": [],
+        "publishedAt": "2026-11-06T09:41:00.000Z",
+        "updatedAt": "2026-11-06T09:41:18.998Z",
+        "readTimeMinutes": 1,
+        "contentHtml": "<p>測試文章</p>",
+        "embedUrl": null,
+        "seo": {
+          "title": null,
+          "description": null,
+          "canonicalUrl": null,
+          "openGraphTitle": null,
+          "openGraphDescription": null,
+          "openGraphImage": null,
+          "noIndex": false
+        }
+      },
+      {
+        "id": "1",
+        "slug": "014",
+        "title": "申報完畢、相關附件上傳",
+        "subtitle": "相關附件上傳",
+        "excerpt": "相關附件上傳",
+        "coverImage": {
+          "id": "legacy-cover-014",
+          "url": "https://www.tpcpa.com.tw/Library/PictureOf014.webp",
+          "alt": "申報完畢",
+          "width": 350,
+          "height": 350
+        },
+        "author": {
+          "name": "彭裕峰 會計師",
+          "slug": "peng-yu-feng",
+          "biography": null,
+          "photo": null
+        },
+        "category": {
+          "name": "財稅實務",
+          "slug": "tax-practice"
+        },
+        "tags": [],
+        "publishedAt": "2026-05-24T16:00:00.000Z",
+        "updatedAt": "2026-11-06T05:42:56.712Z",
+        "readTimeMinutes": 1,
+        "contentHtml": "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/PGKNipR2pxo?si=-KqKLXNsPseIiNfS\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen=\"\"></iframe>\n\n          \n          <br>",
+        "embedUrl": null,
+        "seo": {
+          "title": "申報完畢、相關附件上傳｜誠峰會計師事務所",
+          "description": "相關附件上傳",
+          "canonicalUrl": null,
+          "openGraphTitle": "申報完畢、相關附件上傳｜誠峰會計師事務所",
+          "openGraphDescription": "相關附件上傳",
+          "openGraphImage": {
+            "id": "legacy-cover-014",
+            "url": "https://www.tpcpa.com.tw/Library/PictureOf014.webp",
+            "alt": "申報完畢",
+            "width": 350,
+            "height": 350
+          },
+          "noIndex": false
+        }
+      },
+      {
+        "id": "2",
+        "slug": "013",
+        "title": "執行業務所得申報操作",
+        "subtitle": null,
+        "excerpt": "執行業務所得申報操作",
+        "coverImage": {
+          "id": "legacy-cover-013",
+          "url": "https://www.tpcpa.com.tw/Library/PictureOf013.webp",
+          "alt": "執行業務所得申報操作",
+          "width": 350,
+          "height": 350
+        },
+        "author": {
+          "name": "彭裕峰 會計師",
+          "slug": "peng-yu-feng",
+          "biography": null,
+          "photo": null
+        },
+        "category": {
+          "name": "財稅實務",
+          "slug": "tax-practice"
+        },
+        "tags": [],
+        "publishedAt": "2026-05-24T16:00:00.000Z",
+        "updatedAt": "2026-11-06T05:42:56.712Z",
+        "readTimeMinutes": 1,
+        "contentHtml": "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/r3tNkWkjuWU?si=Bs1siWLkG9npHNSp\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen=\"\"></iframe>\n\n          \n          <br>",
+        "embedUrl": null,
+        "seo": {
+          "title": "執行業務所得申報操作｜誠峰會計師事務所",
+          "description": "執行業務所得申報操作",
+          "canonicalUrl": null,
+          "openGraphTitle": "執行業務所得申報操作｜誠峰會計師事務所",
+          "openGraphDescription": "執行業務所得申報操作",
+          "openGraphImage": {
+            "id": "legacy-cover-013",
+            "url": "https://www.tpcpa.com.tw/Library/PictureOf013.webp",
+            "alt": "執行業務所得申報操作",
+            "width": 350,
+            "height": 350
+          },
+          "noIndex": false
+        }
+      },
+      {
+        "id": "3",
+        "slug": "012",
+        "title": "綜合所得稅申報-行號71D",
+        "subtitle": "行號71D",
+        "excerpt": "行號71D",
+        "coverImage": {
+          "id": "legacy-cover-012",
+          "url": "https://www.tpcpa.com.tw/Library/PictureOf012.webp",
+          "alt": "綜合所得稅申報",
+          "width": 350,
+          "height": 350
+        },
+        "author": {
+          "name": "彭裕峰 會計師",
+          "slug": "peng-yu-feng",
+          "biography": null,
+          "photo": null
+        },
+        "category": {
+          "name": "財稅實務",
+          "slug": "tax-practice"
+        },
+        "tags": [],
+        "publishedAt": "2026-05-24T16:00:00.000Z",
+        "updatedAt": "2026-11-06T05:42:56.712Z",
+        "readTimeMinutes": 1,
+        "contentHtml": "<iframe width=\"560\" height=\"315\" src=\"https://www.youtube.com/embed/gT-h_wwUeQ0?si=P1xYANNmbLPp94ZF\" title=\"YouTube video player\" frameborder=\"0\" allow=\"accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share\" referrerpolicy=\"strict-origin-when-cross-origin\" allowfullscreen=\"\"></iframe>\n\n          \n          <br>",
+        "embedUrl": null,
+        "seo": {
+          "title": "綜合所得稅申報-行號71D｜誠峰會計師事務所",
+          "description": "行號71D",
+          "canonicalUrl": null,
+          "openGraphTitle": "綜合所得稅申報-行號71D｜誠峰會計師事務所",
+          "openGraphDescription": "行號71D",
+          "openGraphImage": {
+            "id": "legacy-cover-012",
+            "url": "https://www.tpcpa.com.tw/Library/PictureOf012.webp",
+            "alt": "綜合所得稅申報",
+            "width": 350,
+            "height": 350
+          },
+          "noIndex": false
+        }
+      },
+      {
+        "id": "4",
+        "slug": "011",
+        "title": "各類所得扣繳常見問題與實務重點一次說清楚",
+        "subtitle": null,
+        "excerpt": "公司給付薪資、顧問費、租金一定要扣繳嗎？本文由彭裕峰會計師整理各類所得扣繳常見問題，一次說明扣繳義務、常見錯誤與二代健保補充保費實務，協助企業降低稅務風險。",
+        "coverImage": {
+          "id": "legacy-cover-011",
+          "url": "https://www.tpcpa.com.tw/Library/PictureOf011.webp",
+          "alt": "各類所得扣繳",
+          "width": 350,
+          "height": 350
+        },
+        "author": {
+          "name": "彭裕峰 會計師",
+          "slug": "peng-yu-feng",
+          "biography": null,
+          "photo": null
+        },
+        "category": {
+          "name": "財稅實務",
+          "slug": "tax-practice"
+        },
+        "tags": [],
+        "publishedAt": "2026-01-26T16:00:00.000Z",
+        "updatedAt": "2026-11-06T05:42:56.712Z",
+        "readTimeMinutes": 9,
+        "contentHtml": "<br>\n\n          <p>\n            在公司營運過程中，只要有「給付所得」的行為，就很可能會涉及「扣繳」。不少企業主與承辦人常有這樣的疑問：\n            </p><ul>\n              <li>為什麼付錢給對方，還要先幫他繳稅？</li>\n              <li>哪些費用一定要扣繳？哪些可以不用？</li>\n              <li>扣繳之後還要申報嗎？</li>\n              <li>扣錯、漏扣，會不會被罰？</li>\n            </ul>\n            以下整理實務上最常遇到的各類所得扣繳問題，用白話方式一次說清楚。\n          <p></p>\n\n          <h3>一、什麼是「各類所得扣繳」？</h3>\n          <p>\n            簡單說，<b>扣繳就是由給付方代替收款方，先預扣一部分稅款，並繳給國稅局。</b><br>\n            也就是說：\n            </p><ul>\n              <li>公司是「扣繳義務人」</li>\n              <li>收款的人是「所得人」</li>\n              <li>國稅局是「最終收稅者」</li>\n            </ul>\n          <p></p>\n          <p>這個制度的目的，在於確保稅收能即時、確實被掌握，而不是等到個人年底申報時才發現漏稅。</p>\n          <br>\n\n          <h3>二、哪些情況最常涉及扣繳？</h3>\n          <p>以下是企業最常遇到的扣繳所得：<br>\n            </p><ol>\n              <li>薪資所得</li>\n              <ul>\n                <li>正職員工薪水</li>\n                <li>兼職、工讀生薪資</li>\n              </ul>\n              是否要扣繳，取決於：<br>\n              <ul>\n                <li>是否達到免扣繳標準</li>\n                <li>是否為本國人或外國人</li>\n                <li>是否已填寫免稅聲明文件</li>\n              </ul><br>\n              <li>執行業務所得（顧問費、律師費、會計師費）</li>\n              只要是：<br>\n              <ul>\n                <li>律師、會計師、設計師</li>\n                <li>顧問費、審查費、稿費</li>\n              </ul>\n              舉例：<br>\n              貴公司支付律師一筆費用來擬書狀，支付他報酬 30,000 元。依規定這類報酬要扣繳 10% 所得稅，你在付款時就要先扣掉 3,000 元，<br>只支付 27,000 元給律師，接著把那 3,000 元繳交國稅局。並在給付隔年1月底之前申報該所得總額給國稅局。<br><br>\n              <li>租金支出</li>\n              公司支付房租給自然人房東時，通常需要：<br>\n              <ul>\n                <li>扣繳 10% 所得稅</li>\n                <li>另計補充保費</li>\n              </ul>\n              這是實務上最常被忽略、也最容易被補稅的項目之一。<br><br>\n              <li>獎金、紅利、其他給付</li>\n              例如：\n              <ul>\n                <li>年終獎金</li>\n                <li>專案獎金</li>\n                <li>非固定性給付</li>\n              </ul></ol>\n          <p></p>\n\n          <h3>三、常見扣繳錯誤有哪些？</h3>\n          <p>\n            在實務查核中，最常見的錯誤包括：\n            </p><ol>\n              <li><b>該扣沒扣：</b>以為對方年底自己會申報</li>\n              <li><b>扣錯稅率：</b>本國人、外國人混用</li>\n              <li><b>只扣稅、不申報：</b>有繳錢但沒申報扣繳憑單</li>\n              <li><b>逾期申報或繳納：</b>產生滯報、滯納金與罰鍰</li>\n            </ol>\n          <p></p>\n\n          <h3>四、扣繳一定很麻煩嗎？</h3>\n          <p>\n            其實不然。<br>\n            只要在一開始就做好：\n            </p><ul>\n              <li>所得性質判斷</li>\n              <li>身分別確認</li>\n              <li>稅率適用</li>\n            </ul>\n            後續作業反而單純，也能有效降低被補稅、裁罰的風險。<br>\n          <p></p>\n\n          <h3>五、二代健保（補充保費）常見問題</h3>\n          <p>\n            很多企業在處理扣繳時，最容易忽略的，其實不是所得稅，而是二代健保補充保費。\n            </p><ol>\n              <li>什麼是二代健保補充保費？</li>\n\n                二代健保補充保費，是在「特定所得」發生且達起扣點時，<b>由給付方代為扣取一定比例的健保費，繳交給健保署。</b><br>\n                目的在於補充一代健保沒有包含的所得類型。<br><br>\n\n              <li>哪些情況常會產生補充保費？</li>\n              實務上，企業最常遇到的包括：<br>\n              <ul>\n                <li>租金支出（支付給自然人房東）</li>\n                <li>兼職人員、非固定薪資</li>\n                <li>獎金、紅利、一次性給付</li>\n                <li>執行業務所得（顧問費、設計費等）</li>\n                <li>利息所得</li>\n                <li>股利所得</li>\n              </ul>\n              是否需要繳納，關鍵在於：\n              <ul>\n                <li>是否屬於健保署規定的補充保費所得項目</li>\n                <li>是否達到起扣門檻</li>\n              </ul><br>\n              <li>常見誤解與風險</li>\n              實務上最常見的誤解包括：<br>\n              <ul>\n                <li><b>「已經扣繳所得稅，就不用補充保費」（錯）</b></li>\n                <li><b>「金額不大，應該不用管」（錯）</b></li>\n                <li><b>「對方自己有健保，公司不用處理」（錯）</b></li>\n              </ul>\n              補充保費屬於<b>給付當下就應處理的法定義務</b>，若未扣取，日後仍可能被追繳，且無法向對方補收。<br><br>\n              <li>為什麼二代健保特別容易出問題？</li>\n                原因通常不是刻意不繳，而是：\n                <ul>\n                  <li>與所得稅扣繳規則不同</li>\n                  <li>稅與費分屬不同機關（國稅局 vs 健保署）</li>\n                  <li>實務上沒有在第一次給付時被提醒</li>\n                </ul>\n                因此，二代健保往往是在<b>查帳或補資料時才一次被發現。</b>\n            </ol>\n          <p></p>\n\n          <h3>六、誠峰怎麼看</h3>\n          <p>我們在實務上常見的問題，並不是客戶刻意違規，而是：</p>\n          <ul>\n            <li>不清楚哪些費用算所得</li>\n            <li>不知道公司要負扣繳或申報責任</li>\n            <li>沒有人在一開始提醒風險</li>\n          </ul>\n          <p>扣繳不是單純的行政作業，而是<b>稅務風險管理的一環</b>。在公司成長的過程中，越早建立正確觀念，越能避免日後一次補繳多年的壓力。若有其他扣繳相關的問題請聯繫誠峰會計師事務所。</p>",
+        "embedUrl": null,
+        "seo": {
+          "title": "各類所得扣繳常見問題與實務重點一次說清楚｜誠峰會計師事務所",
+          "description": "公司給付薪資、顧問費、租金一定要扣繳嗎？本文由彭裕峰會計師整理各類所得扣繳常見問題，一次說明扣繳義務、常見錯誤與二代健保補充保費實務，協助企業降低稅務風險。",
+          "canonicalUrl": null,
+          "openGraphTitle": "各類所得扣繳常見問題與實務重點一次說清楚｜誠峰會計師事務所",
+          "openGraphDescription": "公司給付薪資、顧問費、租金一定要扣繳嗎？本文由彭裕峰會計師整理各類所得扣繳常見問題，一次說明扣繳義務、常見錯誤與二代健保補充保費實務，協助企業降低稅務風險。",
+          "openGraphImage": {
+            "id": "legacy-cover-011",
+            "url": "https://www.tpcpa.com.tw/Library/PictureOf011.webp",
+            "alt": "各類所得扣繳",
+            "width": 350,
+            "height": 350
+          },
+          "noIndex": false
+        }
+      },
+      {
+        "id": "5",
+        "slug": "010",
+        "title": "當贈與變成遺產",
+        "subtitle": "113年憲判字第11號揭開『擬制遺產課稅』的憲法爭議(下)",
+        "excerpt": "113年憲判字第11號揭開『擬制遺產課稅』的憲法爭議(下)",
+        "coverImage": {
+          "id": "legacy-cover-010",
+          "url": "https://www.tpcpa.com.tw/Library/PictureOf010.webp",
+          "alt": "遺產稅爭議下篇",
+          "width": 350,
+          "height": 350
+        },
+        "author": {
+          "name": "彭裕峰 會計師",
+          "slug": "peng-yu-feng",
+          "biography": null,
+          "photo": null
+        },
+        "category": {
+          "name": "誠峰解析",
+          "slug": "truepeak-analysis"
+        },
+        "tags": [],
+        "publishedAt": "2025-12-11T16:00:00.000Z",
+        "updatedAt": "2026-11-06T05:42:56.712Z",
+        "readTimeMinutes": 5,
+        "contentHtml": "<br>\n\n          <p>隨著憲法法庭在 113 年作出憲判字第 11 號解釋，關於「被繼承人死亡前兩年內贈與配偶之財產，是否應併入遺產總額課稅」的爭議，終於有了明確方向。<br>\n          然而，在遺產及贈與稅法相關條文正式修正前，<b>財政部已先行發布稅務機關的實務操作指引</b>，以確保稅務實務在過渡期間的執行有明確依據。</p>\n          <br>\n\n          <h3>財政部處理原則先行上路</h3>\n          <p>財政部於 114 年 7 月 28 日 公布了<b>「被繼承人死亡前二年內贈與配偶之財產併計遺產總額課徵遺產稅稽徵作業處理原則」</b>，明確規範在法條修正前的計算與課稅方式。<br>\n          該原則<b>自發布日起適用，直到相關條文修正公布實施的前一日止。</b></p>\n          <p>此一處理原則的公布，目的在於避免各地稅捐機關因法條修正空窗期而出現稅務爭議，並保障納稅義務人權益。</p>\n          <br>\n\n          <h3>處理原則重點整理</h3>\n          <p>以下為財政部處理原則的四大重點，納稅人與繼承人皆應留意：</p>\n          <ol>\n            <li>擬制遺產與其他遺產分開計算並分別通知\n              <ul>\n                <li>稅務機關應將「擬制遺產」（即死亡前兩年內贈與配偶的財產）與「其他遺產」分開計算、分別開立稅單通知，並於稅單上明確載明各部分的納稅義務人，確保課稅對象清楚。</li></ul></li>\n            <li>各繼承人依其繼承比例負擔稅額\n              <ul>\n                <li>即使擬制遺產本質上屬於被繼承人生前贈與，<b>最終仍由各繼承人按照其實際繼承遺產比例，計算並分攤應負擔的遺產稅額</b>，避免因課稅對象不明導致稅務糾紛。</li></ul></li>\n            <li>擬制遺產納入配偶剩餘財產差額分配權計算\n              <ul>\n                <li>擬制遺產不僅影響遺產稅的課徵，也應納入民法第1030條之1所規定的「配偶剩餘財產差額分配請求權」的計算基礎中，確保配偶在婚姻財產分配上的權利受到完整保障。</li></ul></li>\n            <li>拋棄繼承者不負擬制遺產稅額義務\n              <ul>\n                <li>若配偶選擇<b>拋棄繼承權</b>，則該名配偶對擬制遺產部分的稅額<b>不得被課徵</b>，同時，<b>其他繼承人也不得被視為該部分稅額的納稅義務人</b>，以避免出現超出繼承範圍的稅負責任。</li></ul></li>\n          </ol>\n          <br>\n\n          <h3>爭議未止，納稅人應積極備戰</h3>\n          <p>雖然財政部透過處理原則補上制度空窗，但「擬制遺產課稅」涉及憲法上財產權保障、稅捐法律保留原則，以及繼承制度的根本結構，相關爭議恐怕不會隨著本次解釋就此落幕。<br>\n          且現行原則適用的情況下，有部分稅捐會因繼承人拋棄繼承而無法徵收，恐有侵蝕稅基的疑慮。立法機關應盡快提出更完滿的解決辦法。</p>\n          <p>我們建議納稅人與繼承人：</p>\n          <ul>\n            <li>在繼承發生前，<b>審慎規劃贈與與遺產安排</b>，避免不必要的稅務風險。</li>\n            <li>發生繼承時，<b>注意稅務機關的稅單內容是否清楚區分擬制遺產與其他遺產。</b></li>\n            <li>若涉及配偶拋棄繼承或剩餘財產分配問題，<b>應諮詢專業會計師或律師意見</b>，確保權益不受損害。</li>\n          </ul>\n          <br>\n\n          <h3>結論：</h3>\n          <p>「擬制遺產課稅」提醒我們，生前的贈與安排與身後的稅務負擔密不可分。<br>\n          唯有提前理解制度脈絡、妥善規劃，才能在繼承發生時不慌不亂、依法守護財富傳承。若有相關遺產稅的問題，請洽誠峰會計師事務所。</p>\n          <br>",
+        "embedUrl": null,
+        "seo": {
+          "title": "當贈與變成遺產──113年憲判字第11號揭開『擬制遺產課稅』的憲法爭議(下)｜誠峰會計師事務所",
+          "description": "擬制遺產課稅新規上路！本文由彭裕峰會計師撰寫，解析財政部發布的過渡處理原則，說明稅額計算、拋棄繼承免責與剩餘財產分配，並提供納稅人實務建議，協助降低稅務風險。",
+          "canonicalUrl": null,
+          "openGraphTitle": "當贈與變成遺產──113年憲判字第11號揭開『擬制遺產課稅』的憲法爭議(下)｜誠峰會計師事務所",
+          "openGraphDescription": "擬制遺產課稅新規上路！本文由彭裕峰會計師撰寫，解析財政部發布的過渡處理原則，說明稅額計算、拋棄繼承免責與剩餘財產分配，並提供納稅人實務建議，協助降低稅務風險。",
+          "openGraphImage": {
+            "id": "legacy-cover-010",
+            "url": "https://www.tpcpa.com.tw/Library/PictureOf010.webp",
+            "alt": "遺產稅爭議下篇",
+            "width": 350,
+            "height": 350
+          },
+          "noIndex": false
+        }
+      },
+      {
+        "id": "6",
+        "slug": "009",
+        "title": "當贈與變成遺產",
+        "subtitle": "113年憲判字第11號揭開『擬制遺產課稅』的憲法爭議(上)",
+        "excerpt": "113年憲判字第11號揭開『擬制遺產課稅』的憲法爭議(上)",
+        "coverImage": {
+          "id": "legacy-cover-009",
+          "url": "https://www.tpcpa.com.tw/Library/PictureOf009.webp",
+          "alt": "遺產稅爭議上篇",
+          "width": 350,
+          "height": 350
+        },
+        "author": {
+          "name": "彭裕峰 會計師",
+          "slug": "peng-yu-feng",
+          "biography": null,
+          "photo": null
+        },
+        "category": {
+          "name": "誠峰解析",
+          "slug": "truepeak-analysis"
+        },
+        "tags": [],
+        "publishedAt": "2025-12-11T16:00:00.000Z",
+        "updatedAt": "2026-11-06T05:42:56.712Z",
+        "readTimeMinutes": 4,
+        "contentHtml": "<br>\n\n          <h3>案件緣起：一條遺產稅條文，引爆的憲法爭論</h3>\n          <p>本案的聲請人為被繼承人的未成年非婚生子女。<br>\n          被繼承人於死亡前兩年內，將價值約新台幣 3 億元的股票贈與其配偶。<br>\n          其後，被繼承人死亡，法定的優先繼承人（即配偶及婚生子女）皆選擇拋棄繼承，使該非婚生子女成為唯一的繼承人。</p>\n          <p>依據《遺產及贈與稅法》第15條第1項第1款規定：「被繼承人死亡前二年內贈與配偶之財產，於被繼承人死亡時，視為被繼承人之遺產，併入遺產總額課稅。」</p>\n          <p>正因這項規定，被繼承人的遺產總額中，不僅包括剩餘遺產約 5,000 萬元，也包含已贈與配偶的 3 億元股票，合計約 3.5 億元。經計算後，繼承人應納遺產稅高達 5,700 多萬元，竟超過其實際可繼承的遺產金額。</p>\n          <p>繼承人對此結果深感不滿，認為自己不應為「未實際取得的財產」承擔巨額稅負，因此聲請釋憲，主張該規定違反量能課稅原則與比例原則。</p>\n          <p>這種不滿並非無理。依照量能課稅與比例原則，政府不應對未獲得相應利益的納稅義務人課予超出其可支配利益的稅負。<br>\n          簡單來說：「沒有拿到的財產，不該被課稅。」這是稅法最基本的邏輯。</p>\n          <p>最終，憲法法庭判決該案及相關條文違憲。</p>\n          <br>\n\n          <h3>制度設計初衷：為了防止逃稅而生的「擬制遺產」</h3>\n          <p>其實，《遺產及贈與稅法》第15條的立法原意並非全無道理。<br>\n          實務上，當被繼承人意識到生命所剩無多，常會在臨終前以贈與方式大幅轉移財產，藉以規避遺產稅。<br>\n          為避免此種行為造成稅基流失，立法者才設計出「擬制遺產」制度，將死亡前兩年內的贈與視為遺產，納入課稅範圍，以維持課稅公平。</p>\n          <p>然而，制度在實際運作中卻存在重大瑕疵。<br>\n          值得注意的是，贈與給配偶的財產並不計入贈與總額，因此配偶可無償先取得贈與，再於被繼承人死亡後拋棄繼承，便能在毫無稅負的情況下享有該筆財產的利益。</p>\n          <p>反觀未拋棄繼承的其他繼承人，卻必須為自己永遠無法取得的財產繳納遺產稅。<br>\n          這樣的結果，顯然背離量能課稅原則，制度設計顯有不周，確有修法必要。</p>\n          <p>我認為，納稅確實是公民的基本義務，但義務的正當性，建立在制度的合理性之上。<br>\n          若因制度設計的缺陷，使公民必須為「未實際取得的利益」承擔稅負，這不僅是稅務技術的問題，更是憲法價值與稅捐正義的挑戰。</p>\n          <br>\n          <p>下一篇文章，我們將進一步探討：在憲法法庭宣告違憲後，財政部是否已針對該條文進行修正？<br>\n          制度是否真的回歸合理與公平？<br>\n          這場關於遺產稅正義的爭論，才正要開始。</p>\n          <br>",
+        "embedUrl": null,
+        "seo": {
+          "title": "當贈與變成遺產──113年憲判字第11號揭開『擬制遺產課稅』的憲法爭議(上)｜誠峰會計師事務所",
+          "description": "擬制遺產課稅違憲？本文由彭裕峰會計師撰寫，解析113年憲判字第11號案件，探討《遺產及贈與稅法》第15條的立法目的、制度缺陷與憲法爭議，揭示量能課稅與比例原則的重要性。",
+          "canonicalUrl": null,
+          "openGraphTitle": "當贈與變成遺產──113年憲判字第11號揭開『擬制遺產課稅』的憲法爭議(上)｜誠峰會計師事務所",
+          "openGraphDescription": "擬制遺產課稅違憲？本文由彭裕峰會計師撰寫，解析113年憲判字第11號案件，探討《遺產及贈與稅法》第15條的立法目的、制度缺陷與憲法爭議，揭示量能課稅與比例原則的重要性。",
+          "openGraphImage": {
+            "id": "legacy-cover-009",
+            "url": "https://www.tpcpa.com.tw/Library/PictureOf009.webp",
+            "alt": "遺產稅爭議上篇",
+            "width": 350,
+            "height": 350
+          },
+          "noIndex": false
+        }
+      },
+      {
+        "id": "7",
+        "slug": "008",
+        "title": "電子發票一定要上傳平台嗎？",
+        "subtitle": "什麼資料要上傳？多久內要完成？不上傳會被罰嗎？",
+        "excerpt": "什麼資料要上傳？多久內要完成？不上傳會被罰嗎？",
+        "coverImage": {
+          "id": "legacy-cover-008",
+          "url": "https://www.tpcpa.com.tw/Library/PictureOf008.webp",
+          "alt": "電子發票一定要上傳平台嗎",
+          "width": 350,
+          "height": 350
+        },
+        "author": {
+          "name": "彭裕峰 會計師",
+          "slug": "peng-yu-feng",
+          "biography": null,
+          "photo": null
+        },
+        "category": {
+          "name": "財稅實務",
+          "slug": "tax-practice"
+        },
+        "tags": [],
+        "publishedAt": "2025-12-04T16:00:00.000Z",
+        "updatedAt": "2026-11-06T05:42:56.712Z",
+        "readTimeMinutes": 6,
+        "contentHtml": "<br>\n\n          <p>這篇文章用最簡單的方式，一次講清楚。</p>\n          <p>對多數企業來說，開立電子發票不是難事，但「什麼時候要把資料傳到財政部的平台」卻常常成為大家容易忽略的地方。</p>\n          <p>偏偏這件事只要一延誤，就有可能收到國稅局的補正通知，甚至罰鍰。</p>\n          <p>因此，我們把重點整理成一篇最友善、最好理解的指南，讓你不再擔心漏傳、誤傳或被罰。</p>\n          <br>\n\n          <h3>一、開了電子發票後，哪些資料一定要上傳？</h3>\n          <p>不論你是開給一般民眾（非營業人）或公司行號（營業人），只要是電子發票，大方向都必須上傳以下資訊：</p>\n          <ul>\n            <li>發票基本資料（買受人、統編、金額）</li>\n            <li>電子發票證明聯</li>\n            <li>作廢、折讓、退貨的資訊</li>\n            <li>空白未使用的字軌</li>\n            <li>如果你有分店：分店使用的字軌資料</li>\n          </ul>\n          <p>簡單說：</p>\n          <p><b>發票開立、作廢、折讓、退回都要讓平台知道一聲。</b></p>\n          <br>\n\n          <h3>二、上傳的期限其實不一樣！「營業人」vs「非營業人」</h3>\n          <p>這裡是大家最容易搞錯的地方。</p>\n          <p><b>開給公司行號（營業人）── 7 天內上傳</b></p>\n          <p>例如：</p>\n          <p>你 2/1 開了一張 B2B 發票給某家公司，</p>\n          <p><b>最晚要在 2/8 前傳到平台。</b></p>\n          <p>為什麼期限比較長？</p>\n          <p>因為 B2B 發票牽涉後續進項扣抵、公司報稅等，因此給企業比較長的作業時間。</p>\n          <p><b>開給一般消費者（非營業人）── 2 天內上傳</b></p>\n          <p>電子發票開給一般民眾（B2C），平台要求更快：</p>\n          <p>例如：</p>\n          <p>你 2/1 開了一張給客戶（沒有統編），</p>\n          <p><b>最晚 2/3 要上傳。</b></p>\n          <p>為什麼要這麼快？</p>\n          <p>因為多數消費者使用載具、發票對獎等功能，系統需要即時更新。</p>\n          <br>\n\n          <h3>三、如果沒有在期限內上傳會怎樣？</h3>\n          <p>國稅局會先「通知補正」，但補正完還是可能會罰。</p>\n          <p>依規定，罰鍰大約落在：</p>\n          <p><b>1,500 元～15,000 元</b></p>\n          <p>如果公司每個月發票量很大，這種罰鍰累積起來真的很傷。</p>\n          <br>\n\n          <h3>四、什麼情況可以不被罰？</h3>\n          <p>其實政府並不是要處罰有心改善的人，只要符合以下情況，可免罰：</p>\n          <p><b>第一次收到通知，你有在期限內補好，而且一年內不超過 3 次遲傳 → 不罰。</b></p>\n          <p>也就是說：</p>\n          <p><b>偶爾一次疏忽沒關係，但不能常常忘記。</b></p>\n          <p><b>你自己發現傳漏，國稅局還沒來查，就先補上了 → 不罰。</b></p>\n          <p>這點很多老闆不知道！</p>\n          <p>所以如果你發現自己忘記上傳，<b>越早補越安全。</b></p>\n          <br>\n\n          <h3>五、最簡單的理解方式：一個例子看懂全部</h3>\n          <p>假設你在 2/21 這天開了兩張發票：</p>\n          <ol>\n            <li>一張開給公司行號（營業人）</li>\n            <li>一張開給一般客戶（非營業人）</li>\n          </ol>\n          <p>那你應該：</p>\n          <ul>\n            <li><b>一般客戶（B2C）那張 → 2/23 前上傳</b></li>\n            <li><b>公司行號（B2B）那張 → 2/28 前上傳</b></li>\n          </ul>\n          <p>如果你到 3/1 都還沒傳，國稅局就會通知你：</p>\n          <p>「請你限期補正，否則可能裁罰。」</p>\n          <br>\n\n          <h3>六、為什麼會計師事務所一直提醒：上傳期限務必要養成習慣？</h3>\n          <p>因為這件事：</p>\n          <ul>\n            <li>不難</li>\n            <li>但很容易忘記</li>\n            <li>一忘記就可能被罰</li>\n            <li>而且罰鍰大多是「行政疏失」造成，非常不值得</li>\n          </ul>\n          <p>我們實務中遇到很多客戶都是因為「人員忙、沒注意、以為系統會自動傳」而被罰。</p>\n          <p>但只要建立正確流程，這種狀況其實完全可以避免。</p>\n          <br>\n\n          <h3>七、結語：</h3>\n          <p>電子發票傳輸不是困難的流程，但卻是每家企業不可忽略的法定義務。</p>\n          <p>只要了解「開給誰、什麼時限、漏傳怎麼補」，</p>\n          <p>你就能輕鬆避免罰鍰，也確保營業稅申報更穩定、透明。</p>\n          <p>如果您還有任何問題，歡迎聯繫誠峰，我們將協助您釐清流程、建立正確的作業習慣，讓電子發票傳輸更簡單、更安心。</p>\n          <br>",
+        "embedUrl": null,
+        "seo": {
+          "title": "電子發票一定要上傳平台嗎？｜誠峰會計師事務所",
+          "description": "電子發票一定要上傳平台嗎？本文由彭裕峰會計師撰寫，深入解析電子發票上傳規定、期限與罰則，並提供免罰條件與實務建議，幫助企業避免漏傳、安心報稅。",
+          "canonicalUrl": null,
+          "openGraphTitle": "電子發票一定要上傳平台嗎？｜誠峰會計師事務所",
+          "openGraphDescription": "電子發票一定要上傳平台嗎？本文由彭裕峰會計師撰寫，深入解析電子發票上傳規定、期限與罰則，並提供免罰條件與實務建議，幫助企業避免漏傳、安心報稅。",
+          "openGraphImage": {
+            "id": "legacy-cover-008",
+            "url": "https://www.tpcpa.com.tw/Library/PictureOf008.webp",
+            "alt": "電子發票一定要上傳平台嗎",
+            "width": 350,
+            "height": 350
+          },
+          "noIndex": false
+        }
+      },
+      {
+        "id": "8",
+        "slug": "007",
+        "title": "何謂扣繳？",
+        "subtitle": "到底在繳什麼東西",
+        "excerpt": "到底在繳什麼東西",
+        "coverImage": {
+          "id": "legacy-cover-007",
+          "url": "https://www.tpcpa.com.tw/Library/PictureOf007.webp",
+          "alt": "何謂扣繳",
+          "width": 350,
+          "height": 350
+        },
+        "author": {
+          "name": "彭裕峰 會計師",
+          "slug": "peng-yu-feng",
+          "biography": null,
+          "photo": null
+        },
+        "category": {
+          "name": "財稅實務",
+          "slug": "tax-practice"
+        },
+        "tags": [],
+        "publishedAt": "2025-10-13T16:00:00.000Z",
+        "updatedAt": "2026-11-06T05:42:56.712Z",
+        "readTimeMinutes": 4,
+        "contentHtml": "<br>\n\n          <p>在台灣的稅制中，「扣繳」是企業經常會碰到的一個重要制度。無論你是發放股利、聘請員工、支付報酬或租金，只要涉及「支付他人所得」，就可能會有扣繳義務。</p>\n          <p>那麼，究竟什麼是扣繳？又該如何操作？以下就用最簡單的方式帶你快速了解。</p>\n          <br>\n\n          <h3>一、扣繳是什麼？</h3>\n          <p>「扣繳」簡單來說，就是<b>在支付所得的時候，先替政府預扣一部分稅金，再把剩下的款項給對方</b>，之後再把預扣的稅金繳交給國稅局。</p>\n          <p>這是一種「代收代繳」的制度，政府透過付款方協助收稅，確保稅金能在源頭就被徵收，減少漏稅風險。</p>\n          <p>舉例：</p>\n          <p>貴公司聘請一位講師來公司授課，支付他報酬 30,000 元。依規定這類報酬要扣繳 10% 所得稅，你在付款時就要先扣掉 3,000 元，只支付 27,000 元給講師，接著把那 3,000 元繳交國稅局。</p>\n          <br>\n\n          <h3>二、誰需要負責扣繳？(所得稅法89條)</h3>\n          <p><b>公司、事業或機關團體</b>：對外支付薪資、報酬、租金、股利等所得時</p>\n          <p>簡單來說，<b>「支付的一方」就是扣繳義務人</b>。</p>\n          <p><strong>請注意！！！！</strong>自然人並不是扣繳義務人喔，因為自然人並沒有知識或餘裕去做扣繳，若賦予自然人這樣的義務顯然不合理，稽徵程序上必定大亂。</p>\n          <br>\n\n          <h3>三、哪些款項需要扣繳？</h3>\n          <p>扣繳制度的適用範圍相當廣，常見的項目有：</p>\n          <ul>\n            <li><b>薪資所得</b>：支付員工薪水時須扣繳所得稅</li>\n            <li><b>執行業務報酬</b>：如會計師、律師、講師等專業服務費用</li>\n            <li><b>租金所得</b>：支付房屋或設備租金給個人</li>\n            <li><b>股利與利息所得</b>：公司分配股利或支付利息</li>\n            <li><b>競賽獎金、稿費、佣金等</b>：屬於其他類型的所得</li>\n          </ul>\n          <p>每一類所得的扣繳稅率、計算方式可能不同，應依照《所得稅法》與財政部公告的最新扣繳率計算。</p>\n          <br>\n\n          <h3>四、扣繳後還要做什麼？</h3>\n          <p>扣繳只是第一步，扣繳義務人還有兩件重要工作：</p>\n          <ol>\n            <li><b>申報與繳納</b>：扣繳稅款必須在次月 10 日前向國稅局申報並繳納。</li>\n            <li><b>開立扣繳憑單</b>：次年 1 月底前，需開立扣繳憑單給所得人，讓對方報稅時可扣抵稅額。</li>\n          </ol>\n          <p>若未依規定扣繳、申報或繳納，可能會面臨補稅、滯納金甚至罰鍰。</p>\n          <p>誠峰會計師事務所的建議：</p>\n          <p>扣繳看似只是報稅流程中的一個小步驟，但卻是稅務風險的高風險區域之一。許多企業在實務上常因為「沒有扣」、「扣錯」、「忘記申報」而遭稽徵機關處罰。</p>\n          <p>因此，我們建議企業應建立標準化的扣繳流程，並定期主動與會計師確認扣繳稅率與申報期限，才能避免日後的稅務風險。</p>\n          <br>",
+        "embedUrl": null,
+        "seo": {
+          "title": "何謂扣繳？到底在繳什麼東西｜誠峰會計師事務所",
+          "description": "扣繳是什麼？企業支付薪資、報酬、租金等所得時，是否需要預扣稅款？本文由彭裕峰會計師撰寫，深入解析扣繳制度、適用對象與申報流程，幫助企業合法報稅、降低稅務風險。",
+          "canonicalUrl": null,
+          "openGraphTitle": "何謂扣繳？到底在繳什麼東西｜誠峰會計師事務所",
+          "openGraphDescription": "扣繳是什麼？企業支付薪資、報酬、租金等所得時，是否需要預扣稅款？本文由彭裕峰會計師撰寫，深入解析扣繳制度、適用對象與申報流程，幫助企業合法報稅、降低稅務風險。",
+          "openGraphImage": {
+            "id": "legacy-cover-007",
+            "url": "https://www.tpcpa.com.tw/Library/PictureOf007.webp",
+            "alt": "何謂扣繳",
+            "width": 350,
+            "height": 350
+          },
+          "noIndex": false
+        }
+      },
+      {
+        "id": "9",
+        "slug": "006",
+        "title": "網紅課稅新制上路",
+        "subtitle": "YouTube、IG、直播收入都要報稅？",
+        "excerpt": "YouTube、IG、直播收入都要報稅？",
+        "coverImage": {
+          "id": "legacy-cover-006",
+          "url": "https://www.tpcpa.com.tw/Library/PictureOf006.webp",
+          "alt": "網紅課稅新制上路",
+          "width": 350,
+          "height": 350
+        },
+        "author": {
+          "name": "彭裕峰 會計師",
+          "slug": "peng-yu-feng",
+          "biography": null,
+          "photo": null
+        },
+        "category": {
+          "name": "財稅實務",
+          "slug": "tax-practice"
+        },
+        "tags": [],
+        "publishedAt": "2025-10-02T16:00:00.000Z",
+        "updatedAt": "2026-11-06T05:42:56.712Z",
+        "readTimeMinutes": 5,
+        "contentHtml": "<br>\n\n          <p>你知道嗎，”眾量級”條款即將上路囉！近年來，自媒體與網紅產業快速發展，許多人透過 YouTube 分潤、IG 合作、抖音打賞、直播訂閱 等方式獲得可觀收入。</p>\n          <p>然而，過去相關稅務規範並不明確，導致實務上存在不少「灰色地帶」，也讓課稅公平性備受關注。</p>\n          <br>\n          <p>財政部已於 114 年 9 月 10 日 公布最新規範，明確訂定網紅的營業稅課徵方式，並設立至 115 年 6 月 30 日的輔導期。</p>\n\n          <h3>一、實務現況：稅務漏洞正式被補上</h3>\n          <p>以往網紅的收入來源多元，但缺乏清楚的稅務指引，常見問題包括：</p>\n          <ol>\n            <li>分潤收入是否需要課稅？</li>\n            <li>直播打賞算不算應稅收入？</li>\n            <li>境外平台（如 YouTube）支付的金額，台灣是否能課到稅？</li>\n          </ol>\n          <p>新制上路後，這些疑慮都有了明確答案。</p>\n          <br>\n\n          <h3>二、怎麼操作：新制重點一次看懂</h3>\n          <ol>\n            <li>誰需要辦理稅籍登記？\n              <ul>\n                <li>若在台灣有固定營業場所、營業名稱、僱用人員，或</li>\n                <li>單月銷售額達 貨物 10 萬元 / 勞務 5 萬元，</li>\n              </ul>\n              <p>即需辦理稅籍登記。</p>\n              <br></li>\n\n            <li>哪些收入要課稅？\n              <ul>\n                <li>廣告分潤（例如 YouTube、IG 合作）</li>\n                <li>訂閱費、直播收益</li>\n                <li>觀眾打賞、虛擬禮物收入</li>\n              </ul>\n              <p>以上皆屬「表演勞務」，應依法課稅。</p>\n            <br></li>\n\n            <li>境內外差別\n              <ul>\n                <li>若觀眾在台灣：課 5% 營業稅（查定計算者 1%）</li>\n                <li>若觀眾在境外：收入可適用零稅率</li>\n              </ul>\n              <p>例如：某網紅從 YouTube 取得 1,000 元分潤，其中600 元來自台灣觀眾 → 課 5% 營業稅；400 元來自境外觀眾 → 適用零稅率。</p>\n            <br></li>\n\n            <li>輔導期安排\n              <ul>\n                <li>114/9/10 ~ 115/6/30 為輔導期</li>\n                <li>在此期間，網紅或平台即使未登記、未開立發票或未繳稅，也不會受罰，但需補報補繳</li>\n              </ul>\n            <br></li>\n          </ol>\n\n          <h3>三、誠峰怎麼看：風險降低，經營更透明</h3>\n          <p>這項新制代表政府正式將網紅納入完整的稅制管理。雖然增加了稅務責任，但同時也：</p>\n          <ul>\n            <li>保障網紅經營合法性</li>\n            <li>降低未來被補稅與受罰的風險</li>\n            <li>讓產業發展更健康</li>\n          </ul>\n          <p>對經常性經營的網紅而言，這是一個值得重視的轉捩點。</p>\n          <br>\n\n          <h3>四、結論</h3>\n          <p>誠峰會計師事務所提醒：</p>\n          <p>若您或您的企業涉足 YouTube、IG、抖音、直播收入等新興產業，務必及早檢視營收來源與課稅義務，合法報稅，讓事業發展更穩健長遠。</p>\n          <br>",
+        "embedUrl": null,
+        "seo": {
+          "title": "網紅課稅新制上路，YouTube、IG、直播收入都要報稅？｜誠峰會計師事務所",
+          "description": "財政部公布最新網紅課稅規範，YouTube 分潤、IG 合作、直播打賞等收入皆需依法申報。本文由彭裕峰會計師撰寫，解析新制重點、課稅方式與輔導期安排，幫助網紅合法報稅、安心經營。",
+          "canonicalUrl": null,
+          "openGraphTitle": "網紅課稅新制上路，YouTube、IG、直播收入都要報稅？｜誠峰會計師事務所",
+          "openGraphDescription": "財政部公布最新網紅課稅規範，YouTube 分潤、IG 合作、直播打賞等收入皆需依法申報。本文由彭裕峰會計師撰寫，解析新制重點、課稅方式與輔導期安排，幫助網紅合法報稅、安心經營。",
+          "openGraphImage": {
+            "id": "legacy-cover-006",
+            "url": "https://www.tpcpa.com.tw/Library/PictureOf006.webp",
+            "alt": "網紅課稅新制上路",
+            "width": 350,
+            "height": 350
+          },
+          "noIndex": false
+        }
+      },
+      {
+        "id": "10",
+        "slug": "005",
+        "title": "營業稅是什麼？",
+        "subtitle": "創業老闆必懂的基礎觀念",
+        "excerpt": "創業老闆必懂的基礎觀念",
+        "coverImage": {
+          "id": "legacy-cover-005",
+          "url": "https://www.tpcpa.com.tw/Library/PictureOf005.webp",
+          "alt": "營業稅是什麼",
+          "width": 350,
+          "height": 350
+        },
+        "author": {
+          "name": "彭裕峰 會計師",
+          "slug": "peng-yu-feng",
+          "biography": null,
+          "photo": null
+        },
+        "category": {
+          "name": "財稅實務",
+          "slug": "tax-practice"
+        },
+        "tags": [],
+        "publishedAt": "2025-09-16T16:00:00.000Z",
+        "updatedAt": "2026-11-06T05:42:56.712Z",
+        "readTimeMinutes": 5,
+        "contentHtml": "<br>\n\n          <p>在台灣，幾乎所有營業活動都會碰到「營業稅」，也是記帳報稅業者最主要的業務。無論是開餐廳、網拍、接案設計，甚至進出口貿易，都必須依法申報並繳納營業稅。但什麼是營業稅？它跟我們日常消費時看到的「發票」有什麼關聯呢？</p>\n          <br>\n          <h3>營業稅的基本概念</h3>\n          <p>營業稅，簡單來說就是政府對營業人銷售貨物或勞務課徵的一種稅。當我們在商店消費時，店家開立的統一發票裡，其實就包含了營業稅。這部分由消費者支付，最後由商家代收後繳交給國稅局。</p>\n          <p>換句話說，營業稅是一種間接稅，因為真正負擔的是消費者，但繳納義務人卻是商家。</p>\n          <p>需特別注意的是，營業稅其實是由商家代為向消費者收取後，再繳交給政府的稅金，也就是說，繳出去的並不是營業人自己的收入，而是替政府保管的一筆錢喔！</p>\n          <br>\n\n          <h3>營業稅的兩種制度</h3>\n          <p>台灣目前營業稅有兩種主要制度：</p>\n            <ol>\n              <li>加值型及非加值型營業稅（俗稱「一般稅額計算」）\n                <ul>\n                  <li>稅率為 5%，適用於大部分營業人。</li>\n                  <li>最大特色是可以「進項抵扣銷項」，也就是進貨時支付的營業稅，可以拿來抵銷銷售時收取的營業稅，避免重複課稅。</li></ul></li>\n              <li>特種稅額計算（俗稱「小規模營業人」）\n                <ul>\n              <li>例如小吃店、攤販，通常採用查定課徵方式，由稅捐機關依規模核定應納稅額。</li>\n              <li>不需開立統一發票，但每三個月要繳一次營業稅。</li></ul></li></ol>\n          <br>\n\n          <h3>常見名詞解釋：銷項、進項、應納、留抵</h3>\n          <p>在理解營業稅時，最常遇到的四個名詞如下：</p>\n          <ul><li><p><b>銷項稅額：</b><br>您對客戶銷售商品或勞務時，依規定加在售價上的 5% 營業稅。例如：賣一台電腦 10,000 元，另加 5% 營業稅 = 500 元，這 500 元就是銷項稅額。</p></li>\n          <li><p><b>進項稅額：</b><br>您向供應商進貨或購買服務時，發票上列載的 5% 營業稅，就是進項稅額。這部分可以依法拿來抵銷銷項稅額。</p></li>\n          <li><p><b>應納稅額：</b><br>銷項稅額減掉進項稅額後的差額，就是最終要繳的稅。例如：銷項稅額 50,000 元、進項稅額 30,000 元 → 應納稅額 20,000 元。</p></li>\n          <li><p><b>留抵稅額：</b><br>如果進項稅額比銷項稅額還多，差額就會留存下來，變成「留抵稅額」，可以在下一期繼續扣抵。對新創公司來說，常在前期投入大量設備或進貨，產生進項大於銷項的情況，因此會累積留抵稅額。</p></li></ul>\n          <p>這四個概念就像是「流水帳」：</p>\n          <ul><li>銷項是收入端代收的稅</li>\n          <li>進項是支出端已付的稅</li>\n          <li>應納就是該繳多少給國稅局</li>\n          <li>留抵則是先存起來，下次再抵</li></ul>\n          <p>值得留意的是，正常營運、以獲利為目標的公司，銷貨額通常會高於進貨額，因此最終難以避免需繳納營業稅。</p>\n          <h3>與日常生活的關聯</h3>\n          <ul><li><b>消費者角度：</b>買一杯咖啡、上一堂健身課，價格裡面就已經包含營業稅。</li>\n          <li><b>商家角度：</b>必須定期申報營業稅（每年 1、3、5、7、9、11 月各一次），若未依規定申報，可能面臨罰鍰甚至補稅。</li></ul>\n          <br>\n\n          <h3>誠峰怎麼看</h3>\n          <p>對創業者來說，營業稅雖然只是眾多稅務的一環，卻是最先碰到、也最容易出錯的部分。尤其常見問題包括：</p>\n          <ul><li>錯誤使用進項憑證（例如私人消費發票拿來扣抵）。</li>\n          <li>忘記申報或逾期申報。</li>\n          <li>誤判自己該用一般稅額還是小規模營業人制度。</li></ul>\n          <p>誠峰會計師事務所建議，創業初期就應建立正確的觀念與申報流程，才能避免日後的稅務風險。</p>\n          <br>\n\n          <h3>結論</h3>\n          <p>營業稅不是難懂的專業名詞，而是每個老闆每天都在面對的現實。了解它、善用它，您的事業才能走得更穩健。</p>\n          <p>如果您在營業稅的申報、進項憑證使用、或制度選擇上還有疑問，誠峰會計師事務所很樂意提供專業協助。讓我們一起把稅務處理得更清楚、更安心。</p>\n          <br>",
+        "embedUrl": null,
+        "seo": {
+          "title": "營業稅是什麼？創業老闆必懂的基礎觀念｜誠峰會計師事務所",
+          "description": "營業稅是創業者最常接觸的稅務之一。本文由彭裕峰會計師撰寫，深入解析營業稅的基本概念、制度分類、常見名詞與申報注意事項，幫助創業老闆建立正確觀念，避免稅務風險。",
+          "canonicalUrl": null,
+          "openGraphTitle": "營業稅是什麼？創業老闆必懂的基礎觀念｜誠峰會計師事務所",
+          "openGraphDescription": "營業稅是創業者最常接觸的稅務之一。本文由彭裕峰會計師撰寫，深入解析營業稅的基本概念、制度分類、常見名詞與申報注意事項，幫助創業老闆建立正確觀念，避免稅務風險。",
+          "openGraphImage": {
+            "id": "legacy-cover-005",
+            "url": "https://www.tpcpa.com.tw/Library/PictureOf005.webp",
+            "alt": "營業稅是什麼",
+            "width": 350,
+            "height": 350
+          },
+          "noIndex": false
+        }
+      },
+      {
+        "id": "11",
+        "slug": "004",
+        "title": "我要創業",
+        "subtitle": "是開公司好還是行號好？",
+        "excerpt": "是開公司好還是行號好？",
+        "coverImage": {
+          "id": "legacy-cover-004",
+          "url": "https://www.tpcpa.com.tw/Library/PictureOf004.webp",
+          "alt": "我要創業",
+          "width": 350,
+          "height": 350
+        },
+        "author": {
+          "name": "彭裕峰 會計師",
+          "slug": "peng-yu-feng",
+          "biography": null,
+          "photo": null
+        },
+        "category": {
+          "name": "公司經營",
+          "slug": "business-management"
+        },
+        "tags": [],
+        "publishedAt": "2025-08-28T16:00:00.000Z",
+        "updatedAt": "2026-11-06T05:42:56.712Z",
+        "readTimeMinutes": 5,
+        "contentHtml": "<br>\n\n          <h3>一、實務現況：</h3>\n          <p>不少創業者在起步階段常常會問：「我該設立公司還是行號？」</p>\n          <p>當然，您可以選擇聽從朋友的說法，例如：「這樣比較省錢」、「那樣可以不用繳稅」……但別忘了，這些建議往往沒有根據，更不需要為您的選擇負責。</p>\n          <p>相對地，您也可以選擇聽從專業的意見。身為會計師，我們不只是給出建議，更肩負著名譽與執業責任，因此我們所提供的，一定是風險最低、合規安全的做法。</p>\n          <p>條條大路通羅馬，但通往目的地的方式不盡相同。關鍵在於，您是選擇穩當坐車前進，還是冒險一步步走過去？這將決定您創業之路的順利與否。</p>\n          <p>但我在實務上觀察，常見以下幾種狀況：</p>\n          <ul><li>想省設立成本而開行號，後來要引進投資或申請補助才發現限制重重。</li>\n          <li>公司運作已達一定規模，卻還是行號，導致財稅規劃空間受限。</li>\n          <li>根本搞不清楚兩者差別，只是聽說哪個「比較便宜」就照做。</li></ul>\n          <br>\n\n          <h3>二、怎麼操作：</h3>\n          <p>開公司與開行號在法律地位、稅負、風險承擔與未來彈性上都不相同：</p>\n          <table border=\"1\" cellpadding=\"8\">\n            <thead>\n              <tr>\n                <th>項目</th>\n                <th>公司</th>\n                <th>行號</th>\n              </tr>\n            </thead>\n            <tbody>\n              <tr>\n                <td>法律責任</td>\n                <td>股東有限責任（以出資額為限）</td>\n                <td>業主無限責任，負全部債務</td>\n              </tr>\n              <tr>\n                <td>所得課稅</td>\n                <td>營利事業所得稅20%</td>\n                <td>個人綜所稅，累進稅率5%-40%</td>\n              </tr>\n              <tr>\n                <td>建議用途</td>\n                <td>規模預期成長，須合夥、品牌經營、資金往來複雜</td>\n                <td>自營工作室、接案、營業單純、預算有限</td>\n              </tr>\n              <tr>\n                <td>成立成本</td>\n                <td>約1~3萬元（含驗資與設立程序）</td>\n                <td>約3千~8千元，流程快速簡便</td>\n              </tr>\n              <tr>\n                <td>記帳與申報</td>\n                <td>須依法記帳、報稅，有會計師簽證門檻</td>\n                <td>可簡易記帳，報稅方式彈性較大</td>\n              </tr>\n            </tbody>\n          </table>\n          <p>這也是為什麼我們會根據客戶的行業類型、預計營收、風險程度來提供客製化建議，而非一律推薦便宜或簡單的方案。</p>\n          <br>\n\n          <h3>三、誠峰怎麼看</h3>\n          <p>我們認為：<b>開公司與開行號的選擇，關鍵不在「省多少錢」，而在於您想怎麼經營未來。</b></p>\n          <p>若您只是接案、做副業或經營風險極低的小生意，那行號確實是一種靈活、成本低的選擇。但只要您有以下其中一項考量，就建議直接開公司：</p>\n          <ul></ul><li>未來會有合夥人或股東變動</li>\n          <li>須承接法人業務或參加政府招標</li>\n          <li>有申請補助、研發投資、融資需求</li>\n          <li>希望建立品牌形象或吸引投資者</li>\n          <li>想進行稅務規劃與資產分離</li>\n          <p>很多人為了省設立費用，最後卻花更多時間與金錢去轉型。與其日後補強，不如一開始就做好架構規劃。</p>\n          <br>\n\n          <h3>四、結論</h3>\n          <p>創業的路上，每個選擇都影響未來的穩定與成長。開公司還是設行號，不只是形式問題，更關乎風險、稅務、發展彈性與專業形象。</p>\n          <p><b>如果您正在猶豫該怎麼選，或想要有人協助一次搞懂整套創業流程，歡迎聯絡誠峰會計師事務所</b>，我們提供一對一創業諮詢，協助您避開常見陷阱。</p>\n          <p></p>",
+        "embedUrl": null,
+        "seo": {
+          "title": "我要創業，是開公司好還是行號好？｜誠峰會計師事務所",
+          "description": "創業該開公司還是行號？本文由彭裕峰會計師撰寫，深入比較兩者在法律責任、稅負、成立成本與彈性上的差異，並提供專業選擇建議，幫助創業者避開風險。",
+          "canonicalUrl": null,
+          "openGraphTitle": "我要創業，是開公司好還是行號好？｜誠峰會計師事務所",
+          "openGraphDescription": "創業該開公司還是行號？本文由彭裕峰會計師撰寫，深入比較兩者在法律責任、稅負、成立成本與彈性上的差異，並提供專業選擇建議，幫助創業者避開風險。",
+          "openGraphImage": {
+            "id": "legacy-cover-004",
+            "url": "https://www.tpcpa.com.tw/Library/PictureOf004.webp",
+            "alt": "我要創業",
+            "width": 350,
+            "height": 350
+          },
+          "noIndex": false
+        }
+      },
+      {
+        "id": "12",
+        "slug": "003",
+        "title": "會計也能很永續？",
+        "subtitle": "看我們怎麼把 ESG 落實在每一天",
+        "excerpt": "看我們怎麼把 ESG 落實在每一天",
+        "coverImage": {
+          "id": "legacy-cover-003",
+          "url": "https://www.tpcpa.com.tw/Library/PictureOf003.webp",
+          "alt": "會計也能很永續",
+          "width": 350,
+          "height": 350
+        },
+        "author": {
+          "name": "彭裕峰 會計師",
+          "slug": "peng-yu-feng",
+          "biography": null,
+          "photo": null
+        },
+        "category": {
+          "name": "誠峰解析",
+          "slug": "truepeak-analysis"
+        },
+        "tags": [],
+        "publishedAt": "2025-07-30T16:00:00.000Z",
+        "updatedAt": "2026-11-06T05:42:56.712Z",
+        "readTimeMinutes": 4,
+        "contentHtml": "<br>\n\n          <h3>一、實務現況：</h3>\n          <p>當大家提到 ESG，想到的往往是製造業減碳、金融業揭露、科技業創新。但對大多數中小企業與專業服務業來說，ESG 看起來既遙遠又抽象，彷彿是一場只有大公司能參與的遊戲。</p>\n          <p>但我們想說的是：<b>ESG 不只是報告書，更是一種經營態度。</b></p>\n          <p>誠峰身為一間地方型、成長型的會計師事務所，從來不認為自己無法做出貢獻──我們做的不是「做給別人看」，而是把永續當作對內的承諾、對外的態度。</p>\n          <br>\n\n          <h3>二、怎麼操作：</h3>\n          <p>誠峰會計師事務所已經從以下幾個方向，逐步將 ESG 概念導入日常營運：</p>\n           <p><strong>環境（Environment）</strong></p>\n            <ul><li><b>減紙化作業與雲端工具使用：</b>推動電子簽署、線上報表審核，減少紙張使用。</li>\n            <li><b>內部綠色倡議：</b>推動「無紙化帳冊」、辦公室分區節能。</li></ul>\n\n          <p><strong>社會責任（Social）</strong></p>\n            <ul><li><b>建立不過勞文化：</b>我們強調工作與生活平衡，致力於優化工作流程，不加班，讓團隊在健康與穩定的環境下發揮專業。</li>\n            <li><b>員工培訓計畫`:</b>培養年輕會計人才，定期分享實務經驗、安排課程教學，協助他們在職場中扎根與發展。</li>\n            <li><b>推廣財稅知識普及化：</b>透過白話、生動的文章，讓更多人懂會計、用會計。</li></ul>\n\n          <p><strong>公司治理（Governance）</strong></p>\n            <ul><li><b>建立 SOP 與內控制度：</b>讓事務所運作透明化、制度化，提升品質與效率。</li>\n            <li><b>實施雙重覆核制度：</b>降低報表錯誤率，強化專業把關。</li>\n            <li><b>堅持獨立性與倫理：</b>不承接違反原則的委任案，保障事務所長期信譽。</li>\n            <li><b>強化資訊安全與資料保密：</b>導入雲端與加密系統，確保客戶資料萬無一失。</li></ul>\n\n          <br>\n\n          <h3>三、誠峰怎麼看：</h3>\n          <p>在誠峰會計師事務所，「永續」不是寫在報告裡的口號，而是每天實踐的選擇。</p>\n          <p>我們相信，ESG 並非大企業的專利，小型事務所也能從文化、流程與價值觀出發，落實長久經營的理念，並將這份思維融入對客戶的建議中。</p>\n          <p>未來，我們期待會計師不只是報稅代理人，更是企業落實永續治理的專業夥伴。</p>\n          <br>\n\n          <h3>四、總結：</h3>\n          <p>如果您正在尋找一間有永續經營思維、具備傳承底蘊、同時走在趨勢前沿的會計師事務所，歡迎聯繫誠峰。讓我們用專業與經驗，陪您踏出正確的第一步，並走得更遠、更穩。</p>\n          <br>",
+        "embedUrl": null,
+        "seo": {
+          "title": "會計也能很永續？看我們怎麼把 ESG 落實在每一天｜誠峰會計師事務所",
+          "description": "會計也能很永續？本文由彭裕峰會計師撰寫，分享誠峰會計師事務所如何將 ESG 概念落實在日常營運，從減紙化、員工培訓到公司治理，打造永續經營的專業服務。",
+          "canonicalUrl": null,
+          "openGraphTitle": "會計也能很永續？看我們怎麼把 ESG 落實在每一天｜誠峰會計師事務所",
+          "openGraphDescription": "會計也能很永續？本文由彭裕峰會計師撰寫，分享誠峰會計師事務所如何將 ESG 概念落實在日常營運，從減紙化、員工培訓到公司治理，打造永續經營的專業服務。",
+          "openGraphImage": {
+            "id": "legacy-cover-003",
+            "url": "https://www.tpcpa.com.tw/Library/PictureOf003.webp",
+            "alt": "會計也能很永續",
+            "width": 350,
+            "height": 350
+          },
+          "noIndex": false
+        }
+      },
+      {
+        "id": "13",
+        "slug": "002",
+        "title": "不能說的秘密:擴大書面審核",
+        "subtitle": "從便民到變質，一項福國利民政策，如何拖垮會計產業？",
+        "excerpt": "從便民到變質，一項福國利民政策，如何拖垮會計產業？",
+        "coverImage": {
+          "id": "legacy-cover-002",
+          "url": "https://www.tpcpa.com.tw/Library/PictureOf002.webp",
+          "alt": "不能說的秘密擴大書面審核",
+          "width": 350,
+          "height": 350
+        },
+        "author": {
+          "name": "彭裕峰 會計師",
+          "slug": "peng-yu-feng",
+          "biography": null,
+          "photo": null
+        },
+        "category": {
+          "name": "誠峰解析",
+          "slug": "truepeak-analysis"
+        },
+        "tags": [],
+        "publishedAt": "2025-06-29T16:00:00.000Z",
+        "updatedAt": "2026-11-06T05:42:56.712Z",
+        "readTimeMinutes": 4,
+        "contentHtml": "<br>\n          <h3>一、實務現況：</h3>\n          <p>記帳費報價 3,000？2,000？1,000？甚至只要 500？</p>\n          <p>你是否也曾疑惑：同樣是報稅服務，價格怎麼可以差這麼多？</p>\n          <p>其實，這些「看似超值」的低價服務，很大一部分來自擴大書面審核制度的庇蔭。</p>\n          <p>擴大書面審核制度原本是為了協助中小企業簡化報稅流程、減輕負擔，卻在實務上被大量濫用：</p>\n          <br>\n          <p>不做帳、不查帳、不簽證，直接用書審率報稅</p>\n          <p>成本壓低，專業服務被壓縮為「只要幫我報得過就好」的形式工作</p>\n          <br>\n          <p>這讓真正投入時間、負責任的會計師難以競爭，專業價值逐漸邊緣化，也導致整個產業陷入「價格愈壓愈低、風險愈扛愈多」的惡性循環。</p>\n          <br>\n          <h3>二、怎麼操作：</h3>\n          <p>實務中，很多企業熟練掌握這套操作邏輯：</p>\n          <ol>\n            <li><b>調整帳面數據</b>，將毛利壓低、費用墊高，只為維持在書審適用門檻內。</li>\n            <li><b>不建帳、不簽證、不給查</b>，用一張「結算申報書」就當作財稅責任的全部證明。</li>\n            <li><b>反而主動申報較高純益率</b>，讓國稅局「看起來合理」，避免查帳風險。</li>\n          </ol>\n          <p>看似合規，實則制度性逃避：</p>\n          <p>企業失去制度化經營的誘因，財報品質形同虛設，會計師的角色被邊緣化為無法發聲的旁觀者。</p>\n          <br>\n          <h3>三、誠峰怎麼看：</h3>\n          <p>擴大書審制度行之有年且已嚴重背離其初衷。</p>\n          <p>以前無法建帳的困難已逐漸被克服，資訊系統的功能已不可同日而語。</p>\n          <p>更嚴重的是，它對會計專業造成三重傷害：</p>\n          <ul><li><b>扭曲市場價格</b>：企業不做帳，讓專業服務淪為最低價競爭的記帳工。</li>\n          <li><b>壓縮專業空間</b>：許多企業採行「兩套帳」操作──外帳只為報稅設計，內帳則根本不存在或無法即時更新。負責人對公司的經營狀況一知半解，會計師也難以提出任何真正有價值的財務建議，專業角色形同被閹割。</li>\n          <li><b>削弱長遠經營</b>：企業看不到制度帳的價值，只追求短期過關。</li></ul>\n          <br>\n          <h3>四、總結：</h3>\n          <h3>書審制度的初衷是便民，卻在實務中變質，成為企業規避建帳與專業揭露的工具，進而傷害了整體產業的健全發展。</h3>\n          <p>這項制度應當保留給真正規模有限、資源不足的小型業者使用，而不是被年營業額逼近三千萬、明顯具備建帳能力的企業濫用。</p>\n          <p>這些企業不是不能建帳，而是選擇<b>每月花兩千塊「報得過就好」</b>，刻意規避應負的稅務與財務責任。</p>\n          <p>當專業失去舞台，制度就會流於形式；當價格凌駕價值，產業就會走向沉淪。</p>\n          <p>若您重視專業、尋求穩健長遠的財稅夥伴，歡迎聯繫誠峰。</p>\n          <br>",
+        "embedUrl": null,
+        "seo": {
+          "title": "不能說的秘密:擴大書面審核｜從便民到變質，一項福國利民政策，如何拖垮會計產業？｜誠峰會計師事務所",
+          "description": "擴大書面審核制度從便民到變質，如何影響會計產業？本文由彭裕峰會計師撰寫，深入解析制度濫用現象、對市場與專業的衝擊，並提出回歸合理的建議。",
+          "canonicalUrl": null,
+          "openGraphTitle": "不能說的秘密:擴大書面審核｜從便民到變質，一項福國利民政策，如何拖垮會計產業？｜誠峰會計師事務所",
+          "openGraphDescription": "擴大書面審核制度從便民到變質，如何影響會計產業？本文由彭裕峰會計師撰寫，深入解析制度濫用現象、對市場與專業的衝擊，並提出回歸合理的建議。",
+          "openGraphImage": {
+            "id": "legacy-cover-002",
+            "url": "https://www.tpcpa.com.tw/Library/PictureOf002.webp",
+            "alt": "不能說的秘密擴大書面審核",
+            "width": 350,
+            "height": 350
+          },
+          "noIndex": false
+        }
+      },
+      {
+        "id": "14",
+        "slug": "001",
+        "title": "一年不開發票會違法嗎？",
+        "subtitle": "談營業稅免用統一發票制度的實務解析",
+        "excerpt": "談營業稅免用統一發票制度的實務解析",
+        "coverImage": {
+          "id": "legacy-cover-001",
+          "url": "https://www.tpcpa.com.tw/Library/PictureOf001.webp",
+          "alt": "一年不開發票會違法嗎",
+          "width": 350,
+          "height": 350
+        },
+        "author": {
+          "name": "彭裕峰 會計師",
+          "slug": "peng-yu-feng",
+          "biography": null,
+          "photo": null
+        },
+        "category": {
+          "name": "財稅實務",
+          "slug": "tax-practice"
+        },
+        "tags": [],
+        "publishedAt": "2025-05-30T16:00:00.000Z",
+        "updatedAt": "2026-11-06T05:42:56.712Z",
+        "readTimeMinutes": 4,
+        "contentHtml": "<br>\n          <h3>一、為什麼這個議題重要？</h3>\n          <p>許多創業者、小商家對「要不要開發票」感到困惑，甚至誤以為只要營業規模小就能免責。</p>\n          <p>然而實務上，「免用統一發票」制度適用條件明確、查核頻繁，現行創業者要符合資格適用該條件有一定困難。</p>\n          <br>\n          <h3>二、什麼情況可以免開發票？</h3>\n          <p>依規定，若營業人月銷售額未達 20 萬元，且未被國稅局認定具備使用統一發票能力，可申請免用統一發票。</p>\n          <p>但「免開發票 ≠ 不用繳稅」，仍需按規定申報營業稅。</p>\n          <br>\n          <h3>三、起徵點怎麼算？</h3>\n          <p>依114年1月1日新制，起徵標準如下：</p>\n\n          <table border=\"1\" cellpadding=\"8\" cellspacing=\"0\">\n            <thead>\n              <tr>\n                <th>每月銷售額</th>\n                <th>課稅方式</th>\n              </tr>\n            </thead>\n            <tbody>\n              <tr>\n                <td>小於 10 萬（貨物）或 小於 5 萬（勞務）</td>\n                <td>完全免稅，無須課徵營業稅</td>\n              </tr>\n              <tr>\n                <td>大於前一級距但僅小於 20 萬</td>\n                <td>由國稅局查定課徵 1% 營業稅，每季開單一次</td>\n              </tr>\n              <tr>\n                <td>大於 20 萬或被認定具發票開立能力</td>\n                <td>須開立統一發票，採 5% 稅率，可扣抵進項，並每兩月自行申報</td>\n              </tr>\n            </tbody>\n          </table>\n\n          <h3>四、常見誤解與實務風險</h3>\n          <p>不少微型商家認為「沒開發票就沒稅」，或「只在網路上賣東西沒人會查」，但隨著電商平台資料透明、金流帳戶可串接查核，政府透過大數據早已能掌握實際銷售金額。</p>\n          <p>網拍、選物店、公仔買賣等，月收幾十萬並不罕見，若未辦理營業登記或逾額仍免開發票，可能面臨補稅與裁罰。</p>\n          <br>\n          <h3>五、什麼情況容易被補稅與開罰？</h3>\n          <ul><li>銷售額已超過起徵點卻未開發票</li>\n          <li>實際營業性質變更，未同步調整稅籍</li>\n          <li>明知應開發票卻蓄意規避</li></ul>\n          <p>這些情況都可能被國稅局查核並追稅、開罰。</p>\n          <br>\n          <h3>六、給創業者的提醒</h3>\n          <p>即使一開始規模不大，也建議及早辦理營業登記。</p>\n          <p>未來若營收成長或轉型品牌經營，稅籍與帳務要能及時銜接，避免落入灰色地帶。</p>\n          <p>找一位值得信賴的會計師合作，是長遠穩健經營的開始。</p>\n          <br>\n          <h3>七、結語：誠信經營，安心報稅</h3>\n          <p>「免用發票制度」原為照顧微型業者所設，但若誤用或濫用，反而可能帶來風險。</p>\n          <p>合法申報、妥善規劃，才能放心拚事業、不必為稅務擔心。</p>\n          <p>如您不確定是否適用，歡迎聯繫誠峰，我們將協助您釐清稅務身份、建立合規制度，走得安心，也走得更遠。</p>\n          <br>",
+        "embedUrl": null,
+        "seo": {
+          "title": "一年不開發票會違法嗎？談營業稅免用統一發票制度的實務解析｜誠峰會計師事務所",
+          "description": "一年不開發票會違法嗎？本文由彭裕峰會計師撰寫，深入解析營業稅免用統一發票制度，說明適用條件、起徵點與實務風險，幫助創業者合法申報、避免補稅與裁罰。",
+          "canonicalUrl": null,
+          "openGraphTitle": "一年不開發票會違法嗎？談營業稅免用統一發票制度的實務解析｜誠峰會計師事務所",
+          "openGraphDescription": "一年不開發票會違法嗎？本文由彭裕峰會計師撰寫，深入解析營業稅免用統一發票制度，說明適用條件、起徵點與實務風險，幫助創業者合法申報、避免補稅與裁罰。",
+          "openGraphImage": {
+            "id": "legacy-cover-001",
+            "url": "https://www.tpcpa.com.tw/Library/PictureOf001.webp",
+            "alt": "一年不開發票會違法嗎",
+            "width": 350,
+            "height": 350
+          },
+          "noIndex": false
+        }
+      }
+    ]
+  },
+  "seo": {
+    "defaults": {
+      "titleTemplate": "%s｜誠峰會計師事務所",
+      "defaultDescription": "深耕三峽、北大、鶯歌地區，提供記帳、報稅、公司設立、財務顧問與會計師簽證服務。",
+      "defaultOpenGraphImage": null,
+      "twitterCard": "summary_large_image",
+      "canonicalSiteUrl": "https://www.tpcpa.com.tw",
+      "robotsPolicy": "index,follow",
+      "sitemapIncludeByDefault": true
+    },
+    "pageOverrides": [
+      {
+        "pageKey": "about",
+        "route": "/about",
+        "title": "關於我們",
+        "description": "誠峰會計師事務所秉持誠信與專業，深耕三鶯地區，放眼台北，致力成為企業長期可靠的財務夥伴。",
+        "canonicalUrl": null,
+        "openGraphTitle": null,
+        "openGraphDescription": null,
+        "openGraphImage": null,
+        "noIndex": false,
+        "sitemapIncluded": true,
+        "sitemapPriority": null
+      },
+      {
+        "pageKey": "caculators",
+        "route": "/caculators",
+        "title": "計算小工具",
+        "description": "提供發票營業稅、租金扣繳與二代健保補充保費試算，方便您比較含稅、未稅及不同租賃情境的計算結果。",
+        "canonicalUrl": null,
+        "openGraphTitle": null,
+        "openGraphDescription": null,
+        "openGraphImage": null,
+        "noIndex": false,
+        "sitemapIncluded": true,
+        "sitemapPriority": null
+      },
+      {
+        "pageKey": "contact",
+        "route": "/contact",
+        "title": "聯絡我們",
+        "description": "誠峰會計師事務所位於新北市三峽區，提供電話、LINE 與交通資訊，方便您洽詢記帳、報稅及公司設立服務。",
+        "canonicalUrl": null,
+        "openGraphTitle": null,
+        "openGraphDescription": null,
+        "openGraphImage": null,
+        "noIndex": false,
+        "sitemapIncluded": true,
+        "sitemapPriority": null
+      },
+      {
+        "pageKey": "home",
+        "route": "/",
+        "title": "誠峰會計師事務所 - 彭裕峰會計師",
+        "description": "深耕三峽、北大、鶯歌地區，提供記帳、報稅、公司設立、財務顧問與會計師簽證服務。",
+        "canonicalUrl": null,
+        "openGraphTitle": null,
+        "openGraphDescription": null,
+        "openGraphImage": null,
+        "noIndex": false,
+        "sitemapIncluded": true,
+        "sitemapPriority": null
+      },
+      {
+        "pageKey": "services",
+        "route": "/services",
+        "title": "服務項目",
+        "description": "誠峰會計師事務所提供稅務申報、記帳、財務顧問、公司設立、簽證審計、遺產與贈與稅等專業服務，協助企業穩健經營。",
+        "canonicalUrl": null,
+        "openGraphTitle": null,
+        "openGraphDescription": null,
+        "openGraphImage": null,
+        "noIndex": false,
+        "sitemapIncluded": true,
+        "sitemapPriority": null
+      },
+      {
+        "pageKey": "team",
+        "route": "/team",
+        "title": "專業團隊",
+        "description": "認識誠峰會計師事務所的專業團隊，了解我們如何陪伴企業處理財務與稅務需求。",
+        "canonicalUrl": null,
+        "openGraphTitle": null,
+        "openGraphDescription": null,
+        "openGraphImage": null,
+        "noIndex": false,
+        "sitemapIncluded": true,
+        "sitemapPriority": null
+      },
+      {
+        "pageKey": "team-chen-man-jing",
+        "route": "/team/chen-man-jing",
+        "title": "陳滿景｜主持記帳士（營運顧問）",
+        "description": "陳滿景主持記帳士（營運顧問）的資格、學歷、經歷與專長介紹。",
+        "canonicalUrl": null,
+        "openGraphTitle": null,
+        "openGraphDescription": null,
+        "openGraphImage": null,
+        "noIndex": false,
+        "sitemapIncluded": true,
+        "sitemapPriority": null
+      },
+      {
+        "pageKey": "team-peng-yu-feng",
+        "route": "/team/peng-yu-feng",
+        "title": "彭裕峰｜主持會計師",
+        "description": "彭裕峰主持會計師的資格、學歷、經歷與專長介紹。",
+        "canonicalUrl": null,
+        "openGraphTitle": null,
+        "openGraphDescription": null,
+        "openGraphImage": null,
+        "noIndex": false,
+        "sitemapIncluded": true,
+        "sitemapPriority": null
+      },
+      {
+        "pageKey": "testimonials",
+        "route": "/testimonials",
+        "title": "客戶見證",
+        "description": "整理客戶在 Google 地圖留下的服務評價，內容涵蓋稅務規劃、帳務處理、公司設立與日常溝通等合作經驗。",
+        "canonicalUrl": null,
+        "openGraphTitle": null,
+        "openGraphDescription": null,
+        "openGraphImage": null,
+        "noIndex": false,
+        "sitemapIncluded": true,
+        "sitemapPriority": null
+      },
+      {
+        "pageKey": "truepeakinsights",
+        "route": "/truepeakinsights",
+        "title": "誠峰觀點",
+        "description": "誠峰會計師事務所分享稅務與財務實務文章，整理營業稅、扣繳、公司設立、遺產及贈與稅等常見問題與法規。",
+        "canonicalUrl": null,
+        "openGraphTitle": null,
+        "openGraphDescription": null,
+        "openGraphImage": null,
+        "noIndex": false,
+        "sitemapIncluded": true,
+        "sitemapPriority": null
+      }
+    ]
+  },
+  "siteKey": "main",
+  "publishMode": "production",
+  "releaseNumber": 1
+}
