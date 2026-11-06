@@ -101,6 +101,13 @@ jobs:
             echo "CMS_PUBLISHED_CONTENT_PATH=$snapshot"
           } >> "$GITHUB_ENV"
 
+      - name: Checkout workflow validation scripts
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ github.workflow_sha }}
+          path: .cms-workflow
+          sparse-checkout: scripts
+          persist-credentials: false
       - name: Setup Node.js
         uses: actions/setup-node@v7
         with:
@@ -110,7 +117,7 @@ jobs:
         run: npm ci
       - name: Validate snapshot images in content commit
         if: github.event_name == 'workflow_dispatch'
-        run: node scripts/validate-cms-media.mjs
+        run: node .cms-workflow/scripts/validate-cms-media.mjs
       - name: Type-check
         run: npm run lint
       - name: Build static site
@@ -136,6 +143,13 @@ jobs:
         with:
           ref: ${{ inputs.commit_sha }}
           fetch-depth: 0
+      - name: Checkout workflow validation scripts
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ github.workflow_sha }}
+          path: .cms-workflow
+          sparse-checkout: scripts
+          persist-credentials: false
       - name: Reject superseded releases
         shell: bash
         env:
@@ -150,8 +164,8 @@ jobs:
           expected="$(git rev-parse "$COMMIT_SHA:$snapshot")"
           current="$(git rev-parse "refs/remotes/origin/main:$snapshot")"
           [[ "$expected" == "$current" ]] || { echo '::error::A newer CMS release superseded this deployment'; exit 1; }
-          node scripts/verify-release-order.mjs
-          node scripts/verify-deployed-commit.mjs
+          node .cms-workflow/scripts/verify-release-order.mjs
+          node .cms-workflow/scripts/verify-deployed-commit.mjs
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
