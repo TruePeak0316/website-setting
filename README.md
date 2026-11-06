@@ -79,6 +79,7 @@ attempt、完整內容 commit 與發布模式。workflow 從指定 commit 讀取
 `dev / preview` 只建置；`main / production` 才部署 Pages。正式部署前再次
 核對 main 上的快照與發布序號，拒絕已被較新版本取代的部署。GitHub Actions
 可能取消同一 concurrency group 中尚未開始的工作；CMS 需同步顯示其結果。
+同一網站應共用同一 CMS 發布序號；獨立資料庫產生相同序號時會被拒絕，需先協調。
 
 CMS 與網站 PR 必須協調上線：先部署新版 workflow，待既有部署完成，再升級 CMS。
 workflow 暫時保留舊版 callback 流程；新版快照進入 main 後會拒絕舊版正式部署，
