@@ -4,7 +4,7 @@
 
 ## 技術棧
 
-- Next.js 16
+- Next.js 16.4.5
 - React 19
 - TypeScript
 - Tailwind CSS v4
@@ -25,6 +25,11 @@ npm run lint
 npm test
 npm run build
 ```
+
+建置固定使用 Next.js 16.4.5 的原生 `next build`。此版本修正 Google Fonts
+偶爾回傳無副檔名 URL 導致兩種 bundler 失敗的上游問題
+（[Next.js #100158](https://github.com/vercel/next.js/pull/100158)）；
+`tests/google-font-url.test.ts` 以離線回應驗證一般與無副檔名 URL 都可自託管。
 
 ## GitHub Pages 部署
 
@@ -71,15 +76,24 @@ URL 的靜態 redirect 檔；legacy mode 直接複製 `public/robots.txt` 與
 網站使用 [deploy-pages.yml](.github/workflows/deploy-pages.yml)。一般 main push
 只執行建置，不部署；CMS 的 workflow dispatch 帶入 deployment、release、site、
 attempt、完整內容 commit 與發布模式。workflow 從指定 commit 讀取快照與受管理
-圖片，不連線本機 CMS，也不需要 CMS callback secrets。快照、站台、模式或圖片不符
+圖片；圖片與部署檢查腳本另從 workflow 本身的 commit 載入，不受舊內容 commit
+是否包含新驗證腳本影響。不連線本機 CMS，也不需要 CMS callback secrets。快照、站台、模式或圖片不符
 時會失敗，不回退到其他內容。
 快照的圖片必須使用網站公開網址的 origin，且檔案必須存在該 commit 的 `public/`；
-不接受可變的第三方圖片網址。請讓 CMS Media 公開網址與網站公開網址一致。
+不接受可變的第三方圖片網址。文章使用 `<img src>`；CSS 資源引用
+（`url()`、`image-set()`、`@import`、escape 等）與 `srcset` 會被拒絕，一般 CSS 可保留。請讓 CMS Media 公開網址與網站公開網址一致。
 
 `dev / preview` 只建置；`main / production` 才部署 Pages。正式部署前再次
 核對 main 上的快照與發布序號，拒絕已被較新版本取代的部署。GitHub Actions
 可能取消同一 concurrency group 中尚未開始的工作；CMS 需同步顯示其結果。
 同一網站應共用同一 CMS 發布序號；獨立資料庫產生相同序號時會被拒絕，需先協調。
+
+只修改網站程式碼、CMS 內容不變時，在新版 CMS 發布頁使用 **重新部署網站程式**。
+這會明確選取所確認的最新 release，或目前 active release；首次 preview／production
+失敗、尚無 active release 時也可使用。僅在對應分支的快照完全一致、發布模式相符且
+候選版本未過期時，才選取最新 commit 並建立新部署，不包含未發布草稿。一般 push、媒體上傳與快照提交不會自行部署；重試舊
+部署仍使用原 SHA。部署前會查核同站台最新成功 production workflow 的內容 SHA，
+拒絕較舊或分歧的網站程式，避免重試舊版本覆蓋已成功的程式碼更新。
 
 CMS 與網站 PR 必須協調上線：先部署新版 workflow，待既有部署完成，再升級 CMS。
 workflow 暫時保留舊版 callback 流程；新版快照進入 main 後會拒絕舊版正式部署，
@@ -124,7 +138,17 @@ time 解析原 `Library/*.html`。
 
 ## 驗證
 
-已通過：
+2026-11-06 本機發布修正：57 tests、lint、legacy／required snapshot build、
+actionlint 通過；真實隔離 [preview 42186391838](https://github.com/TruePeak0316/website-setting/actions/runs/42186391838)
+在測試 CMS API／Admin 停止後完成，Pages deploy skipped。重啟後同步 succeeded，
+內容 SHA 保持 `f23d4802ee8b146e70be361c40cea9d345e3e279`，沒有重複派送或啟用正式
+release。測試分支另行放寬其自身 preview ref；CMS 的 loopback 路由代理只對應該
+隔離分支，不代表已完成正式 dev／main 或 production 驗收。
+
+`npm audit --package-lock-only` 的既有基準與本次版本均有 11 項套件 advisories，
+沒有新增受影響套件名稱；下列歷史 Stage 5 的 audit 0 紀錄不代表目前依賴已無漏洞。
+
+歷史 Stage 5 驗證：
 
 ```bash
 npm test
