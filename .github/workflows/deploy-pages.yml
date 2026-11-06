@@ -1,4 +1,5 @@
 name: Deploy GitHub Pages
+run-name: ${{ github.event_name == 'workflow_dispatch' && format('CMS|{0}|{1}|{2}|{3}|{4}|{5}', inputs.deployment_id, inputs.release_id, inputs.site_key, inputs.attempt_number, inputs.commit_sha, inputs.publish_mode) || github.event.head_commit.message }}
 
 on:
   push:
@@ -21,9 +22,17 @@ on:
         description: CMS deployment attempt number
         required: true
         type: string
+      commit_sha:
+        description: Full content commit SHA
+        required: false
+        type: string
+      publish_mode:
+        description: preview or production
+        required: false
+        type: string
       content_api_url:
-        description: Public CMS API base URL
-        required: true
+        description: Legacy CMS API base URL (new local publishing leaves this empty)
+        required: false
         type: string
 
 permissions:
@@ -32,12 +41,121 @@ permissions:
   id-token: write
 
 concurrency:
-  group: pages
+  group: ${{ github.event_name == 'push' && 'cms-push' || github.ref == 'refs/heads/main' && 'cms-pages-production' || 'cms-preview' }}
   cancel-in-progress: false
 
 jobs:
   build:
-    if: github.event_name != 'push' || github.ref == 'refs/heads/main'
+    if: github.event_name == 'push' || inputs.content_api_url == ''
+    runs-on: ubuntu-latest
+    steps:
+      - name: Validate CMS dispatch
+        if: github.event_name == 'workflow_dispatch'
+        shell: bash
+        env:
+          ATTEMPT_NUMBER: ${{ inputs.attempt_number }}
+          COMMIT_SHA: ${{ inputs.commit_sha }}
+          DEPLOYMENT_ID: ${{ inputs.deployment_id }}
+          RELEASE_ID: ${{ inputs.release_id }}
+          SITE_KEY: ${{ inputs.site_key }}
+          PUBLISH_MODE: ${{ inputs.publish_mode }}
+          REF: ${{ github.ref }}
+        run: |
+          set -euo pipefail
+          uuid='^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-5][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}$'
+          [[ "$DEPLOYMENT_ID" =~ $uuid && "$RELEASE_ID" =~ $uuid ]] || { echo '::error::Invalid deployment or release ID'; exit 1; }
+          [[ "$SITE_KEY" =~ ^[a-z0-9][a-z0-9_-]{0,63}$ ]] || { echo '::error::Invalid site key'; exit 1; }
+          [[ "$ATTEMPT_NUMBER" =~ ^[1-9][0-9]*$ ]] || { echo '::error::Invalid attempt number'; exit 1; }
+          [[ "$COMMIT_SHA" =~ ^[0-9a-f]{40}$ ]] || { echo '::error::Expected a full lowercase content commit SHA'; exit 1; }
+          [[ "$PUBLISH_MODE:$REF" == 'preview:refs/heads/dev' || "$PUBLISH_MODE:$REF" == 'production:refs/heads/main' ]] || { echo '::error::Publish mode and branch do not match'; exit 1; }
+
+      - name: Checkout content commit
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ github.event_name == 'workflow_dispatch' && inputs.commit_sha || github.sha }}
+          fetch-depth: 0
+
+      - name: Validate immutable snapshot
+        if: github.event_name == 'workflow_dispatch'
+        shell: bash
+        env:
+          COMMIT_SHA: ${{ inputs.commit_sha }}
+          RELEASE_ID: ${{ inputs.release_id }}
+          SITE_KEY: ${{ inputs.site_key }}
+          REF_NAME: ${{ github.ref_name }}
+          PUBLISH_MODE: ${{ inputs.publish_mode }}
+        run: |
+          set -euo pipefail
+          [[ "$(git rev-parse HEAD)" == "$COMMIT_SHA" ]] || { echo '::error::Wrong content commit'; exit 1; }
+          git fetch --no-tags origin "+refs/heads/$REF_NAME:refs/remotes/origin/$REF_NAME"
+          git merge-base --is-ancestor "$COMMIT_SHA" "refs/remotes/origin/$REF_NAME" || { echo '::error::Content commit is not on the selected branch'; exit 1; }
+          snapshot="$GITHUB_WORKSPACE/content/published-content-v1.json"
+          [[ -f "$snapshot" ]] || { echo '::error::CMS snapshot is missing'; exit 1; }
+          jq -e --arg release "$RELEASE_ID" --arg site "$SITE_KEY" --arg mode "$PUBLISH_MODE" '.schemaVersion == "1.0" and .releaseId == $release and .siteKey == $site and .publishMode == $mode and (.releaseNumber | type == "number" and . >= 1 and floor == .)' "$snapshot" >/dev/null || { echo '::error::CMS snapshot identity does not match'; exit 1; }
+          {
+            echo 'CMS_CONTENT_REQUIRED=1'
+            echo "CMS_EXPECTED_RELEASE_ID=$RELEASE_ID"
+            echo "CMS_EXPECTED_SITE_KEY=$SITE_KEY"
+            echo "CMS_EXPECTED_PUBLISH_MODE=$PUBLISH_MODE"
+            echo "CMS_PUBLISHED_CONTENT_PATH=$snapshot"
+          } >> "$GITHUB_ENV"
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: npm
+      - name: Install dependencies
+        run: npm ci
+      - name: Validate snapshot images in content commit
+        if: github.event_name == 'workflow_dispatch'
+        run: node scripts/validate-cms-media.mjs
+      - name: Type-check
+        run: npm run lint
+      - name: Build static site
+        run: npm run build
+      - name: Disable Jekyll processing
+        run: touch out/.nojekyll
+      - name: Upload Pages artifact
+        if: github.event_name == 'workflow_dispatch' && inputs.publish_mode == 'production'
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: out
+
+  deploy:
+    if: github.event_name == 'workflow_dispatch' && inputs.content_api_url == '' && inputs.publish_mode == 'production'
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Checkout content commit
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ inputs.commit_sha }}
+          fetch-depth: 0
+      - name: Reject superseded releases
+        shell: bash
+        env:
+          COMMIT_SHA: ${{ inputs.commit_sha }}
+          SITE_KEY: ${{ inputs.site_key }}
+        run: |
+          set -euo pipefail
+          git fetch --no-tags origin '+refs/heads/main:refs/remotes/origin/main'
+          git merge-base --is-ancestor "$COMMIT_SHA" refs/remotes/origin/main || { echo '::error::Content commit is no longer on main'; exit 1; }
+          snapshot=content/published-content-v1.json
+          expected="$(git rev-parse "$COMMIT_SHA:$snapshot")"
+          current="$(git rev-parse "refs/remotes/origin/main:$snapshot")"
+          [[ "$expected" == "$current" ]] || { echo '::error::A newer CMS release superseded this deployment'; exit 1; }
+          node scripts/verify-release-order.mjs
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5
+
+  # Compatibility for older CMS clients; new local publishing does not use this path.
+  legacy-build:
+    if: github.event_name == 'workflow_dispatch' && inputs.content_api_url != ''
     runs-on: ubuntu-latest
     steps:
       - name: Validate CMS dispatch
@@ -181,32 +299,45 @@ jobs:
         with:
           path: out
 
-  deploy:
-    if: github.event_name == 'workflow_dispatch'
+  legacy-deploy:
+    if: github.event_name == 'workflow_dispatch' && inputs.content_api_url != '' && github.ref == 'refs/heads/main'
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    needs: build
+    needs: legacy-build
     steps:
+      - name: Check for local publishing cutover
+        uses: actions/checkout@v7
+        with:
+          ref: main
+      - name: Reject legacy deploy after local publishing begins
+        shell: bash
+        run: |
+          set -euo pipefail
+          snapshot=content/published-content-v1.json
+          if [[ -f "$snapshot" ]] && jq -e '.siteKey != null and .publishMode != null' "$snapshot" >/dev/null; then
+            echo '::error::Legacy publishing is disabled after local publishing cutover'
+            exit 1
+          fi
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v5
 
-  report:
-    if: ${{ always() && github.event_name == 'workflow_dispatch' }}
+  legacy-report:
+    if: ${{ always() && github.event_name == 'workflow_dispatch' && inputs.content_api_url != '' }}
     runs-on: ubuntu-latest
-    needs: [build, deploy]
+    needs: [legacy-build, legacy-deploy]
     steps:
       - name: Report CMS deployment result
         shell: bash
         env:
           ATTEMPT_NUMBER: ${{ inputs.attempt_number }}
-          BUILD_RESULT: ${{ needs.build.result }}
+          BUILD_RESULT: ${{ needs.legacy-build.result }}
           COMMIT_SHA: ${{ github.sha }}
           CONTENT_API_URL: ${{ inputs.content_api_url }}
           DEPLOYMENT_ID: ${{ inputs.deployment_id }}
-          DEPLOY_RESULT: ${{ needs.deploy.result }}
+          DEPLOY_RESULT: ${{ needs.legacy-deploy.result }}
           RUN_ATTEMPT: ${{ github.run_attempt }}
           RUN_ID: ${{ github.run_id }}
           RUN_URL: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}
