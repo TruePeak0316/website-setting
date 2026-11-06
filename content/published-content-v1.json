@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0",
-  "releaseId": "b08df83e-caf6-4ee1-bf06-2c88c2e29b06",
-  "publishedAt": "2026-11-06T09:41:33.049Z",
+  "releaseId": "fe5268f8-7b3f-47ad-859b-008353a4f54f",
+  "publishedAt": "2026-11-06T09:49:54.589Z",
   "siteSettings": {
     "siteName": "誠峰會計師事務所",
     "displayName": "誠峰會計師事務所｜彭裕峰會計師",
@@ -152,7 +152,7 @@
     "articles": [
       {
         "id": "15",
-        "slug": "測試文章",
+        "slug": "test",
         "title": "測試文章",
         "subtitle": null,
         "excerpt": "測試文章",
@@ -169,7 +169,7 @@
         },
         "tags": [],
         "publishedAt": "2026-11-06T09:41:00.000Z",
-        "updatedAt": "2026-11-06T09:41:18.998Z",
+        "updatedAt": "2026-11-06T09:49:47.852Z",
         "readTimeMinutes": 1
       },
       {
@@ -568,7 +568,7 @@
     "details": [
       {
         "id": "15",
-        "slug": "測試文章",
+        "slug": "test",
         "title": "測試文章",
         "subtitle": null,
         "excerpt": "測試文章",
@@ -585,7 +585,7 @@
         },
         "tags": [],
         "publishedAt": "2026-11-06T09:41:00.000Z",
-        "updatedAt": "2026-11-06T09:41:18.998Z",
+        "updatedAt": "2026-11-06T09:49:47.852Z",
         "readTimeMinutes": 1,
         "contentHtml": "<p>測試文章</p>",
         "embedUrl": null,
@@ -1376,5 +1376,5 @@
   },
   "siteKey": "main",
   "publishMode": "production",
-  "releaseNumber": 1
+  "releaseNumber": 2
 }
