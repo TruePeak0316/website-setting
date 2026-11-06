@@ -14,7 +14,7 @@
     "@tailwindcss/postcss": "4.3.2",
     "cheerio": "1.1.2",
     "motion": "12.42.2",
-    "next": "16.2.11",
+    "next": "16.4.5",
     "react": "19.2.7",
     "react-dom": "19.2.7",
     "tailwindcss": "4.3.2",

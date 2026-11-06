@@ -4,7 +4,7 @@
 
 ## 技術棧
 
-- Next.js 16
+- Next.js 16.4.5
 - React 19
 - TypeScript
 - Tailwind CSS v4
@@ -25,6 +25,11 @@ npm run lint
 npm test
 npm run build
 ```
+
+建置固定使用 Next.js 16.4.5 的原生 `next build`。此版本修正 Google Fonts
+偶爾回傳無副檔名 URL 導致兩種 bundler 失敗的上游問題
+（[Next.js #100158](https://github.com/vercel/next.js/pull/100158)）；
+`tests/google-font-url.test.ts` 以離線回應驗證一般與無副檔名 URL 都可自託管。
 
 ## GitHub Pages 部署
 
@@ -66,137 +71,40 @@ URL 的靜態 redirect 檔；legacy mode 直接複製 `public/robots.txt` 與
 `public/CNAME`、圖片與 Library 靜態資源也會一起複製到 `out/`；`.nojekyll`
 用來避免 GitHub Pages 對 `_next/` 這類底線目錄套用 Jekyll 處理。
 
-### 3. 部署方式
+### 3. CMS 發布與部署
 
-專案已提供 `.github/workflows/deploy-pages.yml`。`main` push 只執行
-lint／static build，不部署 Pages；只有 CMS `workflow_dispatch` 會取得指定
-release snapshot、建置並部署 `out/` artifact，避免一般 push 以 legacy output
-覆蓋已發布的 CMS release。Repository 的 GitHub Pages 設定需選擇 GitHub
-Actions 作為來源：
+網站使用 [deploy-pages.yml](.github/workflows/deploy-pages.yml)。一般 main push
+只執行建置，不部署；CMS 的 workflow dispatch 帶入 deployment、release、site、
+attempt、完整內容 commit 與發布模式。workflow 從指定 commit 讀取快照與受管理
+圖片；圖片與部署檢查腳本另從 workflow 本身的 commit 載入，不受舊內容 commit
+是否包含新驗證腳本影響。不連線本機 CMS，也不需要 CMS callback secrets。快照、站台、模式或圖片不符
+時會失敗，不回退到其他內容。
+快照的圖片必須使用網站公開網址的 origin，且檔案必須存在該 commit 的 `public/`；
+不接受可變的第三方圖片網址。文章使用 `<img src>`；CSS 資源引用
+（`url()`、`image-set()`、`@import`、escape 等）與 `srcset` 會被拒絕，一般 CSS 可保留。請讓 CMS Media 公開網址與網站公開網址一致。
 
-```yaml
-name: Deploy GitHub Pages
+`dev / preview` 只建置；`main / production` 才部署 Pages。正式部署前再次
+核對 main 上的快照與發布序號，拒絕已被較新版本取代的部署。GitHub Actions
+可能取消同一 concurrency group 中尚未開始的工作；CMS 需同步顯示其結果。
+同一網站應共用同一 CMS 發布序號；獨立資料庫產生相同序號時會被拒絕，需先協調。
 
-on:
-  push:
-    branches: ["main"]
-  workflow_dispatch:
-    inputs:
-      deployment_id:
-        required: true
-        type: string
-      release_id:
-        required: true
-        type: string
-      site_key:
-        required: true
-        type: string
-      attempt_number:
-        required: true
-        type: string
-      content_api_url:
-        required: true
-        type: string
+只修改網站程式碼、CMS 內容不變時，在新版 CMS 發布頁使用 **重新部署網站程式**。
+此操作需同時具備 `publish.execute` 與 `deploy.retry`；若失敗前尚未固定程式 SHA，
+啟動的重試及中斷恢復也要求雙權限，途中記錄 SHA 後仍維持該次操作的原權限。
+若新重試啟動時已有固定 SHA，該次操作只需重試權限，並使用原版本。
+這會明確選取所確認的最新 release，或目前 active release；首次 preview／production
+失敗、尚無 active release 時也可使用。僅在對應分支的快照完全一致、發布模式相符且
+候選版本未過期時，才選取最新 commit 並建立新部署，不包含未發布草稿。一般 push、媒體上傳與快照提交不會自行部署；重試舊
+部署仍使用原 SHA。部署前會查核同站台最新成功 production workflow 的內容 SHA，
+拒絕較舊或分歧的網站程式，避免重試舊版本覆蓋已成功的程式碼更新。
 
-permissions:
-  contents: read
-  pages: write
-  id-token: write
+CMS 與網站 PR 必須協調上線：先部署新版 workflow，待既有部署完成，再升級 CMS。
+workflow 暫時保留舊版 callback 流程；新版快照進入 main 後會拒絕舊版正式部署，
+避免較舊內容覆蓋新版。先在隔離環境驗證兩者；回退程式時保留快照、媒體及 Pages，
+不自動重新派送。回退到舊版 CMS 前需要重新確認網站 workflow 相容性。
 
-concurrency:
-  group: pages
-  cancel-in-progress: false
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v7
-      - uses: actions/setup-node@v7
-        with:
-          node-version: 24
-          cache: npm
-      - run: npm ci
-      - run: npm run lint
-      - run: npm run build
-      - run: touch out/.nojekyll
-      - uses: actions/upload-pages-artifact@v5
-        with:
-          path: out
-
-  deploy:
-    if: github.event_name == 'workflow_dispatch'
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - id: deployment
-        uses: actions/deploy-pages@v5
-```
-
-### 4. CMS publish trigger
-
-CMS 以 `workflow_dispatch` 傳入 `deployment_id`、`release_id`、
-`site_key`、`attempt_number` 與 HTTPS `content_api_url`。其中
-`content_api_url` 是 public API v1 base；workflow 分別附加
-`/build/content` 與 `/deployments/:id/status`。Repository
-Actions secrets 必須提供：
-
-- `CMS_BUILD_TOKEN`：讀取 immutable `PublishedContentV1` snapshot。
-- `CMS_DEPLOYMENT_STATUS_TOKEN`：回報 `in_progress` 與
-  `succeeded`／`failed`／`cancelled`。
-
-Workflow 會驗證 inputs／secrets、取得並核對 snapshot
-`schemaVersion: "1.0"` 與 `releaseId`、執行 lint/build、部署 Pages，
-最後以 run ID、workflow URL、commit SHA 與終態 callback 回報 CMS。
-`github-pages` environment 目前只允許 `main`，因此 production CMS
-dispatcher 的 `GITHUB_PUBLISH_REF` 必須設為 `main`。
-
-Stage 5 網站 source 會在 static build 中消費 snapshot。Workflow 將已驗證的
-檔案路徑（而非 token）傳給 Next build，並設定
-`CMS_CONTENT_REQUIRED=1` 與 `CMS_EXPECTED_RELEASE_ID`；缺檔、格式錯誤、
-schema 不相容、release 不符、未知 visible navigation route、Blog summary/detail
-slug 不一致或必要內容 malformed 都會讓 build 失敗。
-
-未提供 `CMS_PUBLISHED_CONTENT_PATH` 的本機開發／build 仍使用 repository 內的
-既有內容。CMS snapshot 一旦存在，Settings（含 header/footer branding、contact、
-footer copyright）、visible/sorted Navigation（含 icons）、Blog 與 CMS
-default/page SEO 即為 authoritative；footer services 在 CMS services page 非空時
-來自 snapshot，精確空值時整頁沿用 legacy services。Page SEO override 優先於
-CMS default，CMS default 優先於頁面內建 metadata；標記 `noIndex` 的 Blog
-不會寫入 sitemap。CMS 外部 action/media/SEO/Settings URL 僅接受不含 userinfo
-的安全 HTTP(S) 值，`javascript:`、`data:`、`ftp:`、控制字元與含帳密 URL 會讓
-required build fail closed。CMS 目前固定輸出的精確 `emptyPages()` 會讓該 managed page
-整頁回退到既有內容，非空 page 則整頁使用 snapshot，避免局部混搭。
-`mapEmbedUrl`、團隊詳情、計算器、服務時間、LINE QR 與環境照片不在 V1
-contract 內，繼續由本 repository 管理。公開頁面不會在 browser runtime 呼叫
-CMS；`CMS_BUILD_TOKEN` 只存在 workflow fetch step，也不會傳給 Next build 或
-寫入 static artifact。
-
-Build-only 環境變數：
-
-| 變數 | 用途 |
-| --- | --- |
-| `CMS_PUBLISHED_CONTENT_PATH` | 已下載的 `PublishedContentV1` JSON 檔案路徑；不是 API URL。 |
-| `CMS_CONTENT_REQUIRED=1` | CMS workflow 的 fail-closed mode；缺少 path 時立即失敗。 |
-| `CMS_EXPECTED_RELEASE_ID` | 驗證 snapshot `releaseId` 與 dispatch release 一致。 |
-
-CMS fixture build 可用：
-
-```bash
-CMS_CONTENT_REQUIRED=1 \
-CMS_PUBLISHED_CONTENT_PATH="$PWD/tests/fixtures/published-content-v1.json" \
-CMS_EXPECTED_RELEASE_ID="11111111-1111-4111-8111-111111111111" \
-npm run build
-```
-
-若不使用 GitHub Actions，也可以手動把 `out/` 的內容推到目前 GitHub Pages 指定的發布分支或資料夾。重點是遠端 Pages 來源必須收到 `out/` 內的靜態檔，而不是 Next.js 專案原始碼本身。
-
-目前 consumer implementation 與 local validation 位於 `dev`；尚未 promotion
-到 production `main`，也尚未以正式 credentials 重跑 CMS publish → Pages →
-callback → production URL/content 驗收。
+目前 workflow 不建立獨立的 `cms-recovery-production` 來源證明；不能僅憑
+Actions 成功啟用自動資料恢復，需另行完成並驗證正式 recovery provenance。
 
 ## 路由對應
 
@@ -233,7 +141,17 @@ time 解析原 `Library/*.html`。
 
 ## 驗證
 
-已通過：
+2026-11-06 本機發布修正：57 tests、lint、legacy／required snapshot build、
+actionlint 通過；真實隔離 [preview 42186391838](https://github.com/TruePeak0316/website-setting/actions/runs/42186391838)
+在測試 CMS API／Admin 停止後完成，Pages deploy skipped。重啟後同步 succeeded，
+內容 SHA 保持 `f23d4802ee8b146e70be361c40cea9d345e3e279`，沒有重複派送或啟用正式
+release。測試分支另行放寬其自身 preview ref；CMS 的 loopback 路由代理只對應該
+隔離分支，不代表已完成正式 dev／main 或 production 驗收。
+
+`npm audit --package-lock-only` 的既有基準與本次版本均有 11 項套件 advisories，
+沒有新增受影響套件名稱；下列歷史 Stage 5 的 audit 0 紀錄不代表目前依賴已無漏洞。
+
+歷史 Stage 5 驗證：
 
 ```bash
 npm test

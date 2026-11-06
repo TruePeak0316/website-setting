@@ -74,6 +74,27 @@ describe("loadPublishedContent", () => {
     expect(() => loadPublishedContent()).toThrow("releaseId mismatch");
   });
 
+  it("requires the expected site identity when one is provided", () => {
+    process.env.CMS_PUBLISHED_CONTENT_PATH = fixturePath;
+    process.env.CMS_EXPECTED_SITE_KEY = "main";
+    expect(() => loadPublishedContent()).toThrow("siteKey mismatch");
+    resetPublishedContentCacheForTests();
+    process.env.CMS_PUBLISHED_CONTENT_PATH = withSnapshot((value) => { value.siteKey = "other"; });
+    expect(() => loadPublishedContent()).toThrow("siteKey mismatch");
+    resetPublishedContentCacheForTests();
+    process.env.CMS_PUBLISHED_CONTENT_PATH = withSnapshot((value) => { value.siteKey = "main"; });
+    expect(loadPublishedContent()?.siteKey).toBe("main");
+  });
+
+  it("requires the expected publish mode when one is provided", () => {
+    process.env.CMS_PUBLISHED_CONTENT_PATH = withSnapshot((value) => { value.publishMode = "preview"; });
+    process.env.CMS_EXPECTED_PUBLISH_MODE = "production";
+    expect(() => loadPublishedContent()).toThrow("publishMode mismatch");
+    resetPublishedContentCacheForTests();
+    process.env.CMS_EXPECTED_PUBLISH_MODE = "preview";
+    expect(loadPublishedContent()?.publishMode).toBe("preview");
+  });
+
   it("rejects malformed required content", () => {
     process.env.CMS_PUBLISHED_CONTENT_PATH = withSnapshot((value) => {
       (value.siteSettings as Record<string, unknown>).email = "not-an-email";

@@ -34,6 +34,14 @@ export function loadPublishedContent(): PublishedContentV1 | null {
   if (expectedRelease && parsed.data.releaseId !== expectedRelease) {
     throw new Error(`CMS snapshot releaseId mismatch: expected ${expectedRelease}`);
   }
+  const expectedSite = process.env.CMS_EXPECTED_SITE_KEY?.trim();
+  if (expectedSite && parsed.data.siteKey !== expectedSite) {
+    throw new Error(`CMS snapshot siteKey mismatch: expected ${expectedSite}`);
+  }
+  const expectedMode = process.env.CMS_EXPECTED_PUBLISH_MODE?.trim();
+  if (expectedMode && parsed.data.publishMode !== expectedMode) {
+    throw new Error(`CMS snapshot publishMode mismatch: expected ${expectedMode}`);
+  }
   validateSemanticContent(parsed.data);
   cached = parsed.data;
   return cached;
